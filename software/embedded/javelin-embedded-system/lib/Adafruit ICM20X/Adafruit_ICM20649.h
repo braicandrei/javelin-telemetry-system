@@ -55,6 +55,11 @@ public:
   icm20649_gyro_range_t getGyroRange(void);
   void setGyroRange(icm20649_gyro_range_t new_gyro_range);
 
+  ///NEW METHODS///
+  //void setSleep(bool sleep_mode); 
+
+  
+
 private:
   void scaleValues(void);
 };

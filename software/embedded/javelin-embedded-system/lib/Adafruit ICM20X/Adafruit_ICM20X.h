@@ -39,6 +39,13 @@
 #define ICM20X_B0_REG_INT_PIN_CFG 0xF ///< Interrupt config register
 #define ICM20X_B0_REG_INT_ENABLE 0x10 ///< Interrupt enable register 0
 #define ICM20X_B0_REG_INT_ENABLE_1 0x11 ///< Interrupt enable register 1
+#define ICM20X_B0_REG_INT_ENABLE_3 0x13 ///< Interrupt enable register 1
+#define ICM20X_B0_INT_STATUS_3     0x1C      ///< Interrupt 3 status register
+#define ICM20X_B0_FIFO_EN_2        0x67       ///< FIFO enable register
+#define ICM20X_B0_FIFO_RST         0x68       ///< FIFO reset register
+#define ICM20X_B0_FIFO_COUNTH      0x70       ///< FIFO count H byte register
+#define ICM20X_B0_FIFO_COUNTL      0x71       ///< FIFO count L byte register
+#define ICM20X_B0_FIFO_R_W         0x72       ///< FIFO read/write register
 #define ICM20X_B0_I2C_MST_STATUS                                               \
   0x17 ///< Records if I2C master bus data is finished
 #define ICM20X_B0_REG_BANK_SEL 0x7F ///< register bank selection register
@@ -204,6 +211,13 @@ public:
   bool enableI2CMaster(bool enable_i2c_master);
   void resetI2CMaster(void);
   void setI2CBypass(bool bypass_i2c);
+
+  /////////////NEW METHODS/////////////////////
+
+  void setFIFO();
+  void setI2CMaster();
+  float readFIFO();
+  uint32_t readFIFOCount();
 
 protected:
   float temperature, ///< Last reading's temperature (C)

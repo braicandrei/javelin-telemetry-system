@@ -977,3 +977,155 @@ bool Adafruit_ICM20X_Temp::getEvent(sensors_event_t *event) {
 
   return true;
 }
+
+///NEW IMPLEMENTATION
+/**************************************************************************/
+/*!
+    @brief  Sets the FIFO operation mode
+*/
+
+void Adafruit_ICM20X::setFIFO() {
+  _setBank(0);
+
+  ///FIFO enable ON
+  Adafruit_BusIO_Register usr_config = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_USER_CTRL);
+
+  Adafruit_BusIO_RegisterBits fifo_en =
+      Adafruit_BusIO_RegisterBits(&usr_config, 2, 5);
+
+  fifo_en.write(0x03);
+
+  ///FIFO watermark enable
+  Adafruit_BusIO_Register int_enable_3 = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_REG_INT_ENABLE_3);
+
+  Adafruit_BusIO_RegisterBits fifo_wm_en =
+    Adafruit_BusIO_RegisterBits(&int_enable_3, 4, 0);
+
+  fifo_wm_en.write(0x01);  
+
+  Adafruit_BusIO_Register int_pin_cfg = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_REG_INT_PIN_CFG);
+
+  Adafruit_BusIO_RegisterBits int_pin_cfg_bits =
+    Adafruit_BusIO_RegisterBits(&int_pin_cfg, 1, 5);
+
+  int_pin_cfg_bits.write(true);  
+
+  ///FIFO input  data select
+  Adafruit_BusIO_Register fifo_en_2 = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_EN_2);
+
+  Adafruit_BusIO_RegisterBits accel_fifo_en =
+    Adafruit_BusIO_RegisterBits(&fifo_en_2, 4, 1);
+
+  accel_fifo_en.write(0xF); 
+
+  Adafruit_BusIO_Register fifo_rst = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_RST);
+
+  Adafruit_BusIO_RegisterBits fifo_rst_bits =
+    Adafruit_BusIO_RegisterBits(&fifo_rst, 5, 0);
+
+    fifo_rst_bits.write(0x01); 
+    delay(100);
+    fifo_rst_bits.write(0x00);
+}
+
+uint32_t Adafruit_ICM20X::readFIFOCount() {
+  _setBank(0);
+
+  Adafruit_BusIO_Register fifo_count_l = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_COUNTL);
+
+  Adafruit_BusIO_Register fifo_count_h = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_COUNTH);
+  Adafruit_BusIO_RegisterBits fifo_count_h_bits =
+      Adafruit_BusIO_RegisterBits(&fifo_count_h, 5, 0);
+
+  uint32_t fifo_count_l_var = fifo_count_l.read();
+  uint32_t fifo_count_h_var = fifo_count_h_bits.read();
+  return (fifo_count_h_var << 8) | fifo_count_l_var;
+}
+
+float Adafruit_ICM20X::readFIFO() {
+  _setBank(0);
+
+  Adafruit_BusIO_Register fifo_r_w = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_R_W);
+    Serial.println("");
+    Serial.print("Accel: ");
+    for (size_t i = 0; i < 3; i++)
+    {
+      uint32_t high_b = fifo_r_w.read();
+      uint32_t low_b = fifo_r_w.read();
+      uint32_t combined = (high_b << 8) | low_b;
+      uint16_t value = combined & 0xFFFF;
+      int16_t signedValue = (int16_t)(value & 0xFFFF);
+      const float accelScale = 1024.0f;
+      Serial.print(signedValue / accelScale);
+      Serial.print("    ");
+    }
+    Serial.println("");
+    Serial.print("Gyro:   ");
+    for (size_t i = 0; i < 3; i++)
+  {
+    uint32_t high_b = fifo_r_w.read();
+    uint32_t low_b = fifo_r_w.read();
+    uint32_t combined = (high_b << 8) | low_b;
+    uint16_t value = combined & 0xFFFF;
+    int16_t signedValue = (int16_t)(value & 0xFFFF);
+    const float gyroScale = 32.8f;
+    Serial.print(signedValue / gyroScale);
+    Serial.print("    ");
+  }
+  Serial.println("");
+  return 0;
+}
+
+void Adafruit_ICM20X::setI2CMaster (void) {
+  _setBank(0);
+
+  //Enable I2C Master
+  Adafruit_BusIO_Register i2c_mst_ctrl = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_USER_CTRL);
+
+  Adafruit_BusIO_RegisterBits i2c_mst_ctrl_bits = 
+  Adafruit_BusIO_RegisterBits(&i2c_mst_ctrl, 1, 5);
+  i2c_mst_ctrl_bits.write(true);
+
+  _setBank(3);
+  // Set slave 0 Address
+  Adafruit_BusIO_Register i2c_slv0_addr = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B3_I2C_SLV0_ADDR);
+
+  Adafruit_BusIO_RegisterBits i2c_slv0_addr_bits =
+  Adafruit_BusIO_RegisterBits(&i2c_slv0_addr, 6, 0);
+  i2c_slv0_addr_bits.write(0x1C);
+
+  // Set slave 0 register
+  Adafruit_BusIO_Register i2c_slv0_reg = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B3_I2C_SLV0_REG);
+    i2c_slv0_reg.write(0x28);
+
+  //set slave 0 control
+
+  
+  Adafruit_BusIO_Register i2c_slv0_ctrl = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B3_I2C_SLV0_CTRL);
+
+    //Enable slave 0
+    Adafruit_BusIO_RegisterBits i2c_slv0_enable =  
+    Adafruit_BusIO_RegisterBits(&i2c_slv0_ctrl, 1, 7);
+    i2c_slv0_enable.write(true);
+    //set slave 0 length
+    Adafruit_BusIO_RegisterBits i2c_slv0_len =
+    Adafruit_BusIO_RegisterBits(&i2c_slv0_ctrl, 3, 0);
+    i2c_slv0_len.write(0x06);
+
+}
+
+//read external sensor register
+
+
