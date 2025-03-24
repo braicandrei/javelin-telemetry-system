@@ -41,6 +41,7 @@
 #define ICM20X_B0_REG_INT_ENABLE_1 0x11 ///< Interrupt enable register 1
 #define ICM20X_B0_REG_INT_ENABLE_3 0x13 ///< Interrupt enable register 1
 #define ICM20X_B0_INT_STATUS_3     0x1C      ///< Interrupt 3 status register
+#define ICM20X_B0_FIFO_EN_1        0x66       ///< FIFO enable register
 #define ICM20X_B0_FIFO_EN_2        0x67       ///< FIFO enable register
 #define ICM20X_B0_FIFO_RST         0x68       ///< FIFO reset register
 #define ICM20X_B0_FIFO_COUNTH      0x70       ///< FIFO count H byte register
@@ -216,7 +217,9 @@ public:
 
   void setFIFO();
   void setI2CMaster();
+  void configI2CSlave();
   float readFIFO();
+  uint32_t readFIFOByte();
   uint32_t readFIFOCount();
 
 protected:

@@ -1015,12 +1015,12 @@ void Adafruit_ICM20X::setFIFO() {
 
   ///FIFO input  data select
   Adafruit_BusIO_Register fifo_en_2 = Adafruit_BusIO_Register(
-    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_EN_2);
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_EN_1);
 
   Adafruit_BusIO_RegisterBits accel_fifo_en =
-    Adafruit_BusIO_RegisterBits(&fifo_en_2, 4, 1);
+    Adafruit_BusIO_RegisterBits(&fifo_en_2, 1, 0);
 
-  accel_fifo_en.write(0xF); 
+  accel_fifo_en.write(true); 
 
   Adafruit_BusIO_Register fifo_rst = Adafruit_BusIO_Register(
     i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_RST);
@@ -1084,17 +1084,17 @@ float Adafruit_ICM20X::readFIFO() {
   return 0;
 }
 
-void Adafruit_ICM20X::setI2CMaster (void) {
+uint32_t Adafruit_ICM20X::readFIFOByte(){
   _setBank(0);
 
-  //Enable I2C Master
-  Adafruit_BusIO_Register i2c_mst_ctrl = Adafruit_BusIO_Register(
-    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_USER_CTRL);
+  Adafruit_BusIO_Register fifo_r_w = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_R_W);
+    return fifo_r_w.read();
+}
 
-  Adafruit_BusIO_RegisterBits i2c_mst_ctrl_bits = 
-  Adafruit_BusIO_RegisterBits(&i2c_mst_ctrl, 1, 5);
-  i2c_mst_ctrl_bits.write(true);
+//configure I2C Slave 
 
+void Adafruit_ICM20X::configI2CSlave(){
   _setBank(3);
   // Set slave 0 Address
   Adafruit_BusIO_Register i2c_slv0_addr = Adafruit_BusIO_Register(
@@ -1102,16 +1102,18 @@ void Adafruit_ICM20X::setI2CMaster (void) {
 
   Adafruit_BusIO_RegisterBits i2c_slv0_addr_bits =
   Adafruit_BusIO_RegisterBits(&i2c_slv0_addr, 6, 0);
-  i2c_slv0_addr_bits.write(0x1C);
+  i2c_slv0_addr_bits.write(0x30);
+
+  Adafruit_BusIO_RegisterBits i2c_slv0_RNW =
+  Adafruit_BusIO_RegisterBits(&i2c_slv0_addr, 1, 7);
+  i2c_slv0_RNW.write(true);
 
   // Set slave 0 register
   Adafruit_BusIO_Register i2c_slv0_reg = Adafruit_BusIO_Register(
     i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B3_I2C_SLV0_REG);
-    i2c_slv0_reg.write(0x28);
+    i2c_slv0_reg.write(0x05);
 
   //set slave 0 control
-
-  
   Adafruit_BusIO_Register i2c_slv0_ctrl = Adafruit_BusIO_Register(
     i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B3_I2C_SLV0_CTRL);
 
@@ -1122,10 +1124,8 @@ void Adafruit_ICM20X::setI2CMaster (void) {
     //set slave 0 length
     Adafruit_BusIO_RegisterBits i2c_slv0_len =
     Adafruit_BusIO_RegisterBits(&i2c_slv0_ctrl, 3, 0);
-    i2c_slv0_len.write(0x06);
+    i2c_slv0_len.write(0x01);
 
 }
-
-//read external sensor register
 
 
