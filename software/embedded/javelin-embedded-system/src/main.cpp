@@ -79,7 +79,7 @@ icm.setAccelRange(ICM20649_ACCEL_RANGE_30_G);
   icm.writeExternalRegister(0x30, 0x1A, 0xFF);
   icm.writeExternalRegister(0x30, 0x1B, 0x80);
   icm.writeExternalRegister(0x30, 0x1D, 0x10);
-  icm.configI2CSlave();
+  icm.configI2CSlave0(0x30,0x05,0x02);
   
   icm.setFIFO();
 }
@@ -116,14 +116,14 @@ void loop() {
   //Serial.println(" radians/s ");
   //Serial.println();
   //Serial.print("FIFO COUNT: ");
-  //uint32_t fifo_count = icm.readFIFOCount();
-  //Serial.print(fifo_count);
+  uint32_t fifo_count = icm.readFIFOCount();
+  Serial.println(fifo_count);
   //while (icm.readFIFOCount() > 12)
   //{
   //  icm.readFIFO();
   //}
-  Serial.println(icm.readExternalRegister(0x30, 0x05));
-  Serial.println(icm.readFIFOByte());
+  //Serial.println(icm.readExternalRegister(0x30, 0x05));
+  //Serial.println(icm.readFIFOByte());
   delay(500);
   
 }

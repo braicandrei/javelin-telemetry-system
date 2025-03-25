@@ -217,7 +217,7 @@ public:
 
   void setFIFO();
   void setI2CMaster();
-  void configI2CSlave();
+  void configI2CSlave0(uint8_t slv_addr, uint8_t reg_addr, uint8_t dataLemgth);
   float readFIFO();
   uint32_t readFIFOByte();
   uint32_t readFIFOCount();
