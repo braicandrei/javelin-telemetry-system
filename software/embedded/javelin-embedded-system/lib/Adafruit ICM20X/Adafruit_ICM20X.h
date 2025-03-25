@@ -83,6 +83,14 @@
 #define ICM20948_CHIP_ID 0xEA ///< ICM20948 default device id from WHOAMI
 #define ICM20649_CHIP_ID 0xE1 ///< ICM20649 default device id from WHOAMI
 
+//////////////////////////////////////////
+// MMC5603 magnetoemeter register mappping 
+#define MMC5603_I2C_ADDR 0x30   ///< MMC5603 magentoemter I2C address
+#define MMC5603_ODR      0x1A   ///< MMC5603 output data rate register
+#define MMC5603_CTRL0    0x1B   ///< MMC5603 control register 0
+#define MMC5603_CTRL1    0x1C   ///< MMC5603 control register 1
+#define MMC5603_CTRL2    0x1D   ///< MMC5603 control register 2 
+
 /** Options for `enableAccelDLPF` */
 typedef enum {
   ICM20X_ACCEL_FREQ_246_0_HZ = 0x1,
@@ -106,6 +114,15 @@ typedef enum {
   ICM20X_GYRO_FREQ_361_4_HZ = 0x7,
 
 } icm20x_gyro_cutoff_t;
+
+typedef enum {
+  FIFO_DATA_NONE = 0x0,
+  FIFO_DATA_ACCEL = 0x10,
+  FIFO_DATA_GYRO = 0x0E,
+  FIFO_DATA_S0 = 0x20,
+  FIFO_DATA_ACCEL_GYRO = 0x1E,
+  FIFO_DATA_ACCEL_GYRO_S0 = 0x3E,
+} icm20_fifo_data_select_t;
 
 class Adafruit_ICM20X;
 
@@ -215,7 +232,7 @@ public:
 
   /////////////NEW METHODS/////////////////////
 
-  void setFIFO();
+  void setFIFO(icm20_fifo_data_select_t data_select);
   void setI2CMaster();
   void configI2CSlave0(uint8_t slv_addr, uint8_t reg_addr, uint8_t dataLemgth);
   float readFIFO();

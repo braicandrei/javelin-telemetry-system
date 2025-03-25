@@ -980,11 +980,16 @@ bool Adafruit_ICM20X_Temp::getEvent(sensors_event_t *event) {
 
 ///NEW IMPLEMENTATION
 /**************************************************************************/
+
+
 /*!
     @brief  Sets the FIFO operation mode
+    Enable FIFO
+    Enable FIFO watermark and watermark interrupt
+    Select data transfered to FIFO
+    Reset FIFO
 */
-
-void Adafruit_ICM20X::setFIFO() {
+void Adafruit_ICM20X::setFIFO(icm20_fifo_data_select_t data_select = FIFO_DATA_ACCEL_GYRO) {
   _setBank(0);
 
   ///FIFO enable ON
@@ -992,11 +997,11 @@ void Adafruit_ICM20X::setFIFO() {
       i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_USER_CTRL);
 
   Adafruit_BusIO_RegisterBits fifo_en =
-      Adafruit_BusIO_RegisterBits(&usr_config, 2, 5);
+      Adafruit_BusIO_RegisterBits(&usr_config, 1, 6);
 
   fifo_en.write(0x03);
 
-  ///FIFO watermark enable
+  ///FIFO watermark enable interrupt
   Adafruit_BusIO_Register int_enable_3 = Adafruit_BusIO_Register(
     i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_REG_INT_ENABLE_3);
 
@@ -1014,14 +1019,22 @@ void Adafruit_ICM20X::setFIFO() {
   int_pin_cfg_bits.write(true);  
 
   ///FIFO input  data select
-  Adafruit_BusIO_Register fifo_en_2 = Adafruit_BusIO_Register(
+
+  Adafruit_BusIO_Register fifo_en_1 = Adafruit_BusIO_Register(
     i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_EN_1);
 
-  Adafruit_BusIO_RegisterBits accel_fifo_en =
-    Adafruit_BusIO_RegisterBits(&fifo_en_2, 1, 0);
+  Adafruit_BusIO_Register fifo_en_2 = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_EN_2);
 
-  accel_fifo_en.write(true); 
+  Adafruit_BusIO_RegisterBits fifo_en_1_bits =
+    Adafruit_BusIO_RegisterBits(&fifo_en_1, 3, 0);
+  Adafruit_BusIO_RegisterBits fifo_en_2_bits =
+    Adafruit_BusIO_RegisterBits(&fifo_en_2, 5, 0); 
+  
+    fifo_en_1_bits.write(data_select>>5);
+    fifo_en_2_bits.write(data_select & 0x1F);
 
+  //Reset FIFO data
   Adafruit_BusIO_Register fifo_rst = Adafruit_BusIO_Register(
     i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_RST);
 
@@ -1029,10 +1042,15 @@ void Adafruit_ICM20X::setFIFO() {
     Adafruit_BusIO_RegisterBits(&fifo_rst, 5, 0);
 
     fifo_rst_bits.write(0x01); 
-    delay(100);
+    delay(10);
     fifo_rst_bits.write(0x00);
 }
 
+
+/*!
+    @brief  Read the number o bytes in the FIFO buffer
+    @returns The number of bytes in the FIFO buffer
+*/
 uint32_t Adafruit_ICM20X::readFIFOCount() {
   _setBank(0);
 
@@ -1084,6 +1102,10 @@ float Adafruit_ICM20X::readFIFO() {
   return 0;
 }
 
+/*!
+    @brief  Read a single byte from the FIFO buffer
+    @returns The requested byte
+*/
 uint32_t Adafruit_ICM20X::readFIFOByte(){
   _setBank(0);
 

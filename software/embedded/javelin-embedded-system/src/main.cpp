@@ -4,23 +4,17 @@
 #include <Adafruit_ICM20649.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
+#include <Adafruit_LIS3MDL.h>
 
 Adafruit_ICM20649 icm;
-
+Adafruit_LIS3MDL lis;
 void setup(void) {
   Serial.begin(115200);
   Serial.println("Adafruit ICM20649 test!");
   pinMode(4,INPUT);
   // Try to initialize!
-  if (!icm.begin_I2C()) {
-    // if (!icm.begin_SPI(ICM_CS)) {
-    // if (!icm.begin_SPI(ICM_CS, ICM_SCK, ICM_MISO, ICM_MOSI)) {
-    Serial.println("Failed to find ICM20649 chip");
-    while (1) {
-      delay(10);
-    }
-  }
-  Serial.println("ICM20649 Found!");
+  icm.begin_I2C();
+  lis.begin_I2C();
 icm.setAccelRange(ICM20649_ACCEL_RANGE_30_G);
   Serial.print("Accelerometer range set to: ");
   switch (icm.getAccelRange()) {
@@ -74,14 +68,15 @@ icm.setAccelRange(ICM20649_ACCEL_RANGE_30_G);
   Serial.println(gyro_rate);
   Serial.println();
 
-  icm.enableI2CMaster(true);
-  icm.configureI2CMaster();
-  icm.writeExternalRegister(0x30, 0x1A, 0xFF);
-  icm.writeExternalRegister(0x30, 0x1B, 0x80);
-  icm.writeExternalRegister(0x30, 0x1D, 0x10);
-  icm.configI2CSlave0(0x30,0x05,0x02);
+  //icm.enableI2CMaster(true);
+  //icm.configureI2CMaster();
+  icm.setI2CBypass(true);
+  //icm.writeExternalRegister(0x30, 0x1A, 0xFF);
+  //icm.writeExternalRegister(0x30, 0x1B, 0x80);
+  //icm.writeExternalRegister(0x30, 0x1D, 0x10);
+  //icm.configI2CSlave0(0x30,0x05,0x02);
   
-  icm.setFIFO();
+  //icm.setFIFO(FIFO_DATA_ACCEL_GYRO);
 }
 
 void loop() {
@@ -116,14 +111,24 @@ void loop() {
   //Serial.println(" radians/s ");
   //Serial.println();
   //Serial.print("FIFO COUNT: ");
-  uint32_t fifo_count = icm.readFIFOCount();
-  Serial.println(fifo_count);
+  //uint32_t fifo_count = icm.readFIFOCount();
+  //Serial.println(fifo_count);
   //while (icm.readFIFOCount() > 12)
   //{
   //  icm.readFIFO();
   //}
-  //Serial.println(icm.readExternalRegister(0x30, 0x05));
+  //Serial.println(icm.readExternalRegister(0x1C, 0x0F));
   //Serial.println(icm.readFIFOByte());
+
+  lis.setPerformanceMode(LIS3MDL_HIGHMODE);
+  Serial.print("Performance mode set to: ");
+  switch (lis.getPerformanceMode()) {
+    case LIS3MDL_LOWPOWERMODE: Serial.println("Low"); break;
+    case LIS3MDL_MEDIUMMODE: Serial.println("Medium"); break;
+    case LIS3MDL_HIGHMODE: Serial.println("High"); break;
+    case LIS3MDL_ULTRAHIGHMODE: Serial.println("Ultra-High"); break;
+  }
+
   delay(500);
   
 }
