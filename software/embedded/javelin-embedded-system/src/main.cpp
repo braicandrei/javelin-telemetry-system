@@ -8,6 +8,8 @@
 
 Adafruit_ICM20649 icm;
 Adafruit_LIS3MDL lis;
+
+
 void setup(void) {
   Serial.begin(115200);
   Serial.println("Adafruit ICM20649 test!");

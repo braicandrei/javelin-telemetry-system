@@ -115,14 +115,18 @@ typedef enum {
 
 } icm20x_gyro_cutoff_t;
 
+/** Options for `setFIFO` -- FIFO data selection*/
 typedef enum {
-  FIFO_DATA_NONE = 0x0,
   FIFO_DATA_ACCEL = 0x10,
-  FIFO_DATA_GYRO = 0x0E,
-  FIFO_DATA_S0 = 0x20,
   FIFO_DATA_ACCEL_GYRO = 0x1E,
   FIFO_DATA_ACCEL_GYRO_S0 = 0x3E,
 } icm20_fifo_data_select_t;
+
+typedef struct Adafruit_ICM20X
+{
+  /* data */
+};
+
 
 class Adafruit_ICM20X;
 
@@ -232,12 +236,23 @@ public:
 
   /////////////NEW METHODS/////////////////////
 
-  void setFIFO(icm20_fifo_data_select_t data_select);
+  // FIFO related methods //
+  bool enableFIFO(bool enable = true);
+  bool enableFIFOWatermarkInt(bool enable = true, bool logicLevel = false);
+  bool selectFIFOData(icm20_fifo_data_select_t data_select);
+  bool resetFIFO(void);
+  uint32_t readFIFOCount();
+  uint32_t readFIFOByte();
+  bool readFIFOFrame();
+  bool readFIFOBuffer();
+
+
+
   void setI2CMaster();
   void configI2CSlave0(uint8_t slv_addr, uint8_t reg_addr, uint8_t dataLemgth);
-  float readFIFO();
-  uint32_t readFIFOByte();
-  uint32_t readFIFOCount();
+  
+  
+
 
 protected:
   float temperature, ///< Last reading's temperature (C)
@@ -292,6 +307,11 @@ protected:
   uint8_t readGyroRange(void);
   void writeGyroRange(uint8_t new_gyro_range);
 
+  ///NEW ATTRIBUTES///
+  icm20_fifo_data_select_t fifo_data_select; ///< Data select for FIFO
+  uint8_t fifo_data_byte_count;             ///< Number of bytes in FIFO frame
+
+
 private:
   friend class Adafruit_ICM20X_Accelerometer; ///< Gives access to private
                                               ///< members to Accelerometer
@@ -311,6 +331,12 @@ private:
   void fillMagEvent(sensors_event_t *mag, uint32_t timestamp);
   uint8_t auxillaryRegisterTransaction(bool read, uint8_t slv_addr,
                                        uint8_t reg_addr, uint8_t value = -1);
+  
+
+  /// NEW METHODS ///
+  uint8_t getFifoDataByteCount(icm20_fifo_data_select_t data_select);
+
 };
+
 
 #endif
