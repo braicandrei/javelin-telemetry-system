@@ -45,8 +45,10 @@ void Adafruit_ICM20649::scaleValues(void) {
   icm20649_gyro_range_t gyro_range = (icm20649_gyro_range_t)current_gyro_range;
   icm20649_accel_range_t accel_range = (icm20649_accel_range_t)current_accel_range;
   
+  
   float accel_scale = 1.0;
   float gyro_scale = 1.0;
+  float mag_scale = 1.0;
 
   if (gyro_range == ICM20649_GYRO_RANGE_500_DPS)
     gyro_scale = 65.5;

@@ -24,6 +24,7 @@
 #include <Adafruit_I2CDevice.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
+#include <Adafruit_LIS3MDL.h>
 
 // Misc configuration macros
 #define I2C_MASTER_RESETS_BEFORE_FAIL                                          \
@@ -121,12 +122,6 @@ typedef enum {
   FIFO_DATA_ACCEL_GYRO = 0x1E,
   FIFO_DATA_ACCEL_GYRO_S0 = 0x3E,
 } icm20_fifo_data_select_t;
-
-typedef struct Adafruit_ICM20X
-{
-  /* data */
-};
-
 
 class Adafruit_ICM20X;
 
@@ -250,6 +245,9 @@ public:
 
   void setI2CMaster();
   void configI2CSlave0(uint8_t slv_addr, uint8_t reg_addr, uint8_t dataLemgth);
+
+
+
   
   
 
@@ -298,6 +296,7 @@ protected:
 
   uint8_t current_accel_range; ///< accelerometer range cache
   uint8_t current_gyro_range;  ///< gyro range cache
+  uint8_t current_mag_range;   ///< magnetometer range cache
   // virtual void _setBank(uint8_t bank_number);
   void _setBank(uint8_t bank_number);
 
@@ -310,7 +309,7 @@ protected:
   ///NEW ATTRIBUTES///
   icm20_fifo_data_select_t fifo_data_select; ///< Data select for FIFO
   uint8_t fifo_data_byte_count;             ///< Number of bytes in FIFO frame
-
+  Adafruit_LIS3MDL lis3mdl;                 ///< Magnetometer object
 
 private:
   friend class Adafruit_ICM20X_Accelerometer; ///< Gives access to private

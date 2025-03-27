@@ -38,6 +38,7 @@ typedef enum {
   ICM20649_GYRO_RANGE_4000_DPS,
 } icm20649_gyro_range_t;
 
+
 /*!
  *    @brief  Class that stores state and functions for interacting with
  *            the ST ICM20649 6-DoF Accelerometer and Gyro

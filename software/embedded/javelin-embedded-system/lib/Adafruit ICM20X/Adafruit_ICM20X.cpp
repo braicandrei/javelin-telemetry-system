@@ -1190,4 +1190,3 @@ void Adafruit_ICM20X::configI2CSlave0(uint8_t slv_addr, uint8_t reg_addr, uint8_
 
 }
 
-
