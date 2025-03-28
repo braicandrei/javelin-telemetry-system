@@ -51,6 +51,7 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
   if (!i2c_dev->begin()) {
     return false;
   }
+  Serial.println("i2c_dev->begin() CHECK");
   return _init();
 }
 

@@ -28,6 +28,7 @@ I2C ADDRESS/BITS
 #define LIS3MDL_REG_INT_CFG 0x30   ///< Interrupt configuration register
 #define LIS3MDL_REG_INT_THS_L 0x32 ///< Low byte of the irq threshold
 
+#define LIS3MDL_OUT_DATA_LEN 6 ///< Length of the data output
 /** The magnetometer ranges */
 typedef enum {
   LIS3MDL_RANGE_4_GAUSS = 0b00,  ///< +/- 4g (default value)

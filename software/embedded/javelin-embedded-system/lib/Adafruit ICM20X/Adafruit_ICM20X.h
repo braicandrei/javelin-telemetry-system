@@ -84,6 +84,8 @@
 #define ICM20948_CHIP_ID 0xEA ///< ICM20948 default device id from WHOAMI
 #define ICM20649_CHIP_ID 0xE1 ///< ICM20649 default device id from WHOAMI
 
+#define ICM20X_FIFO_SIZE 4096 ///< FIFO size in bytes
+
 //////////////////////////////////////////
 // MMC5603 magnetoemeter register mappping 
 #define MMC5603_I2C_ADDR 0x30   ///< MMC5603 magentoemter I2C address
@@ -122,6 +124,19 @@ typedef enum {
   FIFO_DATA_ACCEL_GYRO = 0x1E,
   FIFO_DATA_ACCEL_GYRO_S0 = 0x3E,
 } icm20_fifo_data_select_t;
+
+typedef struct {
+  int16_t rawAccX, 
+  rawAccY,         
+  rawAccZ,         
+  rawTemp,     
+  rawGyroX,    
+  rawGyroY,    
+  rawGyroZ,    
+  rawMagX,     
+  rawMagY,     
+  rawMagZ;     
+} icm20x_raw_axes_t;
 
 class Adafruit_ICM20X;
 
@@ -238,12 +253,10 @@ public:
   bool resetFIFO(void);
   uint32_t readFIFOCount();
   uint32_t readFIFOByte();
-  bool readFIFOFrame();
-  bool readFIFOBuffer();
+  icm20x_raw_axes_t readFIFOFrame();
+  uint16_t readFIFOBuffer(icm20x_raw_axes_t *frameBuffer);
 
 
-
-  void setI2CMaster();
   void configI2CSlave0(uint8_t slv_addr, uint8_t reg_addr, uint8_t dataLemgth);
 
 
@@ -310,6 +323,7 @@ protected:
   icm20_fifo_data_select_t fifo_data_select; ///< Data select for FIFO
   uint8_t fifo_data_byte_count;             ///< Number of bytes in FIFO frame
   Adafruit_LIS3MDL lis3mdl;                 ///< Magnetometer object
+  icm20x_raw_axes_t raw_axes[ICM20X_FIFO_SIZE/6];  ///< Raw data axes buffer array (set to max size of frames in FIFO)
 
 private:
   friend class Adafruit_ICM20X_Accelerometer; ///< Gives access to private

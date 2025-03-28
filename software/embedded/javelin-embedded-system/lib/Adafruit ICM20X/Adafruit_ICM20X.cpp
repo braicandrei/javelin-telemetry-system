@@ -1057,16 +1057,16 @@ uint8_t Adafruit_ICM20X::getFifoDataByteCount(icm20_fifo_data_select_t data_sele
   
   switch (data_select) {
     case FIFO_DATA_ACCEL:
-      fifo_data_byte_count = 6; // 6 bytes para acelerómetro (X, Y, Z)
+      return 6; // 6 bytes for accelerometer
       break;
     case FIFO_DATA_ACCEL_GYRO:
-      fifo_data_byte_count = 12; // 6 bytes para acelerómetro + 6 para giroscopio
+      return 12; // + 6 bytes for gyroscope
       break;
     case FIFO_DATA_ACCEL_GYRO_S0:
-      fifo_data_byte_count = 18; // 12 bytes + 6 byte para S0
+      return 18; // 6 bytes for S0
       break;
     default:
-      fifo_data_byte_count = 1; // Valor por defecto
+      return 6; //default 6 byte
       break;
     }
 }
@@ -1087,6 +1087,8 @@ bool Adafruit_ICM20X::resetFIFO() {
     fifo_rst_bits.write(0x01); 
     delay(1);
     fifo_rst_bits.write(0x00);
+
+  return true;
 }
 
 /*!
@@ -1125,8 +1127,9 @@ uint32_t Adafruit_ICM20X::readFIFOByte(){
     @brief  Read a single frame from the FIFO buffer
     @returns True if the operation was successful, otherwise false
 */
-bool Adafruit_ICM20X::readFIFOFrame() {
+icm20x_raw_axes_t Adafruit_ICM20X::readFIFOFrame() {
   //_setBank(0);
+  icm20x_raw_axes_t raw_axes_d;
   uint8_t buffer[fifo_data_byte_count];
   Adafruit_BusIO_Register fifo_r_w = Adafruit_BusIO_Register(
     i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_R_W);
@@ -1134,19 +1137,69 @@ bool Adafruit_ICM20X::readFIFOFrame() {
   {
     buffer[i] = fifo_r_w.read();
   }
+
+  uint8_t *ptr = buffer; // Puntero para recorrer el buffer
+
+  switch (fifo_data_select) {
+    case FIFO_DATA_ACCEL:
+      raw_axes_d.rawAccX = (ptr[0] << 8) | ptr[1];
+      raw_axes_d.rawAccY = (ptr[2] << 8) | ptr[3];
+      raw_axes_d.rawAccZ = (ptr[4] << 8) | ptr[5];
+      break;
+
+    case FIFO_DATA_ACCEL_GYRO:
+      raw_axes_d.rawAccX = (ptr[0] << 8) | ptr[1];
+      raw_axes_d.rawAccY = (ptr[2] << 8) | ptr[3];
+      raw_axes_d.rawAccZ = (ptr[4] << 8) | ptr[5];
+      ptr += 6; // Avanzar el puntero después de los datos del acelerómetro
+      raw_axes_d.rawGyroX = (ptr[0] << 8) | ptr[1];
+      raw_axes_d.rawGyroY = (ptr[2] << 8) | ptr[3];
+      raw_axes_d.rawGyroZ = (ptr[4] << 8) | ptr[5];
+      break;
+
+    case FIFO_DATA_ACCEL_GYRO_S0:
+      raw_axes_d.rawAccX = (ptr[0] << 8) | ptr[1];
+      raw_axes_d.rawAccY = (ptr[2] << 8) | ptr[3];
+      raw_axes_d.rawAccZ = (ptr[4] << 8) | ptr[5];
+      ptr += 6; // Avanzar el puntero después de los datos del acelerómetro
+      raw_axes_d.rawGyroX = (ptr[0] << 8) | ptr[1];
+      raw_axes_d.rawGyroY = (ptr[2] << 8) | ptr[3];
+      raw_axes_d.rawGyroZ = (ptr[4] << 8) | ptr[5];
+      ptr += 6; // Avanzar el puntero después de los datos del giroscopio
+      raw_axes_d.rawMagX = (ptr[0] << 8) | ptr[1];
+      raw_axes_d.rawMagY = (ptr[2] << 8) | ptr[3];
+      raw_axes_d.rawMagZ = (ptr[4] << 8) | ptr[5];
+      break;
+
+    default:
+      raw_axes_d.rawAccX = 0;
+      raw_axes_d.rawAccY = 0;
+      raw_axes_d.rawAccZ = 0;
+      raw_axes_d.rawGyroX = 0;
+      raw_axes_d.rawGyroY = 0;
+      raw_axes_d.rawGyroZ = 0;
+      raw_axes_d.rawMagX = 0;
+      raw_axes_d.rawMagY = 0;
+      raw_axes_d.rawMagZ = 0;
+      break;
+  }
+  return raw_axes_d;
 }
 
 /*!
     @brief  Read the avaliable FIFO data frames
-    @returns True if the operation was successful, otherwise false
+    @returns Number of frames read from the fifo
 */
-bool Adafruit_ICM20X::readFIFOBuffer() {
+uint16_t Adafruit_ICM20X::readFIFOBuffer(icm20x_raw_axes_t *frameBuffer) {
   _setBank(0);
   uint32_t fifo_byte_count = readFIFOCount();
   uint16_t fifo_frame_count = fifo_byte_count / fifo_data_byte_count;
 
-  return true;
-  
+  for (size_t i = 0; i < fifo_frame_count; i++)
+  {
+    frameBuffer[i] = readFIFOFrame();
+  }
+  return fifo_frame_count;
 }
 
 /*!
