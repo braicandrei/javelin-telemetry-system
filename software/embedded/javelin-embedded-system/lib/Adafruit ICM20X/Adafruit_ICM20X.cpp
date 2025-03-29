@@ -1032,6 +1032,7 @@ bool Adafruit_ICM20X::enableFIFOWatermarkInt(bool enable, bool logicLevel) {
     @returns True if the operation was successful, otherwise false
 */
 bool Adafruit_ICM20X::selectFIFOData(icm20_fifo_data_select_t data_select) {
+  this->fifo_data_select = data_select;
   this->fifo_data_byte_count = getFifoDataByteCount(data_select);
   _setBank(0);
   Adafruit_BusIO_Register fifo_en_1 = Adafruit_BusIO_Register(
@@ -1091,6 +1092,18 @@ bool Adafruit_ICM20X::resetFIFO() {
   return true;
 }
 
+bool Adafruit_ICM20X::odrAlign(bool enable){
+  _setBank(2);
+
+  Adafruit_BusIO_Register odr_align = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B2_ODR_ALIGN_EN);
+
+  Adafruit_BusIO_RegisterBits odr_align_bit =
+    Adafruit_BusIO_RegisterBits(&odr_align, 5, 0);
+
+    return odr_align.write(enable); 
+}
+
 /*!
     @brief  Read the number o bytes in the FIFO buffer
     @returns The number of bytes in the FIFO buffer
@@ -1128,7 +1141,6 @@ uint32_t Adafruit_ICM20X::readFIFOByte(){
     @returns True if the operation was successful, otherwise false
 */
 icm20x_raw_axes_t Adafruit_ICM20X::readFIFOFrame() {
-  //_setBank(0);
   icm20x_raw_axes_t raw_axes_d;
   uint8_t buffer[fifo_data_byte_count];
   Adafruit_BusIO_Register fifo_r_w = Adafruit_BusIO_Register(
@@ -1136,6 +1148,7 @@ icm20x_raw_axes_t Adafruit_ICM20X::readFIFOFrame() {
   for (size_t i = 0; i < fifo_data_byte_count; i++)
   {
     buffer[i] = fifo_r_w.read();
+    //Serial.println(buffer[i], HEX);
   }
 
   uint8_t *ptr = buffer; // Puntero para recorrer el buffer
@@ -1145,6 +1158,7 @@ icm20x_raw_axes_t Adafruit_ICM20X::readFIFOFrame() {
       raw_axes_d.rawAccX = (ptr[0] << 8) | ptr[1];
       raw_axes_d.rawAccY = (ptr[2] << 8) | ptr[3];
       raw_axes_d.rawAccZ = (ptr[4] << 8) | ptr[5];
+
       break;
 
     case FIFO_DATA_ACCEL_GYRO:
@@ -1166,9 +1180,9 @@ icm20x_raw_axes_t Adafruit_ICM20X::readFIFOFrame() {
       raw_axes_d.rawGyroY = (ptr[2] << 8) | ptr[3];
       raw_axes_d.rawGyroZ = (ptr[4] << 8) | ptr[5];
       ptr += 6; // Avanzar el puntero después de los datos del giroscopio
-      raw_axes_d.rawMagX = (ptr[0] << 8) | ptr[1];
-      raw_axes_d.rawMagY = (ptr[2] << 8) | ptr[3];
-      raw_axes_d.rawMagZ = (ptr[4] << 8) | ptr[5];
+      raw_axes_d.rawMagX = (ptr[1] << 8) | ptr[0];
+      raw_axes_d.rawMagY = (ptr[3] << 8) | ptr[2];
+      raw_axes_d.rawMagZ = (ptr[5] << 8) | ptr[4];
       break;
 
     default:

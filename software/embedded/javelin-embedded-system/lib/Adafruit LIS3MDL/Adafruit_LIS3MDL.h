@@ -15,7 +15,7 @@
 /*=========================================================================
 I2C ADDRESS/BITS
 -----------------------------------------------------------------------*/
-#define LIS3MDL_I2CADDR_DEFAULT (0x1C) ///< Default breakout addres
+#define LIS3MDL_I2CADDR_DEFAULT (0x1E) ///< Default breakout addres
 /*=========================================================================*/
 
 #define LIS3MDL_REG_WHO_AM_I 0x0F  ///< Register that contains the part ID
