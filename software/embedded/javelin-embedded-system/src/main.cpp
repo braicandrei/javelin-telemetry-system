@@ -80,23 +80,23 @@ void loop() {
   for (size_t i = 0; i < frameCoun; i++) {
     ahrs_axes_t scaled_axes = ahrs.scaleAxes(raw_axesD[i]);
     Serial.print("AccX: ");
-    Serial.print(scaled_axes.accX);
+    Serial.print(scaled_axes.accX,6);
     Serial.print(", AccY: ");
-    Serial.print(scaled_axes.accY);
+    Serial.print(scaled_axes.accY,6);
     Serial.print(", AccZ: ");
-    Serial.print(scaled_axes.accZ);
+    Serial.print(scaled_axes.accZ,6);
     Serial.print(", GyroX: ");
-    Serial.print(scaled_axes.gyroX);
+    Serial.print(scaled_axes.gyroX,6);
     Serial.print(", GyroY: ");
-    Serial.print(scaled_axes.gyroY);
+    Serial.print(scaled_axes.gyroY,6);
     Serial.print(", GyroZ: ");
-    Serial.print(scaled_axes.gyroZ);
+    Serial.print(scaled_axes.gyroZ,6);
     Serial.print(", MagX: ");
-    Serial.print(scaled_axes.magX);
+    Serial.print(scaled_axes.magX,6);
     Serial.print(", MagY: ");
-    Serial.print(scaled_axes.magY);
+    Serial.print(scaled_axes.magY,6);
     Serial.print(", MagZ: ");
-    Serial.println(scaled_axes.magZ);
+    Serial.println(scaled_axes.magZ,6);
 
   }
  } else
