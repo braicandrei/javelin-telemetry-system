@@ -9,6 +9,7 @@
 #include <SD.h>
 #include <FS.h>
 
+
 Adafruit_ICM20649 icm;
 Adafruit_LIS3MDL lis;
 AHRS ahrs;
@@ -72,12 +73,12 @@ void loop() {
 
   if (interruptOccurred) {
     interruptOccurred = false;
-    Serial.println("Interrupción detectada en el pin 4");
-    Serial.print("FIFO count: ");
-    Serial.println(ahrs.icm20649.readFIFOCount());
+    //Serial.println("Interrupción detectada en el pin 4");
+    //Serial.print("FIFO count: ");
+    //Serial.println(ahrs.icm20649.readFIFOCount());
     uint16_t frameCoun = ahrs.icm20649.readFIFOBuffer(raw_axesD);
-    Serial.print("Frames read: ");
-    Serial.println(frameCoun);
+    //Serial.print("Frames read: ");
+    //Serial.println(frameCoun);
 
     for (size_t i = 0; i < frameCoun; i++) {
       unsigned long t0 = millis();
@@ -92,9 +93,31 @@ void loop() {
       myFile.print(scaled_axes.magX,4);  myFile.print(",");
       myFile.print(scaled_axes.magY,4); myFile.print(",");
       myFile.println(scaled_axes.magZ,4);
+
+      Serial.print("Raw:");
+      Serial.print(0); Serial.print(",");
+      Serial.print(0); Serial.print(",");
+      Serial.print(0); Serial.print(",");
+      Serial.print(0); Serial.print(",");
+      Serial.print(0); Serial.print(",");
+      Serial.print(0); Serial.print(",");
+      Serial.print(scaled_axes.magX*100,4);  Serial.print(",");
+      Serial.print(scaled_axes.magY*100,4); Serial.print(",");
+      Serial.println(scaled_axes.magZ*100,4);
       unsigned long t1 = millis();
-      Serial.print("Time taken for frame ");
-      Serial.println(t1-t0);
+
+      Serial.print("Uni:");
+      Serial.print(0); Serial.print(",");
+      Serial.print(0); Serial.print(",");
+      Serial.print(0); Serial.print(",");
+      Serial.print(0); Serial.print(",");
+      Serial.print(0); Serial.print(",");
+      Serial.print(0); Serial.print(",");
+      Serial.print(scaled_axes.magX*10,4);  Serial.print(",");
+      Serial.print(scaled_axes.magY*10,4); Serial.print(",");
+      Serial.println(scaled_axes.magZ*10,4);
+      //Serial.print("Time taken for frame ");
+      //Serial.println(t1-t0);
     }
   }
   //Serial.println(ahrs.icm20649.readFIFOCount());

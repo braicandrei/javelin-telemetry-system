@@ -552,3 +552,18 @@ int Adafruit_LIS3MDL::readMagneticField(float &x, float &y, float &z) {
 
   return 1;
 }
+
+bool Adafruit_LIS3MDL::writeOffsetxyz(int16_t x, int16_t y, int16_t z) {
+  Adafruit_BusIO_Register OFFSET_X_REG_L =
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_OFFSET_X_REG_L, 6);
+  uint8_t buffer[6];
+  buffer[0] = x & 0xFF;
+  buffer[1] = (x >> 8) & 0xFF;
+  buffer[2] = y & 0xFF;
+  buffer[3] = (y >> 8) & 0xFF;
+  buffer[4] = z & 0xFF;
+  buffer[5] = (z >> 8) & 0xFF;
+
+  return OFFSET_X_REG_L.write(buffer, sizeof(buffer));
+} 

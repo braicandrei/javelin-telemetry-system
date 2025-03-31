@@ -18,6 +18,12 @@ I2C ADDRESS/BITS
 #define LIS3MDL_I2CADDR_DEFAULT (0x1E) ///< Default breakout addres
 /*=========================================================================*/
 
+#define LIS3MDL_OFFSET_X_REG_L 0x05 ///< Register address for X axis offset low byte
+#define LIS3MDL_OFFSET_X_REG_H 0x06 ///< Register address for X axis offset high byte
+#define LIS3MDL_OFFSET_Y_REG_L 0x07 ///< Register address for Y axis offset low byte
+#define LIS3MDL_OFFSET_Y_REG_H 0x08 ///< Register address for Y axis offset high byte
+#define LIS3MDL_OFFSET_Z_REG_L 0x09 ///< Register address for Z axis offset low byte
+#define LIS3MDL_OFFSET_Z_REG_H 0x0A ///< Register address for Z axis offset high byte
 #define LIS3MDL_REG_WHO_AM_I 0x0F  ///< Register that contains the part ID
 #define LIS3MDL_REG_CTRL_REG1 0x20 ///< Register address for control 1
 #define LIS3MDL_REG_CTRL_REG2 0x21 ///< Register address for control 2
@@ -92,7 +98,7 @@ public:
   void setIntThreshold(uint16_t value);
   uint16_t getIntThreshold(void);
   void configInterrupt(bool enableX, bool enableY, bool enableZ, bool polarity,
-                       bool latch, bool enableInt);
+                        bool latch, bool enableInt);
   void selfTest(bool flag);
 
   void read();
@@ -113,6 +119,8 @@ public:
 
   //! buffer for the magnetometer range
   lis3mdl_range_t rangeBuffered = LIS3MDL_RANGE_4_GAUSS;
+
+  bool writeOffsetxyz(int16_t x, int16_t y, int16_t z);
 
 private:
   bool _init(void);
