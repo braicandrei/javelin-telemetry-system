@@ -30,8 +30,8 @@ uint8_t AHRS::beginAHRS() {
     icm20649.odrAlign(true); // Enable ODR alignment
     icm20649.setAccelRange(ICM20649_ACCEL_RANGE_30_G); // Set accelerometer range to 30 G
     icm20649.setGyroRange(ICM20649_GYRO_RANGE_500_DPS); // Set gyroscope range to 500 DPS
-    icm20649.setAccelRateDivisor(254); // Set accelerometer data rate divisor to 254
-    icm20649.setGyroRateDivisor(254); // Set gyroscope data rate divisor to 254
+    icm20649.setAccelRateDivisor(20); // Set accelerometer data rate divisor to 254
+    icm20649.setGyroRateDivisor(20); // Set gyroscope data rate divisor to 254
     
 
     icm20649.enableI2CMaster(true); // Enable I2C master

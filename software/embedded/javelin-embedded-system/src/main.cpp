@@ -6,20 +6,31 @@
 #include <Wire.h>
 #include <Adafruit_LIS3MDL.h>
 #include <AHRS.h>
-//#include <SD.h>
-//#include <FS.h>
+#include <SD.h>
+#include <FS.h>
 
 Adafruit_ICM20649 icm;
 Adafruit_LIS3MDL lis;
 AHRS ahrs;
 //SemaphoreHandle_t xMutex = NULL;
 icm20x_raw_axes_t raw_axesD[ICM20X_FIFO_SIZE/6];
+File myFile;
 
+volatile bool interruptOccurred = false;
 
+void IRAM_ATTR handleInterrupt() {
+  interruptOccurred = true;
+}
+
+unsigned long getTimeStamp() {
+  //temporary function to get time stamp until RTC is implemented
+  return millis();
+}
+
+unsigned long startTime = 0;
 
 void setup(void) {
   Serial.begin(115200);
-
   uint8_t beginE =  ahrs.beginAHRS();
   if (beginE != 0x00) {
     Serial.print("AHRS begin failed with error code: ");
@@ -32,84 +43,68 @@ void setup(void) {
   }
   //Serial.println("Adafruit ICM20649 test!");
   pinMode(4,INPUT);
-  //// Try to initialize!
-  //if (!icm.begin_I2C(0x68)) {
-  //  Serial.println("Failed to find ICM20649 chip");
-  //  while (1) {
-  //    delay(10);
-  //  }
-  //}
-  ////icm.enableI2CMaster(true);
-  ////icm.configureI2CMaster();
-  //icm.setI2CBypass(true);
-//
-  //if (!lis.begin_I2C(0x1E)) {
-  //  Serial.println("Failed to find LIS3MDL chip");
-  //  while (1) {
-  //    delay(10);
-  //  }
-  //}
-  //icm.setI2CBypass(true);
-
-  //icm.writeExternalRegister(0x30, 0x1A, 0xFF);
-  //icm.writeExternalRegister(0x30, 0x1B, 0x80);
-  //icm.writeExternalRegister(0x30, 0x1D, 0x10);
-  //icm.configI2CSlave0(0x30,0x05,0x02);
-  
-  //icm.setFIFO(FIFO_DATA_ACCEL_GYRO);
+  attachInterrupt(digitalPinToInterrupt(4), handleInterrupt, RISING); // Interrupción activa en HIGH
 
 
+  if (!SD.begin()) {
+    Serial.println("SD card initialization failed!");
+    while (true) {
+      delay(10);
+    }
+  } else {
+    Serial.println("SD card initialized successfully");
+  }
+
+  myFile = SD.open("/datalog.txt", FILE_WRITE);
+  if (!myFile) {
+    Serial.println("Error opening datalog.txt");
+    while (true) {
+      delay(10);
+    }
+  } else {
+    Serial.println("datalog.txt opened successfully");
+  }
+
+  startTime = millis();
 }
 
 void loop() {
 
-  //lis.setPerformanceMode(LIS3MDL_HIGHMODE);
-  //Serial.print("Performance mode set to: ");
-  //switch (lis.getPerformanceMode()) {
-  //  case LIS3MDL_LOWPOWERMODE: Serial.println("Low"); break;
-  //  case LIS3MDL_MEDIUMMODE: Serial.println("Medium"); break;
-  //  case LIS3MDL_HIGHMODE: Serial.println("High"); break;
-  //  case LIS3MDL_ULTRAHIGHMODE: Serial.println("Ultra-High"); break;
-  //}
+  if (interruptOccurred) {
+    interruptOccurred = false;
+    Serial.println("Interrupción detectada en el pin 4");
+    Serial.print("FIFO count: ");
+    Serial.println(ahrs.icm20649.readFIFOCount());
+    uint16_t frameCoun = ahrs.icm20649.readFIFOBuffer(raw_axesD);
+    Serial.print("Frames read: ");
+    Serial.println(frameCoun);
 
- uint16_t frameCoun = ahrs.icm20649.readFIFOBuffer(raw_axesD);
-
- if (frameCoun>0) {
-  Serial.print("Frames read: ");
-  Serial.println(frameCoun);
-  for (size_t i = 0; i < frameCoun; i++) {
-    ahrs_axes_t scaled_axes = ahrs.scaleAxes(raw_axesD[i]);
-    Serial.print("AccX: ");
-    Serial.print(scaled_axes.accX,6);
-    Serial.print(", AccY: ");
-    Serial.print(scaled_axes.accY,6);
-    Serial.print(", AccZ: ");
-    Serial.print(scaled_axes.accZ,6);
-    Serial.print(", GyroX: ");
-    Serial.print(scaled_axes.gyroX,6);
-    Serial.print(", GyroY: ");
-    Serial.print(scaled_axes.gyroY,6);
-    Serial.print(", GyroZ: ");
-    Serial.print(scaled_axes.gyroZ,6);
-    Serial.print(", MagX: ");
-    Serial.print(scaled_axes.magX,6);
-    Serial.print(", MagY: ");
-    Serial.print(scaled_axes.magY,6);
-    Serial.print(", MagZ: ");
-    Serial.println(scaled_axes.magZ,6);
-
+    for (size_t i = 0; i < frameCoun; i++) {
+      unsigned long t0 = millis();
+      ahrs_axes_t scaled_axes = ahrs.scaleAxes(raw_axesD[i]);
+      //write to SD card only the axex values in csv format
+      myFile.print(scaled_axes.accX,4); myFile.print(",");
+      myFile.print(scaled_axes.accY,4); myFile.print(",");
+      myFile.print(scaled_axes.accZ,4); myFile.print(",");
+      myFile.print(scaled_axes.gyroX,4); myFile.print(",");
+      myFile.print(scaled_axes.gyroY,4); myFile.print(",");
+      myFile.print(scaled_axes.gyroZ,4); myFile.print(",");
+      myFile.print(scaled_axes.magX,4);  myFile.print(",");
+      myFile.print(scaled_axes.magY,4); myFile.print(",");
+      myFile.println(scaled_axes.magZ,4);
+      unsigned long t1 = millis();
+      Serial.print("Time taken for frame ");
+      Serial.println(t1-t0);
+    }
   }
- } else
-  {
-    Serial.println("No frames read");
+  //Serial.println(ahrs.icm20649.readFIFOCount());
+  
+  if (millis()-startTime>20000) {
+    myFile.close();
+    Serial.println("Datalogging ended");
+    while (true) {
+      delay(10);
+    }
   }
-  
-  //Serial.print("MagX: ");
-  //Serial.print(raw_axesD[0].rawMagX);
-  //Serial.print(", MagY: ");
-  //Serial.print(raw_axesD[0].rawMagY);
-  //Serial.print(", MagZ: ");
-  //Serial.println(raw_axesD[0].rawMagZ);
-  
-  delay(500);
+  //delay(50);
 }
