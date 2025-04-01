@@ -9,56 +9,66 @@
 AHRS::AHRS() {}
 AHRS::~AHRS() {}
 
-uint8_t AHRS::beginAHRS() {
+uint8_t AHRS::beginAHRSi2c() {
 
-    if (!icm20649.begin_I2C()) { // Initialize ICM20649 I2C bus
-        return 0x01;
-    }
+  uint8_t accelConexionTry = 0;
+  uint8_t magConexionTry = 0;
 
-    icm20649.setI2CBypass(true); // Enable I2C bypass
+  while (!icm20649.begin_I2C() && accelConexionTry < 3) { // Initialize ICM20649 I2C bus
+    Serial.println("ICM20649 I2C bus initialization failed!");
+    delay(1000); // Wait for 1 second before retrying
+    accelConexionTry++;
+  }
+  if (!icm20649.begin_I2C())
+  {
+   return 0x01; // Error code for ICM20649 initialization failure
+  }
 
-    if (!lis3mdl.begin_I2C(0x1E)) { // Initialize LIS3MDL I2C bus
-        return 0x02;
-    }
-    lis3mdl.setPerformanceMode(LIS3MDL_HIGHMODE); // Set magentometer performance mode to high
-    lis3mdl.setOperationMode(LIS3MDL_CONTINUOUSMODE); // Set magnetometer operation mode to continuous
-    lis3mdl.setDataRate(LIS3MDL_DATARATE_560_HZ); // Set magnetometer data rate to 560 Hz
-    lis3mdl.setRange(LIS3MDL_RANGE_4_GAUSS); // Set magnetometer range to 4 gauss
+  icm20649.setI2CBypass(true); // Enable I2C bypass
 
-    icm20649.setI2CBypass(false); // Disable I2C bypass
+  if (!lis3mdl.begin_I2C() && magConexionTry < 3) { // Initialize LIS3MDL I2C bus
+    Serial.println("LIS3MDL I2C bus initialization failed!");
+    delay(1000); // Wait for 1 second before retrying
+    magConexionTry++;
+  }
+  if (!lis3mdl.begin_I2C())
+  {
+    return 0x02; // Error code for LIS3MDL initialization failure
+  }
 
-    icm20649.odrAlign(true); // Enable ODR alignment
-    icm20649.setAccelRange(ICM20649_ACCEL_RANGE_30_G); // Set accelerometer range to 30 G
-    icm20649.setGyroRange(ICM20649_GYRO_RANGE_500_DPS); // Set gyroscope range to 500 DPS
-    icm20649.setAccelRateDivisor(20); // Set accelerometer data rate divisor to 254
-    icm20649.setGyroRateDivisor(20); // Set gyroscope data rate divisor to 254
-    
+  return 0x00; // Success
 
-    icm20649.enableI2CMaster(true); // Enable I2C master
-    icm20649.configureI2CMaster(); // Configure I2C master
-    icm20649.configI2CSlave0(LIS3MDL_I2CADDR_DEFAULT, LIS3MDL_REG_OUT_X_L, LIS3MDL_OUT_DATA_LEN); // Configure I2C slave 0
-
-
-    icm20649.enableFIFO(true); // Enable FIFO
-    
-    icm20649.enableFIFOWatermarkInt(true, false); // Enable FIFO watermark interrupt
-    
-    icm20649.selectFIFOData(FIFO_DATA_ACCEL_GYRO_S0); // Select FIFO data
-    
-    icm20649.resetFIFO(); // Reset FIFO
-
-
-    //////////////////TEMPORAL//////////////////////
-    this->accelRange = ICM20649_ACCEL_RANGE_30_G; // Set accelerometer range to 30 G
-    this->gyroRange = ICM20649_GYRO_RANGE_500_DPS; // Set gyroscope range to 500 DPS
-    this->magRange = LIS3MDL_RANGE_4_GAUSS; // Set magnetometer range to 4 gauss
-    ////////////////////////////////////////////////
-    return 0x00;
 }
 
 bool AHRS::configAHRS() {
 
-    return true;
+ 
+  icm20649.setI2CBypass(true); // Enable I2C bypass
+ 
+  lis3mdl.setPerformanceMode(LIS3MDL_HIGHMODE); // Set magentometer performance mode to high
+  lis3mdl.setOperationMode(LIS3MDL_CONTINUOUSMODE); // Set magnetometer operation mode to continuous
+  lis3mdl.setDataRate(LIS3MDL_DATARATE_560_HZ); // Set magnetometer data rate to 560 Hz
+  lis3mdl.setRange(LIS3MDL_RANGE_4_GAUSS); // Set magnetometer range to 4 gauss
+  lis3mdl.loadOffsetsFromEEPROM();  // Load offsets from EEPROM
+  lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
+  icm20649.setI2CBypass(false); // Disable I2C bypass
+
+  
+  icm20649.odrAlign(true); // Enable ODR alignment
+  icm20649.setAccelRange(ICM20649_ACCEL_RANGE_30_G); // Set accelerometer range to 30 G
+  icm20649.setGyroRange(ICM20649_GYRO_RANGE_500_DPS); // Set gyroscope range to 500 DPS
+  icm20649.setAccelRateDivisor(20); // Set accelerometer data rate divisor to 254
+  icm20649.setGyroRateDivisor(20); // Set gyroscope data rate divisor to 254
+  
+  icm20649.enableI2CMaster(true); // Enable I2C master
+  icm20649.configureI2CMaster(); // Configure I2C master
+  icm20649.configI2CSlave0(LIS3MDL_I2CADDR_DEFAULT, LIS3MDL_REG_OUT_X_L, LIS3MDL_OUT_DATA_LEN); // Configure I2C slave 0
+  
+  icm20649.enableFIFO(true); // Enable FIFO
+  icm20649.enableFIFOWatermarkInt(true, false); // Enable FIFO watermark interrupt
+  icm20649.selectFIFOData(FIFO_DATA_ACCEL_GYRO_S0); // Select FIFO data
+  icm20649.resetFIFO(); // Reset FIFO
+  return true; // Success
 }
 
 bool AHRS::setAHRSRange(icm20649_accel_range_t accelRange, icm20649_gyro_range_t gyroRange, lis3mdl_range_t magRange) {

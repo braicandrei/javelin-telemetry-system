@@ -25,10 +25,10 @@ class AHRS {
 public:
     AHRS();
     ~AHRS();
-    uint8_t beginAHRS( );
+    uint8_t beginAHRSi2c();
+    bool configAHRS();
     bool setAHRSRange(
         icm20649_accel_range_t accelRange, icm20649_gyro_range_t gyroRange, lis3mdl_range_t magRange);
-    bool configAHRS();
     bool setAHRSSampleRate(uint8_t sampleRate);
     ahrs_axes_t scaleAxes(icm20x_raw_axes_t raw_axes);
     Adafruit_ICM20649 icm20649;
@@ -36,9 +36,9 @@ public:
 private:
 protected:
 icm20x_raw_axes_t raw_axes[ICM20X_FIFO_SIZE/6];  ///< Raw data axes buffer array (set to max size of frames in FIFO)
-icm20649_accel_range_t accelRange; ///< Accelerometer range
-icm20649_gyro_range_t gyroRange; ///< Gyroscope range
-lis3mdl_range_t magRange; ///< Magnetometer range
+icm20649_accel_range_t accelRange = ICM20649_ACCEL_RANGE_30_G; ///< Accelerometer range
+icm20649_gyro_range_t gyroRange = ICM20649_GYRO_RANGE_500_DPS; ///< Gyroscope range
+lis3mdl_range_t magRange =LIS3MDL_RANGE_4_GAUSS; ///< Magnetometer range
 
 };
 

@@ -11,6 +11,7 @@
 #include <Adafruit_SPIDevice.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
+#include <EEPROM.h>
 
 /*=========================================================================
 I2C ADDRESS/BITS
@@ -35,6 +36,11 @@ I2C ADDRESS/BITS
 #define LIS3MDL_REG_INT_THS_L 0x32 ///< Low byte of the irq threshold
 
 #define LIS3MDL_OUT_DATA_LEN 6 ///< Length of the data output
+
+#define EEPROM_X_OFFSET_ADDR 0
+#define EEPROM_Y_OFFSET_ADDR 4
+#define EEPROM_Z_OFFSET_ADDR 8
+
 /** The magnetometer ranges */
 typedef enum {
   LIS3MDL_RANGE_4_GAUSS = 0b00,  ///< +/- 4g (default value)
@@ -119,9 +125,15 @@ public:
 
   //! buffer for the magnetometer range
   lis3mdl_range_t rangeBuffered = LIS3MDL_RANGE_4_GAUSS;
+  bool resetRegisters();
 
-  bool writeOffsetxyz(int16_t x, int16_t y, int16_t z);
+  bool hardIronCalib(float *x, float *y, float *z, uint16_t size);
+  void getCalibrationOffsets(float *x, float *y, float *z);
+  void readCalibrationOffsets(float *x, float *y, float *z);
+  bool writeOffsetxyz();
 
+  void loadOffsetsFromEEPROM();
+  void saveOffsetsToEEPROM();
 private:
   bool _init(void);
 
@@ -129,6 +141,12 @@ private:
   Adafruit_SPIDevice *spi_dev = NULL;
 
   int32_t _sensorID;
+  
+
+  float _scale=1.f; ///< LSB per gauss
+  float xoffset=0.52, ///< X axis offset
+        yoffset=-0.52, ///< Y axis offset
+        zoffset=1.27; ///< Z axis offset
 };
 
 #endif

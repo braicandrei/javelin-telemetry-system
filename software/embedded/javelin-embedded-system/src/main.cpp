@@ -8,6 +8,7 @@
 #include <AHRS.h>
 #include <SD.h>
 #include <FS.h>
+#include <EEPROM.h>
 
 
 Adafruit_ICM20649 icm;
@@ -28,20 +29,25 @@ unsigned long getTimeStamp() {
   return millis();
 }
 
-unsigned long startTime = 0;
+const int magCalArraySize = 1000;
+float xmag[magCalArraySize],
+      ymag[magCalArraySize],
+      zmag[magCalArraySize];
+float xmagR,
+ymagR,
+zmagR;
 
+int idx = 0;
+unsigned long startTime = 0;
+#define EEPROM_SIZE 64
 void setup(void) {
   Serial.begin(115200);
-  uint8_t beginE =  ahrs.beginAHRS();
-  if (beginE != 0x00) {
-    Serial.print("AHRS begin failed with error code: ");
-    Serial.println(beginE, HEX);
-    while (1) {
-      delay(10);
-    }
-  } else {
-    Serial.println("AHRS begin success!");
+  if (!EEPROM.begin(EEPROM_SIZE)) {
+    Serial.println("failed to initialize EEPROM");
+    delay(1000000);
   }
+  ahrs.beginAHRSi2c();
+  ahrs.configAHRS();
   //Serial.println("Adafruit ICM20649 test!");
   pinMode(4,INPUT);
   attachInterrupt(digitalPinToInterrupt(4), handleInterrupt, RISING); // Interrupción activa en HIGH
@@ -71,9 +77,10 @@ void setup(void) {
 
 void loop() {
 
+  
   if (interruptOccurred) {
     interruptOccurred = false;
-    //Serial.println("Interrupción detectada en el pin 4");
+    Serial.println("Interrupción detectada en el pin 4");
     //Serial.print("FIFO count: ");
     //Serial.println(ahrs.icm20649.readFIFOCount());
     uint16_t frameCoun = ahrs.icm20649.readFIFOBuffer(raw_axesD);
@@ -84,50 +91,64 @@ void loop() {
       unsigned long t0 = millis();
       ahrs_axes_t scaled_axes = ahrs.scaleAxes(raw_axesD[i]);
       //write to SD card only the axex values in csv format
-      myFile.print(scaled_axes.accX,4); myFile.print(",");
-      myFile.print(scaled_axes.accY,4); myFile.print(",");
-      myFile.print(scaled_axes.accZ,4); myFile.print(",");
-      myFile.print(scaled_axes.gyroX,4); myFile.print(",");
-      myFile.print(scaled_axes.gyroY,4); myFile.print(",");
-      myFile.print(scaled_axes.gyroZ,4); myFile.print(",");
-      myFile.print(scaled_axes.magX,4);  myFile.print(",");
-      myFile.print(scaled_axes.magY,4); myFile.print(",");
-      myFile.println(scaled_axes.magZ,4);
+      //myFile.print(scaled_axes.accX,4); myFile.print(",");
+      //myFile.print(scaled_axes.accY,4); myFile.print(",");
+      //myFile.print(scaled_axes.accZ,4); myFile.print(",");
+      //myFile.print(scaled_axes.gyroX,4); myFile.print(",");
+      //myFile.print(scaled_axes.gyroY,4); myFile.print(",");
+      //myFile.print(scaled_axes.gyroZ,4); myFile.print(",");
+      //myFile.print(scaled_axes.magX,4);  myFile.print(",");
+      //myFile.print(scaled_axes.magY,4); myFile.print(",");
+      //myFile.println(scaled_axes.magZ,4);
 
-      Serial.print("Raw:");
-      Serial.print(0); Serial.print(",");
-      Serial.print(0); Serial.print(",");
-      Serial.print(0); Serial.print(",");
-      Serial.print(0); Serial.print(",");
-      Serial.print(0); Serial.print(",");
-      Serial.print(0); Serial.print(",");
-      Serial.print(scaled_axes.magX*100,4);  Serial.print(",");
-      Serial.print(scaled_axes.magY*100,4); Serial.print(",");
-      Serial.println(scaled_axes.magZ*100,4);
+      //Serial.print("Raw:");
+      //Serial.print(0); Serial.print(",");
+      //Serial.print(0); Serial.print(",");
+      //Serial.print(0); Serial.print(",");
+      //Serial.print(0); Serial.print(",");
+      //Serial.print(0); Serial.print(",");
+      //Serial.print(0); Serial.print(",");
+      //Serial.print(scaled_axes.magX,4);  Serial.print(",");
+      //Serial.print(scaled_axes.magY,4); Serial.print(",");
+      //Serial.println(scaled_axes.magZ,4);
+
+      if (idx<magCalArraySize)
+      {
+        xmag[idx] = scaled_axes.magX;
+        ymag[idx] = scaled_axes.magY;
+        zmag[idx] = scaled_axes.magZ;
+        idx++;
+      }
+      
+
+
       unsigned long t1 = millis();
-
-      Serial.print("Uni:");
-      Serial.print(0); Serial.print(",");
-      Serial.print(0); Serial.print(",");
-      Serial.print(0); Serial.print(",");
-      Serial.print(0); Serial.print(",");
-      Serial.print(0); Serial.print(",");
-      Serial.print(0); Serial.print(",");
-      Serial.print(scaled_axes.magX*10,4);  Serial.print(",");
-      Serial.print(scaled_axes.magY*10,4); Serial.print(",");
-      Serial.println(scaled_axes.magZ*10,4);
-      //Serial.print("Time taken for frame ");
-      //Serial.println(t1-t0);
-    }
+      
   }
   //Serial.println(ahrs.icm20649.readFIFOCount());
   
   if (millis()-startTime>20000) {
     myFile.close();
     Serial.println("Datalogging ended");
+    ahrs.icm20649.enableI2CMaster(false);
+    ahrs.icm20649.setI2CBypass(true);
+    delay(10);
+    if (!ahrs.lis3mdl.hardIronCalib(xmag,ymag,zmag,magCalArraySize))
+    {
+      Serial.println("Failed to write Hardiron");
+    }
+    
+    ahrs.lis3mdl.readCalibrationOffsets(&xmagR, &ymagR, &zmagR);
+    Serial.print("X calibration: ");
+    Serial.println(xmagR);
+    Serial.print("Y calibration: ");
+    Serial.println(ymagR);
+    Serial.print("Z calibration: ");
+    Serial.println(zmagR);
     while (true) {
       delay(10);
     }
   }
   //delay(50);
+}
 }

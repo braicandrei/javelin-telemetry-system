@@ -981,7 +981,6 @@ bool Adafruit_ICM20X_Temp::getEvent(sensors_event_t *event) {
 ///NEW IMPLEMENTATION
 /**************************************************************************/
 
-
 /*!
     @brief Enable fifo opertion mode
     @param enable Enable (true) or disable (false) 
