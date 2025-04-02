@@ -10,6 +10,7 @@
 #include <FS.h>
 #include <EEPROM.h>
 
+QueueHandle_t queue = NULL;
 
 Adafruit_ICM20649 icm;
 Adafruit_LIS3MDL lis;
@@ -24,36 +25,17 @@ void IRAM_ATTR handleInterrupt() {
   interruptOccurred = true;
 }
 
-unsigned long getTimeStamp() {
-  //temporary function to get time stamp until RTC is implemented
-  return millis();
-}
-
-const int magCalArraySize = 1000;
-float xmag[magCalArraySize],
-      ymag[magCalArraySize],
-      zmag[magCalArraySize];
-float xmagR,
-ymagR,
-zmagR;
-
-int idx = 0;
 unsigned long startTime = 0;
 #define EEPROM_SIZE 64
+
 void setup(void) {
-  Serial.begin(115200);
-  if (!EEPROM.begin(EEPROM_SIZE)) {
+  Serial.begin(115200);//start serial for debugging
+  if (!EEPROM.begin(EEPROM_SIZE)) {//initialize EEPROM
     Serial.println("failed to initialize EEPROM");
     delay(1000000);
   }
-  ahrs.beginAHRSi2c();
-  ahrs.configAHRS();
-  //Serial.println("Adafruit ICM20649 test!");
-  pinMode(4,INPUT);
-  attachInterrupt(digitalPinToInterrupt(4), handleInterrupt, RISING); // Interrupción activa en HIGH
-
-
-  if (!SD.begin()) {
+  queue = xQueueCreate(500, sizeof(ahrs_axes_t));//create queue for 500 elements of type ahrs_axes_t
+  if (!SD.begin()) {// initialize SD card
     Serial.println("SD card initialization failed!");
     while (true) {
       delay(10);
@@ -61,8 +43,8 @@ void setup(void) {
   } else {
     Serial.println("SD card initialized successfully");
   }
-
-  myFile = SD.open("/datalog.txt", FILE_WRITE);
+  
+  myFile = SD.open("/datalog.txt", FILE_WRITE);//open file for writing
   if (!myFile) {
     Serial.println("Error opening datalog.txt");
     while (true) {
@@ -72,6 +54,16 @@ void setup(void) {
     Serial.println("datalog.txt opened successfully");
   }
 
+  ahrs.beginAHRSi2c(); // Initialize ICM20649 and LIS3MDL
+  ahrs.configAHRS();// Configure ICM20649 and LIS3MDL
+  pinMode(4,INPUT);
+  attachInterrupt(digitalPinToInterrupt(4), handleInterrupt, RISING); //attach interrupt to pin 4
+
+  ahrs.lowPowerMode(true);
+  Serial.println("Low power mode active....");
+  delay(2000);
+  ahrs.lowPowerMode(false);
+  Serial.println("Low power mode deactivate....");
   startTime = millis();
 }
 
@@ -88,7 +80,7 @@ void loop() {
     //Serial.println(frameCoun);
 
     for (size_t i = 0; i < frameCoun; i++) {
-      unsigned long t0 = millis();
+      unsigned long t0 = micros();
       ahrs_axes_t scaled_axes = ahrs.scaleAxes(raw_axesD[i]);
       //write to SD card only the axex values in csv format
       //myFile.print(scaled_axes.accX,4); myFile.print(",");
@@ -101,50 +93,40 @@ void loop() {
       //myFile.print(scaled_axes.magY,4); myFile.print(",");
       //myFile.println(scaled_axes.magZ,4);
 
-      //Serial.print("Raw:");
-      //Serial.print(0); Serial.print(",");
-      //Serial.print(0); Serial.print(",");
-      //Serial.print(0); Serial.print(",");
-      //Serial.print(0); Serial.print(",");
-      //Serial.print(0); Serial.print(",");
-      //Serial.print(0); Serial.print(",");
-      //Serial.print(scaled_axes.magX,4);  Serial.print(",");
-      //Serial.print(scaled_axes.magY,4); Serial.print(",");
-      //Serial.println(scaled_axes.magZ,4);
-
-      if (idx<magCalArraySize)
-      {
-        xmag[idx] = scaled_axes.magX;
-        ymag[idx] = scaled_axes.magY;
-        zmag[idx] = scaled_axes.magZ;
-        idx++;
-      }
-      
-
-
-      unsigned long t1 = millis();
-      
+      String data = String(scaled_axes.accX, 4) + "," +
+              String(scaled_axes.accY, 4) + "," +
+              String(scaled_axes.accZ, 4) + "," +
+              String(scaled_axes.gyroX, 4) + "," +
+              String(scaled_axes.gyroY, 4) + "," +
+              String(scaled_axes.gyroZ, 4) + "," +
+              String(scaled_axes.magX, 4) + "," +
+              String(scaled_axes.magY, 4) + "," +
+              String(scaled_axes.magZ, 4);
+      myFile.println(data);        
+      unsigned long t1 = micros();
+      //Serial.print("Time taken: ");
+      //Serial.println(t1-t0);
   }
   //Serial.println(ahrs.icm20649.readFIFOCount());
   
   if (millis()-startTime>20000) {
     myFile.close();
     Serial.println("Datalogging ended");
-    ahrs.icm20649.enableI2CMaster(false);
-    ahrs.icm20649.setI2CBypass(true);
-    delay(10);
-    if (!ahrs.lis3mdl.hardIronCalib(xmag,ymag,zmag,magCalArraySize))
-    {
-      Serial.println("Failed to write Hardiron");
-    }
-    
-    ahrs.lis3mdl.readCalibrationOffsets(&xmagR, &ymagR, &zmagR);
-    Serial.print("X calibration: ");
-    Serial.println(xmagR);
-    Serial.print("Y calibration: ");
-    Serial.println(ymagR);
-    Serial.print("Z calibration: ");
-    Serial.println(zmagR);
+    //ahrs.icm20649.enableI2CMaster(false);
+    //ahrs.icm20649.setI2CBypass(true);
+    //delay(10);
+    //if (!ahrs.lis3mdl.hardIronCalib(xmag,ymag,zmag,magCalArraySize))
+    //{
+    //  Serial.println("Failed to write Hardiron");
+    //}
+    //
+    //ahrs.lis3mdl.readCalibrationOffsets(&xmagR, &ymagR, &zmagR);
+    //Serial.print("X calibration: ");
+    //Serial.println(xmagR);
+    //Serial.print("Y calibration: ");
+    //Serial.println(ymagR);
+    //Serial.print("Z calibration: ");
+    //Serial.println(zmagR);
     while (true) {
       delay(10);
     }

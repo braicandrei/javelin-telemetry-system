@@ -71,6 +71,37 @@ bool AHRS::configAHRS() {
   return true; // Success
 }
 
+
+bool AHRS::lowPowerMode(bool mode)
+{
+  if (mode)
+  {
+    icm20649.enableI2CMaster(false);//disble i2c master
+    icm20649.setI2CBypass(true);//enable bypass to acces lis2mdl
+    Serial.println("Check 1");
+    lis3mdl.lowPowerMode(true);//enable lis3mdl low power mode
+    Serial.println("Check 2");
+    icm20649.setI2CBypass(false);
+    Serial.println("Check 3");
+    icm20649.sleepMode(true);//enable icm20049 sleep mode 
+    Serial.println("Check 4");
+    icm20649.enableFIFO(false);//diable fifo transfers
+    Serial.println("Check 5");
+    icm20649.resetFIFO();//reset fifo
+  }else{
+    icm20649.enableI2CMaster(false);//disble i2c master
+    icm20649.setI2CBypass(true);//enable bypass to acces lis2mdl
+    lis3mdl.lowPowerMode(false);//disable lis3mdl low power mode
+    icm20649.setI2CBypass(false);
+    icm20649.enableI2CMaster(true);//enable i2c master
+    icm20649.sleepMode(false);//enable icm20049 sleep mode 
+    delay(200); //delay for data stabilization 
+    icm20649.resetFIFO();//reset fifo
+    icm20649.enableFIFO(true);//enable fifo transfers
+  }
+  return true;
+  
+}
 bool AHRS::setAHRSRange(icm20649_accel_range_t accelRange, icm20649_gyro_range_t gyroRange, lis3mdl_range_t magRange) {
     icm20649.setAccelRange(accelRange);
     icm20649.setGyroRange(gyroRange);

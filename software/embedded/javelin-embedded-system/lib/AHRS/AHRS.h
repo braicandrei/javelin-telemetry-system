@@ -27,6 +27,7 @@ public:
     ~AHRS();
     uint8_t beginAHRSi2c();
     bool configAHRS();
+    bool lowPowerMode(bool mode);
     bool setAHRSRange(
         icm20649_accel_range_t accelRange, icm20649_gyro_range_t gyroRange, lis3mdl_range_t magRange);
     bool setAHRSSampleRate(uint8_t sampleRate);

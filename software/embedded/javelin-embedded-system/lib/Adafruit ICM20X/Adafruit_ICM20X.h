@@ -263,7 +263,7 @@ public:
   void configI2CSlave0(uint8_t slv_addr, uint8_t reg_addr, uint8_t dataLemgth);
 
 
-
+  void sleepMode(bool mode);
   
   
 

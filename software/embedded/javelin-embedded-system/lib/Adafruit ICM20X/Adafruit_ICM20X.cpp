@@ -1256,3 +1256,13 @@ void Adafruit_ICM20X::configI2CSlave0(uint8_t slv_addr, uint8_t reg_addr, uint8_
 
 }
 
+void Adafruit_ICM20X::sleepMode(bool mode)
+{
+  Adafruit_BusIO_Register pwr_mgmt_1 = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_PWR_MGMT_1);
+
+  Adafruit_BusIO_RegisterBits sleep =
+  Adafruit_BusIO_RegisterBits(&pwr_mgmt_1, 1, 6);
+  pwr_mgmt_1.write(mode);
+}
+

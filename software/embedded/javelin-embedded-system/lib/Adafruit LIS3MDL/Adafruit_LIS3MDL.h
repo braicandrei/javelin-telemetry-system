@@ -134,6 +134,8 @@ public:
 
   void loadOffsetsFromEEPROM();
   void saveOffsetsToEEPROM();
+
+  void lowPowerMode(bool mode);
 private:
   bool _init(void);
 

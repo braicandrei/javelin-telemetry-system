@@ -703,3 +703,13 @@ void Adafruit_LIS3MDL::saveOffsetsToEEPROM() {
   //EEPROM.put(EEPROM_Z_OFFSET_ADDR, 0.f);
   EEPROM.commit(); //
 }
+
+void Adafruit_LIS3MDL::lowPowerMode(bool mode)
+{
+  Adafruit_BusIO_Register CTRL_REG3 =
+  Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                          LIS3MDL_REG_CTRL_REG3, 1);
+  Adafruit_BusIO_RegisterBits lowPower =
+  Adafruit_BusIO_RegisterBits(&CTRL_REG3, 1, 5);
+  lowPower.write(mode);
+}
