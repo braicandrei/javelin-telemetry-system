@@ -21,6 +21,14 @@ typedef struct {
     magZ;      ///< Magnetometer Z axis in uT
 } ahrs_axes_t;
 
+typedef enum
+{
+    AHRS_WAITING,
+    AHRS_PREP,
+    AHRS_SAMPLING,
+    AHRS_END
+}state_t;
+
 class AHRS {    
 public:
     AHRS();

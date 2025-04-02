@@ -1143,12 +1143,9 @@ icm20x_raw_axes_t Adafruit_ICM20X::readFIFOFrame() {
   icm20x_raw_axes_t raw_axes_d;
   uint8_t buffer[fifo_data_byte_count];
   Adafruit_BusIO_Register fifo_r_w = Adafruit_BusIO_Register(
-    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_R_W);
-  for (size_t i = 0; i < fifo_data_byte_count; i++)
-  {
-    buffer[i] = fifo_r_w.read();
-    //Serial.println(buffer[i], HEX);
-  }
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_R_W, fifo_data_byte_count);
+
+  fifo_r_w.read(buffer, fifo_data_byte_count);
 
   uint8_t *ptr = buffer; // Puntero para recorrer el buffer
 
@@ -1209,8 +1206,9 @@ uint16_t Adafruit_ICM20X::readFIFOBuffer(icm20x_raw_axes_t *frameBuffer) {
   uint16_t fifo_frame_count = fifo_byte_count / fifo_data_byte_count;
 
   for (size_t i = 0; i < fifo_frame_count; i++)
-  {
+  { //unsigned long t0 = millis();
     frameBuffer[i] = readFIFOFrame();
+    //Serial.println("Time to transfer fifo: "+ String(millis()-t0));
   }
   return fifo_frame_count;
 }

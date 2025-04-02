@@ -57,8 +57,8 @@ bool AHRS::configAHRS() {
   icm20649.odrAlign(true); // Enable ODR alignment
   icm20649.setAccelRange(ICM20649_ACCEL_RANGE_30_G); // Set accelerometer range to 30 G
   icm20649.setGyroRange(ICM20649_GYRO_RANGE_500_DPS); // Set gyroscope range to 500 DPS
-  icm20649.setAccelRateDivisor(20); // Set accelerometer data rate divisor to 254
-  icm20649.setGyroRateDivisor(20); // Set gyroscope data rate divisor to 254
+  icm20649.setAccelRateDivisor(4); // Set accelerometer data rate divisor
+  icm20649.setGyroRateDivisor(4); // Set gyroscope data rate divisor 
   
   icm20649.enableI2CMaster(true); // Enable I2C master
   icm20649.configureI2CMaster(); // Configure I2C master
@@ -78,15 +78,15 @@ bool AHRS::lowPowerMode(bool mode)
   {
     icm20649.enableI2CMaster(false);//disble i2c master
     icm20649.setI2CBypass(true);//enable bypass to acces lis2mdl
-    Serial.println("Check 1");
+    //Serial.println("Check 1");
     lis3mdl.lowPowerMode(true);//enable lis3mdl low power mode
-    Serial.println("Check 2");
+    //Serial.println("Check 2");
     icm20649.setI2CBypass(false);
-    Serial.println("Check 3");
+    //Serial.println("Check 3");
     icm20649.sleepMode(true);//enable icm20049 sleep mode 
-    Serial.println("Check 4");
+    //Serial.println("Check 4");
     icm20649.enableFIFO(false);//diable fifo transfers
-    Serial.println("Check 5");
+    //Serial.println("Check 5");
     icm20649.resetFIFO();//reset fifo
   }else{
     icm20649.enableI2CMaster(false);//disble i2c master
