@@ -38,31 +38,49 @@ unsigned long startTime = 0;
 #define EEPROM_SIZE 64
 
 
-int threshold = 40;
-bool touchActive = false;
-bool lastTouchActive = false;
-bool testingLower = true;
+const int threshold = 25000;
+volatile int touchCount = 0; // Contador de pulsaciones
+volatile unsigned long lastTouchTime = 0; // Marca de tiempo de la última pulsación
+volatile bool threeTouchesDetected = false; // Flag para indicar tres pulsaciones consecutivas
 
 void gotTouchEvent() {
-  if (lastTouchActive != testingLower) {
-    touchActive = !touchActive;
-    testingLower = !testingLower;
-    // Touch ISR will be inverted: Lower <--> Higher than the Threshold after ISR event is noticed
-    touchInterruptSetThresholdDirection(testingLower);
+  unsigned long currentTime = millis();
+  
+  const unsigned long debounceDelay = 150; // Tiempo de debounce en milisegundos
+  const unsigned long maxTouchInterval = 500; // Tiempo máximo entre toques consecutivos (en ms)
+
+  // Verificar si el evento está dentro del tiempo de debounce
+  if (currentTime - lastTouchTime > debounceDelay) {
+    // Si el tiempo entre toques supera el máximo permitido, reiniciar el contador
+    if (currentTime - lastTouchTime > maxTouchInterval) {
+      touchCount = 1;
+    } else{
+      touchCount++; // Incrementar el contador de pulsaciones
+    }
+
+    lastTouchTime = currentTime; // Actualizar la marca de tiempo
+    // Si se detectan tres toques consecutivos dentro del tiempo permitido
+    Serial.println("Touch event detected!");
+    Serial.print("Touch count: ");
+    Serial.println(touchCount);
+    if (touchCount >= 3) {
+      threeTouchesDetected = true; // Activar el flag
+      touchCount = 0; // Reiniciar el contador
+    }
   }
 }
 
 void setup(void) {
   Serial.begin(115200);//start serial for debugging
 
-  touchAttachInterrupt(T9, gotTouchEvent, threshold);
+  touchAttachInterrupt(T1, gotTouchEvent, threshold);
 
   if (!EEPROM.begin(EEPROM_SIZE)) {//initialize EEPROM
     Serial.println("failed to initialize EEPROM");
     delay(1000000);
   }
 
-  if (!SD.begin()) {// initialize SD card
+  if (!SD.begin(3)) {// initialize SD card
     Serial.println("SD card initialization failed!");
     while (true) {
       delay(10);
@@ -87,17 +105,15 @@ void loop() {
   switch (ahrs_state)
   {
   case AHRS_WAITING:
-    if (lastTouchActive != touchActive) {
-      lastTouchActive = touchActive;
-      if (touchActive) {
-        Serial.println("  ---- Touch was Pressed");
-        ahrs_state = AHRS_PREP;
-      }
+    if (threeTouchesDetected) {
+      threeTouchesDetected = false; // Reiniciar el flag
+      Serial.println("Tres pulsaciones consecutivas detectadas!");
+      ahrs_state = AHRS_WAITING;
     }
     break;
   case AHRS_PREP:
   {
-  String fname = getFileName();
+    String fname = getFileName();
     myFile = SD.open(fname, FILE_WRITE);//open file for writing
     if (!myFile) {
       Serial.println("Error opening datalog.txt");

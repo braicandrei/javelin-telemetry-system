@@ -20,7 +20,7 @@
 
 #include "Adafruit_ICM20X.h"
 
-#define ICM20649_I2CADDR_DEFAULT 0x68 ///< ICM20X default i2c address
+#define ICM20649_I2CADDR_DEFAULT 0x69 ///< ICM20X default i2c address
 
 /** The accelerometer data range */
 typedef enum {
