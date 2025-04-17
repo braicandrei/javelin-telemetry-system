@@ -1,7 +1,6 @@
 /*!
     * @file AHRS.cpp
     * @brief AHRS class definition
-    * @date 2021-02-21
 */
 
 #include "AHRS.h"
@@ -10,7 +9,10 @@ AHRS::AHRS() {}
 AHRS::~AHRS() {}
 
 uint8_t AHRS::beginAHRSi2c() {
-
+  Wire.begin(); // Initialize I2C communication
+  Wire.setClock(400000); 
+  Wire.setBufferSize(250); //este valor debe coincidir con el tamaño del buffer del contructor de la clase Adafruit_I2CDevice. 
+                            //Fallo de la libreria por usar un valor hardcodeado. Para dejarlo bien habria que modificar varios metodos de la libreria Adafruit_I2CDevice.cpp y Adafruit_I2CDevice
   uint8_t accelConexionTry = 0;
   uint8_t magConexionTry = 0;
 
@@ -23,7 +25,7 @@ uint8_t AHRS::beginAHRSi2c() {
   {
    return 0x01; // Error code for ICM20649 initialization failure
   }
-
+ 
   icm20649.setI2CBypass(true); // Enable I2C bypass
 
   if (!lis3mdl.begin_I2C() && magConexionTry < 3) { // Initialize LIS3MDL I2C bus
@@ -42,14 +44,17 @@ uint8_t AHRS::beginAHRSi2c() {
 
 bool AHRS::configAHRS() {
 
- 
+  EEPROM.begin(EEPROM_SIZE); // Initialize EEPROM
+  loadMagCalibFromEEPROM(); // Load magnetometer calibration offsets from EEPROM
+
   icm20649.setI2CBypass(true); // Enable I2C bypass
- 
+  
+  lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
   lis3mdl.setPerformanceMode(LIS3MDL_HIGHMODE); // Set magentometer performance mode to high
   lis3mdl.setOperationMode(LIS3MDL_CONTINUOUSMODE); // Set magnetometer operation mode to continuous
   lis3mdl.setDataRate(LIS3MDL_DATARATE_560_HZ); // Set magnetometer data rate to 560 Hz
   lis3mdl.setRange(LIS3MDL_RANGE_4_GAUSS); // Set magnetometer range to 4 gauss
-  lis3mdl.loadOffsetsFromEEPROM();  // Load offsets from EEPROM
+  //lis3mdl.loadOffsetsFromEEPROM();  // Load offsets from EEPROM
   lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
   icm20649.setI2CBypass(false); // Disable I2C bypass
 
@@ -160,4 +165,32 @@ ahrs_axes_t AHRS::scaleAxes(icm20x_raw_axes_t raw_axes){
 
 }
 
+void AHRS::saveMagCalibToEEPROM()
+{
+float _x=0, _y=0, _z=0;
+lis3mdl.getCalibrationOffsets(&_x, &_y, &_z);
+EEPROM.put(MAG_X_OFFSET*sizeof(float), _x); // Save X offset to EEPROM
+EEPROM.put(MAG_Y_OFFSET*sizeof(float), _y); // Save Y offset to EEPROM
+EEPROM.put(MAG_Z_OFFSET*sizeof(float), _z); // Save Z offset to EEPROM
+EEPROM.commit(); // Commit changes to EEPROM
 
+}
+void AHRS::loadMagCalibFromEEPROM()
+{
+  float x = EEPROM.readFloat(MAG_X_OFFSET*sizeof(float));
+  float y = EEPROM.readFloat(MAG_Y_OFFSET*sizeof(float));
+  float z = EEPROM.readFloat(MAG_Z_OFFSET*sizeof(float));
+  lis3mdl.setCalibrationOffsets(x, y, z); // Set calibration offsets to magnetometer
+}
+void AHRS::magHardIronCalc(float x, float y, float z)
+{
+  //Serial.println("MagX: " + String(x) + " MagY: " + String(y) + " MagZ: " + String(z));
+  lis3mdl.hardIronCalc(x, y, z); // Calculate hard iron offsets
+}
+void AHRS::magCalibWrite(){
+  icm20649.enableI2CMaster(false);//disble i2c master
+  icm20649.setI2CBypass(true);//enable bypass to acces lis2mdl
+  lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
+  icm20649.setI2CBypass(false);
+  icm20649.enableI2CMaster(true);//enable i2c master
+}

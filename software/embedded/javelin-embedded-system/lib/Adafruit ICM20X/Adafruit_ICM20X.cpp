@@ -1031,8 +1031,7 @@ bool Adafruit_ICM20X::enableFIFOWatermarkInt(bool enable, bool logicLevel) {
     @returns True if the operation was successful, otherwise false
 */
 bool Adafruit_ICM20X::selectFIFOData(icm20_fifo_data_select_t data_select) {
-  this->fifo_data_select = data_select;
-  this->fifo_data_byte_count = getFifoDataByteCount(data_select);
+   configFifoParam(data_select);
   _setBank(0);
   Adafruit_BusIO_Register fifo_en_1 = Adafruit_BusIO_Register(
     i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_EN_1);
@@ -1053,23 +1052,37 @@ bool Adafruit_ICM20X::selectFIFOData(icm20_fifo_data_select_t data_select) {
     @param data_select Data select
     @returns Number of bytes per FIFO data frame
 */
-uint8_t Adafruit_ICM20X::getFifoDataByteCount(icm20_fifo_data_select_t data_select) {
-  
+void Adafruit_ICM20X::configFifoParam(icm20_fifo_data_select_t data_select) {
+  uint8_t byte_count = 18; //default 18 byte
+  uint8_t _buffer_size = 234; //default 234 byte
+  uint8_t _frames_per_buffer = 13; //default 13 frames per buffer
   switch (data_select) {
     case FIFO_DATA_ACCEL:
-      return 6; // 6 bytes for accelerometer
+      byte_count = 6;
+      _buffer_size = 234;
+      _frames_per_buffer = 39;
       break;
     case FIFO_DATA_ACCEL_GYRO:
-      return 12; // + 6 bytes for gyroscope
+      byte_count = 12;
+      _buffer_size = 228;
+      _frames_per_buffer = 19;
       break;
     case FIFO_DATA_ACCEL_GYRO_S0:
-      return 18; // 6 bytes for S0
+      byte_count = 18;
+      _buffer_size = 234;
+      _frames_per_buffer = 13;
       break;
     default:
-      return 6; //default 6 byte
+      byte_count = 18;
+      _buffer_size = 234;
+      _frames_per_buffer = 13;
       break;
     }
-}
+    this->fifo_data_select = data_select;
+    this->bytes_per_frame = byte_count; 
+    this->buffer_size = _buffer_size; 
+    this->frames_per_chunk = _frames_per_buffer; 
+  }
 
 /*!
     @brief Reset FIFO data
@@ -1139,14 +1152,12 @@ uint32_t Adafruit_ICM20X::readFIFOByte(){
     @brief  Read a single frame from the FIFO buffer
     @returns True if the operation was successful, otherwise false
 */
+/*
 icm20x_raw_axes_t Adafruit_ICM20X::readFIFOFrame() {
   icm20x_raw_axes_t raw_axes_d;
   uint8_t buffer[fifo_data_byte_count];
   Adafruit_BusIO_Register fifo_r_w = Adafruit_BusIO_Register(
     i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_R_W, fifo_data_byte_count);
-
-  fifo_r_w.read(buffer, fifo_data_byte_count);
-
   uint8_t *ptr = buffer; // Puntero para recorrer el buffer
 
   switch (fifo_data_select) {
@@ -1195,7 +1206,7 @@ icm20x_raw_axes_t Adafruit_ICM20X::readFIFOFrame() {
   }
   return raw_axes_d;
 }
-
+*/
 /*!
     @brief  Read the avaliable FIFO data frames
     @returns Number of frames read from the fifo
@@ -1203,14 +1214,55 @@ icm20x_raw_axes_t Adafruit_ICM20X::readFIFOFrame() {
 uint16_t Adafruit_ICM20X::readFIFOBuffer(icm20x_raw_axes_t *frameBuffer) {
   _setBank(0);
   uint32_t fifo_byte_count = readFIFOCount();
-  uint16_t fifo_frame_count = fifo_byte_count / fifo_data_byte_count;
-
-  for (size_t i = 0; i < fifo_frame_count; i++)
-  { //unsigned long t0 = millis();
-    frameBuffer[i] = readFIFOFrame();
-    //Serial.println("Time to transfer fifo: "+ String(millis()-t0));
+  if (fifo_byte_count<buffer_size)
+  {
+    return 0;
   }
-  return fifo_frame_count;
+  uint8_t chunkCount = fifo_byte_count / buffer_size;
+  uint8_t buffer[buffer_size*chunkCount];
+
+  Adafruit_BusIO_Register fifo_r_w = Adafruit_BusIO_Register(
+    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_R_W, buffer_size);
+  for (size_t i = 0; i < chunkCount; i++)
+  {
+    if (!fifo_r_w.read(&buffer[buffer_size*i], buffer_size))
+    {
+      Serial.println("Error reading FIFO buffer");
+    }
+  }
+  uint16_t frameCount = 0;
+  for (size_t i = 0; i < buffer_size*chunkCount; i+=bytes_per_frame)
+  {
+    uint8_t *ptr = &buffer[i];
+    
+    frameBuffer[frameCount].rawAccX = (ptr[0] << 8) | ptr[1];
+    frameBuffer[frameCount].rawAccY = (ptr[2] << 8) | ptr[3];
+    frameBuffer[frameCount].rawAccZ = (ptr[4] << 8) | ptr[5];
+    ptr += 6; // Avanzar el puntero después de los datos del acelerómetro
+    frameBuffer[frameCount].rawGyroX = (ptr[0] << 8) | ptr[1];
+    frameBuffer[frameCount].rawGyroY = (ptr[2] << 8) | ptr[3];
+    frameBuffer[frameCount].rawGyroZ = (ptr[4] << 8) | ptr[5];
+    ptr += 6; // Avanzar el puntero después de los datos del giroscopio
+    frameBuffer[frameCount].rawMagX = (ptr[1] << 8) | ptr[0];
+    frameBuffer[frameCount].rawMagY = (ptr[3] << 8) | ptr[2];
+    frameBuffer[frameCount].rawMagZ = (ptr[5] << 8) | ptr[4];
+    frameCount++;
+  }
+
+  //Serial.print("FIFO byte count before: " + String(fifo_byte_count));
+  //Serial.print("---Chunk count: " + String(chunkCount));
+  //Serial.print("---FIFO buffer size: " + String(buffer_size));
+  //Serial.print("---FIFO byte count after: " + String(readFIFOCount()));
+  //Serial.print("---RAW accX: " +String(frameBuffer[0].rawAccX));
+  //Serial.print("---RAW accY: " +String(frameBuffer[0].rawAccY));
+  //Serial.print("---RAW accZ: " +String(frameBuffer[0].rawAccZ));
+  //Serial.print("---RAW gyroX: " +String(frameBuffer[0].rawGyroX));
+  //Serial.print("---RAW gyroY: " +String(frameBuffer[0].rawGyroY));
+  //Serial.print("---RAW gyroZ: " +String(frameBuffer[0].rawGyroZ));
+  //Serial.print("---RAW magX: " +String(frameBuffer[0].rawMagX));
+  //Serial.print("---RAW magY: " +String(frameBuffer[0].rawMagY));
+  //Serial.println("---RAW magZ: " +String(frameBuffer[0].rawMagZ));
+  return frameCount;
 }
 
 /*!

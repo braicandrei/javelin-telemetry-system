@@ -257,6 +257,7 @@ public:
   uint32_t readFIFOByte();
   icm20x_raw_axes_t readFIFOFrame();
   uint16_t readFIFOBuffer(icm20x_raw_axes_t *frameBuffer);
+ 
 
 
 
@@ -324,7 +325,10 @@ protected:
 
   ///NEW ATTRIBUTES///
   icm20_fifo_data_select_t fifo_data_select; ///< Data select for FIFO
-  uint8_t fifo_data_byte_count;             ///< Number of bytes in FIFO frame
+  uint8_t bytes_per_frame;             ///< Number of bytes in FIFO frame
+  const uint8_t  buffer_size_max = 234;   ///< Max buffer size for reading FIFO data
+  uint8_t buffer_size;            ///< Size of FIFO read buffer
+  uint8_t  frames_per_chunk; ///< Number of frames per buffer chunk
   Adafruit_LIS3MDL lis3mdl;                 ///< Magnetometer object
   icm20x_raw_axes_t raw_axes[ICM20X_FIFO_SIZE/6];  ///< Raw data axes buffer array (set to max size of frames in FIFO)
 
@@ -350,7 +354,7 @@ private:
   
 
   /// NEW METHODS ///
-  uint8_t getFifoDataByteCount(icm20_fifo_data_select_t data_select);
+  void configFifoParam(icm20_fifo_data_select_t data_select);
 
 };
 

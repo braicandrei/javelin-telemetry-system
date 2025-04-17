@@ -128,9 +128,12 @@ public:
   bool resetRegisters();
 
   bool hardIronCalib(float *x, float *y, float *z, uint16_t size);
+  void hardIronCalc(float x, float y, float z);
   void getCalibrationOffsets(float *x, float *y, float *z);
+  void setCalibrationOffsets(float x, float y, float z);
   void readCalibrationOffsets(float *x, float *y, float *z);
   bool writeOffsetxyz();
+
 
   void loadOffsetsFromEEPROM();
   void saveOffsetsToEEPROM();
@@ -149,6 +152,8 @@ private:
   float xoffset=0.52, ///< X axis offset
         yoffset=-0.52, ///< Y axis offset
         zoffset=1.27; ///< Z axis offset
+  bool calibrating = false; ///< Flag to indicate if calibration is in progress
+  
 };
 
 #endif

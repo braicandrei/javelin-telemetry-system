@@ -9,6 +9,14 @@
 #include <Adafruit_ICM20649.h>
 #include <Adafruit_LIS3MDL.h>
 
+#define EEPROM_SIZE 1024 ///< Size of EEPROM for storing system parameters
+enum EEPROM_ADDR {
+    MAG_X_OFFSET, ///< Magnetometer X axis offset address
+    MAG_Y_OFFSET, ///< Magnetometer Y axis offset address
+    MAG_Z_OFFSET, ///< Magnetometer Z axis offset address
+};
+
+
 typedef struct {
     float accX, ///< Accelerometer X axis in G's
     accY,      ///< Accelerometer Y axis in G's
@@ -40,6 +48,11 @@ public:
         icm20649_accel_range_t accelRange, icm20649_gyro_range_t gyroRange, lis3mdl_range_t magRange);
     bool setAHRSSampleRate(uint8_t sampleRate);
     ahrs_axes_t scaleAxes(icm20x_raw_axes_t raw_axes);
+    void magHardIronCalc(float x, float y, float z);
+    void magCalibWrite();
+    void saveMagCalibToEEPROM();
+    void loadMagCalibFromEEPROM();
+    
     Adafruit_ICM20649 icm20649;
     Adafruit_LIS3MDL lis3mdl;
 private:

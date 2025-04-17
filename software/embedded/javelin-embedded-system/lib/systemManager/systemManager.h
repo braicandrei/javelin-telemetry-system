@@ -3,6 +3,21 @@
 
 
 #include <Arduino.h>
+#include <DataLogger.h>
+#include <UserInterface.h>
+
+
+class systemManager
+{
+
+public:
+    systemManager();
+    ~systemManager();
+
+
+private:
+
+};
 
 
 

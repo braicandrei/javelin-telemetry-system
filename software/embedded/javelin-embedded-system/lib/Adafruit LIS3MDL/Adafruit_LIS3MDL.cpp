@@ -588,6 +588,25 @@ bool Adafruit_LIS3MDL::resetRegisters() {
 
 bool Adafruit_LIS3MDL::writeOffsetxyz() {
 
+  float _x=0, _y=0, _z=0;
+  readCalibrationOffsets(&_x, &_y, &_z);
+  Serial.print("xOffsetNew: ");
+  Serial.print(this->xoffset);
+  Serial.print(" yOffsetNew: ");
+  Serial.print(this->yoffset);
+  Serial.print(" zOffsetNew: ");
+  Serial.println(this->zoffset);
+  Serial.print("xOffsetDevice: ");
+  Serial.print(_x);
+  Serial.print(" yOffsetDevice: ");
+  Serial.print(_y);
+  Serial.print(" zOffsetDevice: ");
+  Serial.println(_z);
+
+  this->xoffset = _x-this->xoffset;
+  this->yoffset = _y-this->yoffset;
+  this->zoffset = _z-this->zoffset;
+
   int16_t xOffsetInt = (int16_t)(this->xoffset * this->_scale);
   int16_t yOffsetInt = (int16_t)(this->yoffset * this->_scale);
   int16_t zOffsetInt = (int16_t)(this->zoffset * this->_scale);
@@ -602,9 +621,44 @@ bool Adafruit_LIS3MDL::writeOffsetxyz() {
   buffer[3] = (yOffsetInt >> 8) & 0xFF;
   buffer[4] = zOffsetInt & 0xFF;
   buffer[5] = (zOffsetInt >> 8) & 0xFF;
-
+  
+  calibrating = false;
   return OFFSET_X_REG_L.write(buffer, sizeof(buffer));
 } 
+
+void Adafruit_LIS3MDL::hardIronCalc(float x, float y, float z)
+{
+  static float maxX = 0, minX = 0, maxY = 0, minY = 0, maxZ = 0, minZ = 0;
+  if (!calibrating)
+  {
+    maxX = 0;
+    minX = 0;
+    maxY = 0;
+    minY = 0;
+    maxZ = 0;
+    minZ = 0;
+    calibrating = true;
+  }
+  
+  if (x > maxX) {
+    maxX = x;
+  } else if (x < minX) {
+    minX = x;
+  }
+  if (y > maxY) {
+    maxY = y;
+  } else if (y < minY) {
+    minY = y;
+  }
+  if (z > maxZ) {
+    maxZ = z;
+  } else if (z < minZ) {
+    minZ = z;
+  }
+  this->xoffset = -(maxX + minX) / 2.0;
+  this->yoffset = -(maxY + minY) / 2.0;
+  this->zoffset = -(maxZ + minZ) / 2.0;
+}
 
 bool Adafruit_LIS3MDL::hardIronCalib(float *x, float *y, float *z, uint16_t size) {
   //calculate max and min values of x, y and z (array of floats passed by reference)
@@ -651,6 +705,12 @@ void Adafruit_LIS3MDL::getCalibrationOffsets(float *x, float *y, float *z) {
   *x = this->xoffset;
   *y = this->yoffset;
   *z = this->zoffset;
+}
+
+void Adafruit_LIS3MDL::setCalibrationOffsets(float x, float y, float z) {
+  this->xoffset = x;
+  this->yoffset = y;
+  this->zoffset = z;
 }
 
 void Adafruit_LIS3MDL::readCalibrationOffsets(float *x, float *y, float *z) {
