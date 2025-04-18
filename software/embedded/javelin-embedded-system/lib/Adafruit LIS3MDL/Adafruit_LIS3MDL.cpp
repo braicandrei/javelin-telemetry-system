@@ -24,6 +24,8 @@
 #include <Adafruit_LIS3MDL.h>
 #include <Wire.h>
 
+#define LIS3MDL_DEBUG 0
+
 /**************************************************************************/
 /*!
     @brief  Instantiates a new LIS3MDL class
@@ -53,7 +55,6 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
   if (!i2c_dev->begin()) {
     return false;
   }
-  Serial.println("i2c_dev->begin() CHECK");
   return _init();
 }
 
@@ -571,6 +572,10 @@ int Adafruit_LIS3MDL::readMagneticField(float &x, float &y, float &z) {
   return 1;
 }
 
+/**
+ * @brief Reset all registers to default values
+ * @return true if successful, false otherwise
+ */
 bool Adafruit_LIS3MDL::resetRegisters() {
   Adafruit_BusIO_Register CTRL_REG2 =
       Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
@@ -586,22 +591,33 @@ bool Adafruit_LIS3MDL::resetRegisters() {
   return true;
 }
 
+/**
+ * @brief Write the hard iron offsets to the device
+ * 
+ * This function writes the hard iron offsets from the class variables to the device.
+ * It first reads the current offsets from the device, then subtracts the current offsets from the device offsets, 
+ * and finally writes the new offsets to the device.
+ * @return true if successful, false otherwise
+ */
 bool Adafruit_LIS3MDL::writeOffsetxyz() {
 
   float _x=0, _y=0, _z=0;
   readCalibrationOffsets(&_x, &_y, &_z);
-  Serial.print("xOffsetNew: ");
-  Serial.print(this->xoffset);
-  Serial.print(" yOffsetNew: ");
-  Serial.print(this->yoffset);
-  Serial.print(" zOffsetNew: ");
-  Serial.println(this->zoffset);
-  Serial.print("xOffsetDevice: ");
-  Serial.print(_x);
-  Serial.print(" yOffsetDevice: ");
-  Serial.print(_y);
-  Serial.print(" zOffsetDevice: ");
-  Serial.println(_z);
+
+  #if(LIS3MDL_DEBUG)
+    Serial.print("xOffsetNew: ");
+    Serial.print(this->xoffset);
+    Serial.print(" yOffsetNew: ");
+    Serial.print(this->yoffset);
+    Serial.print(" zOffsetNew: ");
+    Serial.println(this->zoffset);
+    Serial.print("xOffsetDevice: ");
+    Serial.print(_x);
+    Serial.print(" yOffsetDevice: ");
+    Serial.print(_y);
+    Serial.print(" zOffsetDevice: ");
+    Serial.println(_z);
+  #endif
 
   this->xoffset = _x-this->xoffset;
   this->yoffset = _y-this->yoffset;
@@ -626,6 +642,16 @@ bool Adafruit_LIS3MDL::writeOffsetxyz() {
   return OFFSET_X_REG_L.write(buffer, sizeof(buffer));
 } 
 
+/**
+ * @brief Compute the hard iron offsets based on the provided x, y, and z values.
+ * 
+ * This function computes the hard iron offsets based on the provided x, y, and z values on each call.
+ * It keeps track of the maximum and minimum values for each axis and calculates the offsets.
+ * 
+ * @param x The x value to be used for offset calculation.
+ * @param y The y value to be used for offset calculation.
+ * @param z The z value to be used for offset calculation.
+ */
 void Adafruit_LIS3MDL::hardIronCalc(float x, float y, float z)
 {
   static float maxX = 0, minX = 0, maxY = 0, minY = 0, maxZ = 0, minZ = 0;
@@ -660,59 +686,45 @@ void Adafruit_LIS3MDL::hardIronCalc(float x, float y, float z)
   this->zoffset = -(maxZ + minZ) / 2.0;
 }
 
-bool Adafruit_LIS3MDL::hardIronCalib(float *x, float *y, float *z, uint16_t size) {
-  //calculate max and min values of x, y and z (array of floats passed by reference)
-  float maxX = x[0], minX = x[0], maxY = y[0], minY = y[0], maxZ = z[0], minZ = z[0];
-  float xoffsetNew = 0, yoffsetNew = 0, zoffsetNew = 0;
-  for (uint16_t i = 1; i < size; i++) {
-    if (x[i] > maxX) {
-      maxX = x[i];
-    } else if (x[i] < minX) {
-      minX = x[i];
-    }
-    if (y[i] > maxY) {
-      maxY = y[i];
-    } else if (y[i] < minY) {
-      minY = y[i];
-    }
-    if (z[i] > maxZ) {
-      maxZ = z[i];
-    } else if (z[i] < minZ) {
-      minZ = z[i];
-    }
-  }
-  //calculate offsets
-
-  xoffsetNew = (maxX + minX) / 2.0;
-  yoffsetNew = (maxY + minY) / 2.0;
-  zoffsetNew = (maxZ + minZ) / 2.0;
-
-  Serial.print("xoffset compute: ");
-  Serial.println(xoffsetNew);
-  Serial.print("yoffset compute: ");
-  Serial.println(yoffsetNew);
-  Serial.print("zoffset compute: ");
-  Serial.println(zoffsetNew);
-
-  this->xoffset += xoffsetNew;
-  this->yoffset += yoffsetNew;
-  this->zoffset += zoffsetNew;
-  saveOffsetsToEEPROM();
-  return writeOffsetxyz();
-}
-
+/**
+ * @brief Get the calibration offsets for x, y, and z axes.
+ * 
+ * This function returns the calibration offsets for the x, y, and z axes.
+ * 
+ * @param x Pointer to store the x offset.
+ * @param y Pointer to store the y offset.
+ * @param z Pointer to store the z offset.
+ */
 void Adafruit_LIS3MDL::getCalibrationOffsets(float *x, float *y, float *z) {
   *x = this->xoffset;
   *y = this->yoffset;
   *z = this->zoffset;
 }
 
+/**
+ * @brief Set the calibration offsets for x, y, and z axes.
+ * 
+ * This function sets the calibration offsets for the x, y, and z axes.
+ * 
+ * @param x The x offset to be set.
+ * @param y The y offset to be set.
+ * @param z The z offset to be set.
+ */
 void Adafruit_LIS3MDL::setCalibrationOffsets(float x, float y, float z) {
   this->xoffset = x;
   this->yoffset = y;
   this->zoffset = z;
 }
 
+/**
+ * @brief Read the calibration offsets from the device.
+ * 
+ * This function reads the calibration offsets from the device and converts them based on the scale.
+ * 
+ * @param x Pointer to store the x offset.
+ * @param y Pointer to store the y offset.
+ * @param z Pointer to store the z offset.
+ */
 void Adafruit_LIS3MDL::readCalibrationOffsets(float *x, float *y, float *z) {
 //read calibration offsets from registers and convert based on scale
   int16_t xOffsetInt, yOffsetInt, zOffsetInt;
@@ -730,40 +742,13 @@ void Adafruit_LIS3MDL::readCalibrationOffsets(float *x, float *y, float *z) {
   *z = (float)zOffsetInt / this->_scale;
 }
 
-
-void Adafruit_LIS3MDL::loadOffsetsFromEEPROM() {
-  float xOffset, yOffset, zOffset;
-
-  // Leer los valores almacenados en la EEPROM
-  EEPROM.get(EEPROM_X_OFFSET_ADDR, xOffset);
-  EEPROM.get(EEPROM_Y_OFFSET_ADDR, yOffset);
-  EEPROM.get(EEPROM_Z_OFFSET_ADDR, zOffset);
-
-  // Asignar los valores leídos a los atributos de la clase
-  this->xoffset = xOffset;
-  this->yoffset = yOffset;
-  this->zoffset = zOffset;
-
-  Serial.print("xoffset load: ");
-  Serial.println(this->xoffset);
-  Serial.print("yoffset load: ");
-  Serial.println(this->yoffset);
-  Serial.print("zoffset load: ");
-  Serial.println(this->zoffset);
-}
-
-// Método para guardar los offsets en la EEPROM después de la calibración
-void Adafruit_LIS3MDL::saveOffsetsToEEPROM() {
-  // Guardar los valores actuales de los offsets en la EEPROM
-  EEPROM.put(EEPROM_X_OFFSET_ADDR, this->xoffset);
-  EEPROM.put(EEPROM_Y_OFFSET_ADDR, this->yoffset);
-  EEPROM.put(EEPROM_Z_OFFSET_ADDR, this->zoffset);
-  //EEPROM.put(EEPROM_X_OFFSET_ADDR,0.f);
-  //EEPROM.put(EEPROM_Y_OFFSET_ADDR, 0.f);
-  //EEPROM.put(EEPROM_Z_OFFSET_ADDR, 0.f);
-  EEPROM.commit(); //
-}
-
+/**
+ * @brief Set the low power mode for the device.
+ * 
+ * This function sets the low power mode for the device.
+ * 
+ * @param mode The low power mode to set (true for low power mode, false for normal mode).
+*/ 
 void Adafruit_LIS3MDL::lowPowerMode(bool mode)
 {
   Adafruit_BusIO_Register CTRL_REG3 =

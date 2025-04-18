@@ -3,13 +3,22 @@
 
 #include <DataLogger.h>
 #include <UserInterface.h>
+#include <LogWebServer.h>
+#include <SD.h>
+#define SD_CS_PIN 3
+
 
 UserInterface ui;
 DataLogger logger;
 
+LogWebServer logServer(SD_CS_PIN, "ESP32", "12345678", "javelin");
+bool serverOn = false;
 void setup(void) {
   Serial.begin(115200);//start serial for debugging
   ui.beginUI();//initialize user interface
+  if (!SD.begin(SD_CS_PIN)) {
+  Serial.println("SD card initialization failed!");
+}
   if (logger.begin()!=LOGGER_OK) {//initialize data logger
     Serial.println("Error initializing data logger!");
     while (1); // Stop execution if initialization fails
@@ -25,7 +34,7 @@ void loop() {
   }
   switch (ui.updateUI()) {
   case THREE_TOUCHES:
-    if (logger.getLoggerState() == LOGGER_WAITING) {
+    if (logger.getLoggerState() == LOGGER_WAITING && !serverOn) {
       // Handle three touches detected
       logger.startSamplig(); // Start data sampling
       ui.setSystemTransition(SAMPLE_BEGIN); // Set system transition to sample begin
@@ -36,12 +45,24 @@ void loop() {
     }
     break;
   case FIVE_TOUCHES:
-    if (logger.getLoggerState() == LOGGER_WAITING) {
-      // Handle three touches detected
-      logger.setCalibration(); // Set calibration flag
-      logger.startSamplig(); // Start data sampling
-      ui.setSystemTransition(SAMPLE_BEGIN); // Set system transition to sample begin
+    //if (logger.getLoggerState() == LOGGER_WAITING) {
+    //  // Handle three touches detected
+    //  logger.setCalibration(); // Set calibration flag
+    //  logger.startSamplig(); // Start data sampling
+    //  ui.setSystemTransition(SAMPLE_BEGIN); // Set system transition to sample begin
+    //}
+    if (!serverOn && logger.getLoggerState() == LOGGER_WAITING)
+    {
+      logServer.begin(); // Start the web server
+      serverOn = true; // Set serverOn flag to true
+      ui.setSystemTransition(SERVER_MODE_ON); // Set system transition to server mode on
+    } else
+    {
+      logServer.end(); // Stop the web server
+      serverOn = false; // Set serverOn flag to false
+      ui.setSystemTransition(SERVER_MODE_OFF);
     }
+    
     break;
   default:
     // No action needed for other cases

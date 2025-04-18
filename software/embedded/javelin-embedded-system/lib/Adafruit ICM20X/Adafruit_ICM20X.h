@@ -254,8 +254,6 @@ public:
   bool resetFIFO(void);
   bool odrAlign(bool enable = true);
   uint32_t readFIFOCount();
-  uint32_t readFIFOByte();
-  icm20x_raw_axes_t readFIFOFrame();
   uint16_t readFIFOBuffer(icm20x_raw_axes_t *frameBuffer);
  
 

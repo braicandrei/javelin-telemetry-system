@@ -3,19 +3,43 @@
 
 #define DEBUG_LOGER 1
 
+/**
+ * @brief DataLogger constructor
+ * 
+ * The constructor initializes the data logger object
+ */
 DataLogger::DataLogger(){}
+/**
+ * @brief DataLogger destructor
+ * 
+ * The destructor cleans up the data logger object
+ */
 DataLogger::~DataLogger(){}
 
+
 volatile bool DataLogger::inputDataAvailable= false; // Flag for interrupt handling
+/**
+ * @brief Interrupt handler for data input
+ * 
+ * This function is called when the interrupt occurs, setting the inputDataAvailable flag to true.
+ */
 void IRAM_ATTR DataLogger::inputDataInterrupt(){inputDataAvailable = true;} // Set the flag to indicate an interrupt has occurred
+
+/**
+ * @brief Initialize the data logger
+ * 
+ * This function initializes the SD card, RTC, and AHRS sensor.
+ * 
+ * @return LoggerStatus_t Status of the logger initialization
+ */
 LoggerStatus_t DataLogger::begin() {
     // Initialize the data logger
-    if (!SD.begin(SD_CS_PIN)) {
-        #if(DEBUG_LOGER)
-            Serial.println("SD card initialization failed!");
-        #endif
-        return SD_FAILED;
-    }
+    //if (!SD.begin(SD_CS_PIN)) {
+    //    #if(DEBUG_LOGER)
+    //        Serial.println("SD card initialization failed!");
+    //    #endif
+    //    return SD_FAILED;
+    //}
     #if(DEBUG_LOGER)
         Serial.println("SD card initialized.");
     #endif
@@ -41,28 +65,52 @@ LoggerStatus_t DataLogger::begin() {
     return LOGGER_OK; // Return logger status
 }
 
+/**
+ * @brief Generate a file name for data logging
+ * 
+ * This function generates a file name based on the current date and time.
+ * 
+ * @return String File name for data logging
+ */
 String DataLogger::getFileName() {
-    // Generate a file name for data log 
-    String fileName = "/datalog_";
+    // Generate a file name for data log
     DateTime now = rtc.now();
-    fileName += String(now.year()) + String(now.month()) + String(now.day()) + "_";
-    fileName += String(now.hour()) + String(now.minute()) + String(now.second()) + ".csv";
-    return fileName;
+
+    char fileName[32]; // Buffer size is enough for the full path
+    snprintf(fileName, sizeof(fileName), "/datalog_%04d%02d%02d_%02d%02d%02d.csv",
+             now.year(), now.month(), now.day(),
+             now.hour(), now.minute(), now.second());
+
+    return String(fileName);
 }
 
+/**
+ * @brief Write a data frame to the SD card
+ * 
+ * This function writes a data frame to the SD card in CSV format.
+ * 
+ * @param dataFrame Data frame to be written to the SD card
+ */
 void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame) {
-    String data =   String(dataFrame.accX, 4) + "," +
-                    String(dataFrame.accY, 4) + "," +
-                    String(dataFrame.accZ, 4) + "," +
+    String data =   String(dataFrame.accX, 4)  + "," +
+                    String(dataFrame.accY, 4)  + "," +
+                    String(dataFrame.accZ, 4)  + "," +
                     String(dataFrame.gyroX, 4) + "," +
                     String(dataFrame.gyroY, 4) + "," +
                     String(dataFrame.gyroZ, 4) + "," +
-                    String(dataFrame.magX, 4) + "," +
-                    String(dataFrame.magY, 4) + "," +
-                    String(dataFrame.magZ, 4) + "\n";
+                    String(dataFrame.magX, 4)  + "," +
+                    String(dataFrame.magY, 4)  + "," +
+                    String(dataFrame.magZ, 4)  + "\n";
     dataFile.print(data); // Write the data to the file
 }
 
+/**
+ * @brief Update the data logger
+ * 
+ * This function updates the data logger state machine.
+ * 
+ * @return LoggerStatus_t Status of the data logger update
+ */
 LoggerStatus_t DataLogger::updateLogger() {
 
     switch (loggerState)
@@ -74,6 +122,7 @@ LoggerStatus_t DataLogger::updateLogger() {
                 Serial.println("Start sampling!");
             #endif
             loggerState = LOGGER_PREP;
+
         }
         break;
     case LOGGER_PREP:
@@ -150,15 +199,37 @@ LoggerStatus_t DataLogger::updateLogger() {
     return LOGGER_OK; // Return logger status
 }
 
+/**
+ * @brief Start data sampling
+ * 
+ * This function sets the flag to start data sampling.
+ */
 void DataLogger::startSamplig() {
     startSampling_flag = true; // Set the flag to start sampling
 }
+/**
+ * @brief Stop data sampling
+ * 
+ * This function sets the flag to stop data sampling.
+ */
 void DataLogger::stopSamplig() {
     stopSampling_flag = true; // Set the flag to stop sampling
 }
+/**
+ * @brief Set calibration flag
+ * 
+ * This function sets the calibration flag to true.
+ */
 void DataLogger::setCalibration(){
     calibration_flag = true; // Set the calibration flag
 }
+/**
+ * @brief Get the current logger state
+ * 
+ * This function returns the current state of the data logger.
+ * 
+ * @return LoggerState_t Current logger state
+ */
 LoggerState_t DataLogger::getLoggerState(){
     return loggerState; // Return the current logger state
 }

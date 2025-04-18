@@ -127,7 +127,6 @@ public:
   lis3mdl_range_t rangeBuffered = LIS3MDL_RANGE_4_GAUSS;
   bool resetRegisters();
 
-  bool hardIronCalib(float *x, float *y, float *z, uint16_t size);
   void hardIronCalc(float x, float y, float z);
   void getCalibrationOffsets(float *x, float *y, float *z);
   void setCalibrationOffsets(float x, float y, float z);

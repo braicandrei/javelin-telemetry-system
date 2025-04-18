@@ -1104,6 +1104,14 @@ bool Adafruit_ICM20X::resetFIFO() {
   return true;
 }
 
+/*!
+    @brief Enable/disable odr align
+
+    @details ODR alignment is used to align the output data rate of the
+             accelerometer and gyroscope.
+    @param enable Enable (true) or disable (false)
+    @returns True if the operation was successful, otherwise false
+*/
 bool Adafruit_ICM20X::odrAlign(bool enable){
   _setBank(2);
 
@@ -1137,78 +1145,11 @@ uint32_t Adafruit_ICM20X::readFIFOCount() {
 }
 
 /*!
-    @brief  Read a single byte from the FIFO buffer
-    @returns The requested byte
-*/
-uint32_t Adafruit_ICM20X::readFIFOByte(){
-  _setBank(0);
+    @brief  Read the fifo buffer
 
-  Adafruit_BusIO_Register fifo_r_w = Adafruit_BusIO_Register(
-    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_R_W);
-    return fifo_r_w.read();
-}
-
-/*!
-    @brief  Read a single frame from the FIFO buffer
-    @returns True if the operation was successful, otherwise false
-*/
-/*
-icm20x_raw_axes_t Adafruit_ICM20X::readFIFOFrame() {
-  icm20x_raw_axes_t raw_axes_d;
-  uint8_t buffer[fifo_data_byte_count];
-  Adafruit_BusIO_Register fifo_r_w = Adafruit_BusIO_Register(
-    i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, ICM20X_B0_FIFO_R_W, fifo_data_byte_count);
-  uint8_t *ptr = buffer; // Puntero para recorrer el buffer
-
-  switch (fifo_data_select) {
-    case FIFO_DATA_ACCEL:
-      raw_axes_d.rawAccX = (ptr[0] << 8) | ptr[1];
-      raw_axes_d.rawAccY = (ptr[2] << 8) | ptr[3];
-      raw_axes_d.rawAccZ = (ptr[4] << 8) | ptr[5];
-
-      break;
-
-    case FIFO_DATA_ACCEL_GYRO:
-      raw_axes_d.rawAccX = (ptr[0] << 8) | ptr[1];
-      raw_axes_d.rawAccY = (ptr[2] << 8) | ptr[3];
-      raw_axes_d.rawAccZ = (ptr[4] << 8) | ptr[5];
-      ptr += 6; // Avanzar el puntero después de los datos del acelerómetro
-      raw_axes_d.rawGyroX = (ptr[0] << 8) | ptr[1];
-      raw_axes_d.rawGyroY = (ptr[2] << 8) | ptr[3];
-      raw_axes_d.rawGyroZ = (ptr[4] << 8) | ptr[5];
-      break;
-
-    case FIFO_DATA_ACCEL_GYRO_S0:
-      raw_axes_d.rawAccX = (ptr[0] << 8) | ptr[1];
-      raw_axes_d.rawAccY = (ptr[2] << 8) | ptr[3];
-      raw_axes_d.rawAccZ = (ptr[4] << 8) | ptr[5];
-      ptr += 6; // Avanzar el puntero después de los datos del acelerómetro
-      raw_axes_d.rawGyroX = (ptr[0] << 8) | ptr[1];
-      raw_axes_d.rawGyroY = (ptr[2] << 8) | ptr[3];
-      raw_axes_d.rawGyroZ = (ptr[4] << 8) | ptr[5];
-      ptr += 6; // Avanzar el puntero después de los datos del giroscopio
-      raw_axes_d.rawMagX = (ptr[1] << 8) | ptr[0];
-      raw_axes_d.rawMagY = (ptr[3] << 8) | ptr[2];
-      raw_axes_d.rawMagZ = (ptr[5] << 8) | ptr[4];
-      break;
-
-    default:
-      raw_axes_d.rawAccX = 0;
-      raw_axes_d.rawAccY = 0;
-      raw_axes_d.rawAccZ = 0;
-      raw_axes_d.rawGyroX = 0;
-      raw_axes_d.rawGyroY = 0;
-      raw_axes_d.rawGyroZ = 0;
-      raw_axes_d.rawMagX = 0;
-      raw_axes_d.rawMagY = 0;
-      raw_axes_d.rawMagZ = 0;
-      break;
-  }
-  return raw_axes_d;
-}
-*/
-/*!
-    @brief  Read the avaliable FIFO data frames
+    This function reads the data available in the FIFO buffer and calculates the optimal number of I2C transfers.
+    Then it reads the data from the FIFO buffer, structures it into frames, and stores it in the provided frameBuffer.
+    @param frameBuffer Pointer to the buffer where the data will be stored
     @returns Number of frames read from the fifo
 */
 uint16_t Adafruit_ICM20X::readFIFOBuffer(icm20x_raw_axes_t *frameBuffer) {
@@ -1248,20 +1189,6 @@ uint16_t Adafruit_ICM20X::readFIFOBuffer(icm20x_raw_axes_t *frameBuffer) {
     frameBuffer[frameCount].rawMagZ = (ptr[5] << 8) | ptr[4];
     frameCount++;
   }
-
-  //Serial.print("FIFO byte count before: " + String(fifo_byte_count));
-  //Serial.print("---Chunk count: " + String(chunkCount));
-  //Serial.print("---FIFO buffer size: " + String(buffer_size));
-  //Serial.print("---FIFO byte count after: " + String(readFIFOCount()));
-  //Serial.print("---RAW accX: " +String(frameBuffer[0].rawAccX));
-  //Serial.print("---RAW accY: " +String(frameBuffer[0].rawAccY));
-  //Serial.print("---RAW accZ: " +String(frameBuffer[0].rawAccZ));
-  //Serial.print("---RAW gyroX: " +String(frameBuffer[0].rawGyroX));
-  //Serial.print("---RAW gyroY: " +String(frameBuffer[0].rawGyroY));
-  //Serial.print("---RAW gyroZ: " +String(frameBuffer[0].rawGyroZ));
-  //Serial.print("---RAW magX: " +String(frameBuffer[0].rawMagX));
-  //Serial.print("---RAW magY: " +String(frameBuffer[0].rawMagY));
-  //Serial.println("---RAW magZ: " +String(frameBuffer[0].rawMagZ));
   return frameCount;
 }
 
@@ -1306,6 +1233,10 @@ void Adafruit_ICM20X::configI2CSlave0(uint8_t slv_addr, uint8_t reg_addr, uint8_
 
 }
 
+/*!
+    @brief  Set the sleep mode of the ICM20X
+    @param mode Sleep mode (true) or normal mode (false)
+*/
 void Adafruit_ICM20X::sleepMode(bool mode)
 {
   Adafruit_BusIO_Register pwr_mgmt_1 = Adafruit_BusIO_Register(

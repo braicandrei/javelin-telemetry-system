@@ -5,9 +5,27 @@
 
 #include "AHRS.h"
 
+/**
+ * @brief AHRS constructor
+ * 
+ * This constructor initializes the AHRS object and sets up the I2C communication.
+ */
 AHRS::AHRS() {}
+
+/**
+ * @brief AHRS destructor
+ * 
+ * This destructor destroys the AHRS object and releases any allocated resources.
+ */
 AHRS::~AHRS() {}
 
+/**
+ * @brief Initialize the I2C communication for AHRS
+ * 
+ * This function initializes the I2C communication for the ICM20649 and LIS3MDL sensors.
+ * 
+ * @return uint8_t Status of the initialization (0x00 for success, 0x01 for ICM20649 failure, 0x02 for LIS3MDL failure)
+ */
 uint8_t AHRS::beginAHRSi2c() {
   Wire.begin(); // Initialize I2C communication
   Wire.setClock(400000); 
@@ -42,6 +60,14 @@ uint8_t AHRS::beginAHRSi2c() {
 
 }
 
+
+/**
+ * @brief Configure the AHRS sensors
+ * 
+ * This function configures the ICM20649 and LIS3MDL sensors for data acquisition.
+ * 
+ * @return bool Status of the configuration (true for success, false for failure)
+ */
 bool AHRS::configAHRS() {
 
   EEPROM.begin(EEPROM_SIZE); // Initialize EEPROM
@@ -76,7 +102,14 @@ bool AHRS::configAHRS() {
   return true; // Success
 }
 
-
+/**
+ * @brief Set the AHRS low power mode
+ * 
+ * This function sets the low power mode for the ICM20649 and LIS3MDL sensors.
+ * (NON FUNCIONAL YET)
+ * @param mode The low power mode to set (true for low power mode, false for normal mode)
+ * @return bool Status of the low power mode configuration (true for success, false for failure)
+*/
 bool AHRS::lowPowerMode(bool mode)
 {
   if (mode)
@@ -107,6 +140,17 @@ bool AHRS::lowPowerMode(bool mode)
   return true;
   
 }
+
+/**
+ * @brief Set the AHRS sensor ranges
+ * 
+ * This function sets the accelerometer, gyroscope, and magnetometer ranges for the AHRS sensors.
+ * 
+ * @param accelRange The accelerometer range to set
+ * @param gyroRange The gyroscope range to set
+ * @param magRange The magnetometer range to set
+ * @return bool Status of the range configuration (true for success, false for failure)
+ */
 bool AHRS::setAHRSRange(icm20649_accel_range_t accelRange, icm20649_gyro_range_t gyroRange, lis3mdl_range_t magRange) {
     icm20649.setAccelRange(accelRange);
     icm20649.setGyroRange(gyroRange);
@@ -114,6 +158,15 @@ bool AHRS::setAHRSRange(icm20649_accel_range_t accelRange, icm20649_gyro_range_t
     return true;
 }
 
+
+/**
+ * @breif Scale the axes data
+ * 
+ * This function scales the raw axes data from the ICM20649 and LIS3MDL sensors to their respective units based on the configured ranges
+ * 
+ * @param raw_axes The raw axes data to scale
+ * @return ahrs_axes_t The scaled axes data
+ */
 ahrs_axes_t AHRS::scaleAxes(icm20x_raw_axes_t raw_axes){
     ahrs_axes_t scaled_axes;
 
@@ -165,6 +218,11 @@ ahrs_axes_t AHRS::scaleAxes(icm20x_raw_axes_t raw_axes){
 
 }
 
+/**
+ * @brief Save magnetometer calibration offsets to EEPROM
+ * 
+ * This function saves the magnetometer hard iron calibration offsets to EEPROM.
+ */
 void AHRS::saveMagCalibToEEPROM()
 {
 float _x=0, _y=0, _z=0;
@@ -175,6 +233,12 @@ EEPROM.put(MAG_Z_OFFSET*sizeof(float), _z); // Save Z offset to EEPROM
 EEPROM.commit(); // Commit changes to EEPROM
 
 }
+
+/**
+ * @brief Load magnetometer calibration offsets from EEPROM
+ * 
+ * This function loads the magnetometer hard iron calibration offsets from EEPROM.
+ */
 void AHRS::loadMagCalibFromEEPROM()
 {
   float x = EEPROM.readFloat(MAG_X_OFFSET*sizeof(float));
@@ -182,11 +246,29 @@ void AHRS::loadMagCalibFromEEPROM()
   float z = EEPROM.readFloat(MAG_Z_OFFSET*sizeof(float));
   lis3mdl.setCalibrationOffsets(x, y, z); // Set calibration offsets to magnetometer
 }
+
+/**
+ * @brief Call the hard iron calibration compute function for the magnetometer
+ * 
+ * @param x The X value for hard iron calibration
+ * @param y The Y value for hard iron calibration
+ * @param z The Z value for hard iron calibration
+ */
 void AHRS::magHardIronCalc(float x, float y, float z)
 {
   //Serial.println("MagX: " + String(x) + " MagY: " + String(y) + " MagZ: " + String(z));
   lis3mdl.hardIronCalc(x, y, z); // Calculate hard iron offsets
 }
+
+/**
+ * @brief Write the hard iron calibration offsets to the magnetometer
+ * 
+ * This function enables the  I2C bypass and call the writeOffsetxyz function to write the hard iron calibration offsets to the magnetometer.
+ * 
+ * @param x The X value for hard iron calibration
+ * @param y The Y value for hard iron calibration
+ * @param z The Z value for hard iron calibration
+ */
 void AHRS::magCalibWrite(){
   icm20649.enableI2CMaster(false);//disble i2c master
   icm20649.setI2CBypass(true);//enable bypass to acces lis2mdl

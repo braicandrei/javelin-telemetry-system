@@ -9,8 +9,8 @@
 #define TOUCH_PIN 1
 
 #define TOUCH_THRESHOLD 25000
-#define DEBOUNCE_DELAY 150
-#define MAX_TOUCH_INTERVAL 500
+#define DEBOUNCE_DELAY 150//ms
+#define MAX_TOUCH_INTERVAL 500//ms
 
 typedef enum {
     NO_INPUT,
@@ -37,9 +37,6 @@ public:
     void setUserInputEnabled(bool enabled);
 
     void setSystemTransition(SystemTransitions_t transition);
-    bool isThreeTouchesDetected() const;
-    bool isFiveTouchesDetected() const;
-    void resetTouchFlags();
 
 
 private:
@@ -60,6 +57,8 @@ private:
     const char * sample_begin_tone = "sample_begin_tone:d=4,o=5,b=140:8g#6,8a6,4a#6";
     const char * sample_end_tone = "sample_end_tone:d=4,o=5,b=140:8a#6,8a6,4g#6";
     const char * sample_error_tone = "sample_error_tone:d=4,o=5,b=140:";
+    const char * server_mode_on_tone = "server_on_tone:d=4,o=6,b=140:16d#5,16e5,16f5,16f#5,16g5";
+    const char * server_mode_off_tone = "server_off_tone:d=4,o=6,b=140:16g5,16f#5,16f5,16e5,16d#5";
 
 };
 
