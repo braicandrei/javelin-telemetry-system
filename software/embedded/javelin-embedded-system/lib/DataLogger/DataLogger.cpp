@@ -165,6 +165,10 @@ LoggerStatus_t DataLogger::updateLogger() {
         }
         if (xQueueReceive(queue, &dataFrame, 0) == pdPASS) { // Check if data is available in the queue
             writeDataFrameToSD(dataFrame); // Write the data frame to SD card
+            if (shockCheck(dataFrame))
+            {
+                return SHOCK_DETECTED;
+            }
             if (calibration_flag)
             {
                 ahrs.magHardIronCalc(dataFrame.magX, dataFrame.magY, dataFrame.magZ); // Perform hard iron calibration
@@ -233,3 +237,40 @@ void DataLogger::setCalibration(){
 LoggerState_t DataLogger::getLoggerState(){
     return loggerState; // Return the current logger state
 }
+
+bool DataLogger::shockCheck(ahrs_axes_t dataFrame) {
+    // Shift older values in the buffer
+    memmove(dataFrameBuffer, dataFrameBuffer + 1, sizeof(ahrs_axes_t) * (FRAME_BUFFER_LENGTH - 1));
+
+    // Insert new data frame into the last position of the buffer
+    dataFrameBuffer[(FRAME_BUFFER_LENGTH - 1)] = dataFrame;
+  
+    // Calculate the average of the last 3 samples
+    ahrs_axes_t avgSample;
+    avgSample.accX = (dataFrameBuffer[0].accX + dataFrameBuffer[1].accX + dataFrameBuffer[2].accX) / 3.f;
+    avgSample.accY = (dataFrameBuffer[0].accY + dataFrameBuffer[1].accY + dataFrameBuffer[2].accY) / 3.f;
+    avgSample.accZ = (dataFrameBuffer[0].accZ + dataFrameBuffer[1].accZ + dataFrameBuffer[2].accZ) / 3.f;
+  
+    // Calculate the derivative between the new sample and the average of the last 3 samples
+    float accXDiff = (dataFrameBuffer[(FRAME_BUFFER_LENGTH - 1)].accX - avgSample.accX);
+    float accYDiff = (dataFrameBuffer[(FRAME_BUFFER_LENGTH - 1)].accY - avgSample.accY);
+    float accZDiff = (dataFrameBuffer[(FRAME_BUFFER_LENGTH - 1)].accZ - avgSample.accZ);
+  
+    // Check for abrupt acceleration
+    if (abs(accXDiff) > shockThreshold || abs(accYDiff) > shockThreshold || abs(accZDiff) > shockThreshold) {
+        Serial.println("SHOCK! in time:" + String(millis()));
+        Serial.print("Average X: " + String(avgSample.accX) );
+        Serial.print("Average Y: " + String(avgSample.accY) );
+        Serial.println("Average Z: " + String(avgSample.accZ) );
+        Serial.print("New X: " + String(dataFrameBuffer[3].accX) );
+        Serial.print("New Y: " + String(dataFrameBuffer[3].accY) );
+        Serial.println("New Z: " + String(dataFrameBuffer[3].accZ) );
+        Serial.print("Diff X: " + String(accXDiff) );
+        Serial.print("Diff Y: " + String(accYDiff) );
+        Serial.println("Diff Z: " + String(accZDiff) );
+        Serial.println("END SHOCK!");
+      return true;
+    } else {
+      return false;
+    }
+  }

@@ -99,6 +99,9 @@ UserAction_t UserInterface::updateUI() {
  */
 void UserInterface::setSystemTransition(SystemTransitions_t transition) {
     switch (transition) {
+        case POWER_ON:
+            rtttl::begin(BUZZER_PIN, power_on_tone);
+            break;
         case SAMPLE_BEGIN:
             rtttl::begin(BUZZER_PIN, sample_begin_tone);
             break;

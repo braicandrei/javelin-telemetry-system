@@ -8,7 +8,7 @@
 #define BUZZER_PIN 2
 #define TOUCH_PIN 1
 
-#define TOUCH_THRESHOLD 25000
+#define TOUCH_THRESHOLD 10000
 #define DEBOUNCE_DELAY 150//ms
 #define MAX_TOUCH_INTERVAL 500//ms
 
@@ -20,6 +20,7 @@ typedef enum {
 
 typedef enum {
     NONE,
+    POWER_ON,
     SAMPLE_BEGIN,
     SAMPLE_END,
     SERVER_MODE_ON,
@@ -54,6 +55,7 @@ private:
     const int threshold = TOUCH_THRESHOLD;
 
     const char * touch_tone = "touch_tone:d=4,o=6,b=250:16b6";
+    const char * power_on_tone = "power_on_tone:d=4,o=6,b=225:4d#4,4e4,4f4";
     const char * sample_begin_tone = "sample_begin_tone:d=4,o=5,b=140:8g#6,8a6,4a#6";
     const char * sample_end_tone = "sample_end_tone:d=4,o=5,b=140:8a#6,8a6,4g#6";
     const char * sample_error_tone = "sample_error_tone:d=4,o=5,b=140:";

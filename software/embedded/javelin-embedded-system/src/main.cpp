@@ -23,14 +23,17 @@ void setup(void) {
     Serial.println("Error initializing data logger!");
     while (1); // Stop execution if initialization fails
   }
+  ui.setSystemTransition(POWER_ON);
 }
 
 void loop() {
 
-  if (logger.updateLogger()!=LOGGER_OK) {//update data logger
-    Serial.println("Error updating data logger!");
-    while (1); // Stop execution if update fails
-    delay(1000); // Delay to avoid rapid error messages
+  if (logger.updateLogger()==SHOCK_DETECTED) {//update data logger
+    if (logger.getLoggerState() == LOGGER_SAMPLING) {
+      // Handle three touches detected while sampling
+      logger.stopSamplig(); // Stop data sampling
+      ui.setSystemTransition(SAMPLE_END); // Set system transition to sample end
+    }
   }
   switch (ui.updateUI()) {
   case THREE_TOUCHES:

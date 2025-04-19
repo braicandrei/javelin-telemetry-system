@@ -14,12 +14,15 @@
 #define SD_MOSI_PIN 9
 #define SD_CLK_PIN 7
 
+#define FRAME_BUFFER_LENGTH 4
+#define SAMPLE_RATE 100 // Sampling rate in Hz
 
 typedef enum {
     LOGGER_OK,
     AHRS_FAILED,
     SD_FAILED,
-    RTC_FAILED
+    RTC_FAILED,
+    SHOCK_DETECTED
 } LoggerStatus_t;
 
 typedef enum {
@@ -55,6 +58,11 @@ private:
     String logPath; // File name for data logging
     ahrs_axes_t dataFrame; // Data frame for sensor data
     void writeDataFrameToSD(ahrs_axes_t dataFrame); // Write data frame to SD card
+    ahrs_axes_t dataFrameBuffer[FRAME_BUFFER_LENGTH];
+    bool shockCheck(ahrs_axes_t dataFrame);
+    const float shockThreshold = 15.0;
+    bool shockDetected = false;
+    bool getShockDetected();
     
     LoggerState_t loggerState = LOGGER_WAITING; // State of the data logger
     unsigned long startTime = 0; // Start time for data logging

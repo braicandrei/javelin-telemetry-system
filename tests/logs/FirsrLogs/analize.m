@@ -1,6 +1,6 @@
 clear; close all;
 
-fileName = 'datalog_20250418_090548.csv';
+fileName = 'datalog_20000102_025948.csv';
 Fs = 225;
 data = importfile(fileName);
 
