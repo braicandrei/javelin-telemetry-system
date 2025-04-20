@@ -9,12 +9,19 @@ void LogWebServer::begin() {
     Serial.println("[WebServer] Iniciando servidor web...");
   #endif
 
+  if (!LittleFS.begin(true)) {
+    #if (DEBUG_WEBSERVER)
+      Serial.println("[WebServer] Error al montar LittleFS");
+    #endif
+    return;
+  }
+
   WiFi.mode(WIFI_AP);
   WiFi.softAP(_ssid, _password);
     #if (DEBUG_WEBSERVER)
         Serial.println("[WebServer] Iniciando AP...");
+        Serial.println(WiFi.softAPIP());
     #endif
-  Serial.println(WiFi.softAPIP());
 
   if (!MDNS.begin(_mdnsName)) {
     #if (DEBUG_WEBSERVER)
@@ -46,18 +53,15 @@ void LogWebServer::end() {
 }
 
 void LogWebServer::initRoutes() {
-  _server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    File file = SD.open("/web/index.html");
-    if (!file) {
-      request->send(500, "text/plain", "No se pudo cargar el HTML");
-      return;
-    }
-    String html;
-    while (file.available()) html += (char)file.read();
-    file.close();
-    request->send(200, "text/html", html);
+  // 0) Bloquear cualquier .map en /libs (evita VFS errors)
+  _server.on("/libs/*.map", HTTP_GET, [](AsyncWebServerRequest *req){
+    #if (DEBUG_WEBSERVER)
+      Serial.printf("Stub .map request: %s\n", req->url().c_str());
+    #endif
+    req->send(204, "text/plain", "");  // 204 No Content
   });
 
+  // 1) Listar CSV desde la SD
   _server.on("/list", HTTP_GET, [](AsyncWebServerRequest *request){
     File dir = SD.open("/logs");
     String json = "[";
@@ -76,22 +80,51 @@ void LogWebServer::initRoutes() {
     request->send(200, "application/json", json);
   });
 
-  _server.onNotFound([this](AsyncWebServerRequest *request) {
-    String url = request->url();
-
-    if (url.startsWith("/logs/")) {
-      String filename = url.substring(strlen("/logs/"));
-      String path = "/logs/" + filename;
-
-      if (SD.exists(path)) {
-        request->send(SD, path.c_str(), "text/csv");
-      } else {
-        request->send(404, "text/plain", "Archivo no encontrado");
-      }
-    } else {
-      request->send(404, "text/plain", "Ruta no encontrada");
+  // 2) Servir CSV desde la SD
+  _server.on("/logs/*", HTTP_GET, [this](AsyncWebServerRequest *request) {
+    if (isProcessingRequest) {
+        request->send(503, "text/plain", "Servidor ocupado, intente más tarde.");
+        return;
     }
-  });
 
-  _server.serveStatic("/libs", SD, "/libs");
+    isProcessingRequest = true;
+
+    String url = request->url();
+    String filename = url.substring(strlen("/logs/"));
+    String path = "/logs/" + filename;
+    #if (DEBUG_WEBSERVER)
+      Serial.printf("Petición CSV SD: %s\n", path.c_str());
+    #endif
+
+    if (SD.exists(path)) {
+        // Enviar archivo
+        request->send(SD, path.c_str(), "text/csv");
+
+        // Esperar a que se cierre la conexión
+        request->onDisconnect([this]() {
+            isProcessingRequest = false;
+            #if (DEBUG_WEBSERVER)
+              Serial.println(" Archivo enviado. Listo para nueva petición.");
+            #endif
+        });
+
+    } else {
+        request->send(404, "text/plain", "Archivo no encontrado");
+        isProcessingRequest = false;
+    }
+});
+
+  // 3) Librerías JS/CSS desde LittleFS
+  _server.serveStatic("/libs", LittleFS, "/libs");
+
+  // 4) Página y recursos estáticos desde LittleFS
+  _server.serveStatic("/", LittleFS, "/").setDefaultFile("index.html");
+
+  // 5) Resto: 404 con log
+  _server.onNotFound([](AsyncWebServerRequest *request) {
+    #if (DEBUG_WEBSERVER)
+      Serial.printf("404 Ruta no encontrada: %s\n", request->url().c_str());
+    #endif
+    request->send(404, "text/plain", "Ruta no encontrada");
+  });
 }

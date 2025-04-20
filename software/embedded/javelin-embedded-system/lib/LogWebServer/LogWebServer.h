@@ -7,6 +7,7 @@
 #include <ESPmDNS.h>
 #include <SPI.h>
 #include <SD.h>
+#include <LittleFS.h>
 
 class LogWebServer {
 public:
@@ -22,7 +23,7 @@ private:
 
   AsyncWebServer _server;
   bool _running;
-
+  volatile bool isProcessingRequest = false;
   void initRoutes();
 };
 

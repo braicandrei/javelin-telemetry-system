@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logs CSV</title>
+  <script src="/libs/chart.js"></script>
+  <script src="/libs/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <h2>Archivos CSV</h2>
+  <ul id="fileList"></ul>
+  <div style="width: 100%; max-width: 800px;">
+    <canvas id="accChart"></canvas>
+    <canvas id="gyroChart"></canvas>
+    <canvas id="magChart"></canvas>
+  </div>
+  <button onclick="generatePDF()">Exportar PDF</button>
+
+  <script>
+    async function loadFiles() {
+      const res = await fetch('/list');
+      const files = await res.json();
+      const ul = document.getElementById('fileList');
+      ul.innerHTML = '';
+      files.forEach(file => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#';
+        a.textContent = file;
+        a.onclick = () => loadCSV(file);
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+    }
+
+    async function loadCSV(filename) {
+      const res = await fetch('/logs/' + filename);
+      const text = await res.text();
+      const lines = text.trim().split('\n');
+      const time = [];
+      const acc = [[], [], []], gyro = [[], [], []], mag = [[], [], []];
+
+      lines.forEach((line, idx) => {
+        const parts = line.split(',');
+        if (parts.length < 9) return;
+        time.push(idx); // o podés usar timestamp si lo tenés
+        for (let i = 0; i < 3; i++) acc[i].push(parseFloat(parts[i]));
+        for (let i = 0; i < 3; i++) gyro[i].push(parseFloat(parts[i + 3]));
+        for (let i = 0; i < 3; i++) mag[i].push(parseFloat(parts[i + 6]));
+      });
+
+      drawChart('accChart', 'Acelerómetro', time, acc);
+      drawChart('gyroChart', 'Giroscopio', time, gyro);
+      drawChart('magChart', 'Magnetómetro', time, mag);
+    }
+
+    let charts = {};
+    function drawChart(id, label, time, data) {
+      if (charts[id]) charts[id].destroy();
+      const ctx = document.getElementById(id).getContext('2d');
+      charts[id] = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: time,
+          datasets: [
+            { label: label + ' X', data: data[0], borderColor: 'red', fill: false },
+            { label: label + ' Y', data: data[1], borderColor: 'green', fill: false },
+            { label: label + ' Z', data: data[2], borderColor: 'blue', fill: false },
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: { x: { display: true }, y: { display: true } }
+        }
+      });
+    }
+
+    async function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+
+      const addChart = async (id, yOffset) => {
+        const canvas = document.getElementById(id);
+        const imgData = canvas.toDataURL("image/png");
+        pdf.addImage(imgData, 'PNG', 10, yOffset, 180, 60);
+      }
+
+      await addChart('accChart', 10);
+      await addChart('gyroChart', 80);
+      await addChart('magChart', 150);
+
+      pdf.save('log.pdf');
+    }
+
+    loadFiles();
+  </script>
+</body>
+</html>
