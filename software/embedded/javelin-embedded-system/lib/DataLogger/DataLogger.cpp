@@ -105,6 +105,30 @@ void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame) {
 }
 
 /**
+ * @brief Write a data frame to the SD card
+ * 
+ * This function writes a data frame to the SD card in CSV format.
+ * 
+ * @param dataFrame Data frame to be written to the SD card
+ * @param orientation Orientation data
+ */
+void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame, ahrs_orientation_t orientation) {
+    String data =   String(dataFrame.accX, 4)  + "," +
+                    String(dataFrame.accY, 4)  + "," +
+                    String(dataFrame.accZ, 4)  + "," +
+                    String(dataFrame.gyroX, 4) + "," +
+                    String(dataFrame.gyroY, 4) + "," +
+                    String(dataFrame.gyroZ, 4) + "," +
+                    String(dataFrame.magX, 4)  + "," +
+                    String(dataFrame.magY, 4)  + "," +
+                    String(dataFrame.magZ, 4)  + "," +
+                    String(orientation.roll, 4) + "," +
+                    String(orientation.pitch, 4) + "," +
+                    String(orientation.yaw, 4) + "\n";
+    dataFile.print(data); // Write the data to the file
+}
+
+/**
  * @brief Update the data logger
  * 
  * This function updates the data logger state machine.
@@ -164,7 +188,8 @@ LoggerStatus_t DataLogger::updateLogger() {
             }
         }
         if (xQueueReceive(queue, &dataFrame, 0) == pdPASS) { // Check if data is available in the queue
-            writeDataFrameToSD(dataFrame); // Write the data frame to SD card
+            ahrs_orientation_t orientation = ahrs.computeAHRSOrientation(dataFrame); // Compute AHRS orientation
+            writeDataFrameToSD(dataFrame, orientation); // Write the data frame to SD card
             if (shockCheck(dataFrame))
             {
                 return SHOCK_DETECTED;

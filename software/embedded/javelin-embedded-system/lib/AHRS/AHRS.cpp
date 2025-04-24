@@ -88,8 +88,8 @@ bool AHRS::configAHRS() {
   icm20649.odrAlign(true); // Enable ODR alignment
   icm20649.setAccelRange(ICM20649_ACCEL_RANGE_30_G); // Set accelerometer range to 30 G
   icm20649.setGyroRange(ICM20649_GYRO_RANGE_500_DPS); // Set gyroscope range to 500 DPS
-  icm20649.setAccelRateDivisor(4); // Set accelerometer data rate divisor
-  icm20649.setGyroRateDivisor(4); // Set gyroscope data rate divisor 
+  icm20649.setAccelRateDivisor(getAHRSSampleRateDivisor()); // Set accelerometer data rate divisor
+  icm20649.setGyroRateDivisor(getAHRSSampleRateDivisor()); // Set gyroscope data rate divisor 
   
   icm20649.enableI2CMaster(true); // Enable I2C master
   icm20649.configureI2CMaster(); // Configure I2C master
@@ -99,6 +99,8 @@ bool AHRS::configAHRS() {
   icm20649.enableFIFOWatermarkInt(true, false); // Enable FIFO watermark interrupt
   icm20649.selectFIFOData(FIFO_DATA_ACCEL_GYRO_S0); // Select FIFO data
   icm20649.resetFIFO(); // Reset FIFO
+
+  fusionFilter.begin(getAHRSSampleRate()); // Initialize fusion filter
   return true; // Success
 }
 
@@ -275,4 +277,86 @@ void AHRS::magCalibWrite(){
   lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
   icm20649.setI2CBypass(false);
   icm20649.enableI2CMaster(true);//enable i2c master
+}
+
+uint16_t AHRS::getAHRSSampleRate()
+{
+  switch (sampleRate)
+  {
+  case AHRS_15HZ:
+    return 15;
+    break;
+  case AHRS_25HZ:
+    return 25;
+    break;
+  case AHRS_45HZ:
+    return 45;
+    break;
+  case AHRS_125HZ:
+    return 125;
+    break;
+  case AHRS_225HZ:
+    return 225;
+    break;
+  case AHRS_375HZ:
+    return 375;
+    break;
+  case AHRS_1125HZ:
+    return 1125;
+    break;
+  default:
+    return 15;
+    break;
+  }
+}
+uint8_t AHRS::getAHRSSampleRateDivisor()
+{
+  switch (sampleRate)
+  {
+  case AHRS_15HZ:
+    return 74;
+    break;
+  case AHRS_25HZ:
+    return 44;
+    break;
+  case AHRS_45HZ:
+    return 24;
+    break;
+  case AHRS_125HZ:
+    return 8;
+    break;
+  case AHRS_225HZ:
+    return 4;
+    break;
+  case AHRS_375HZ:
+    return 2;
+    break;
+  case AHRS_1125HZ:
+    return 0;
+    break;
+  default:
+    return 74;
+    break;
+  }
+}
+
+ahrs_orientation_t AHRS::computeAHRSOrientation(ahrs_axes_t scaled_axes)
+{
+  ahrs_orientation_t orientation = {0, 0, 0};
+
+  fusionFilter.update(
+    scaled_axes.gyroX,
+    scaled_axes.gyroY,
+    scaled_axes.gyroZ,
+    scaled_axes.accX,
+    scaled_axes.accY,
+    scaled_axes.accZ,
+    scaled_axes.magX*100.f,//convert to uTeslas
+    scaled_axes.magY*100.f,
+    scaled_axes.magZ*100.f
+  );
+  orientation.roll = fusionFilter.getRoll();
+  orientation.pitch = fusionFilter.getPitch();
+  orientation.yaw = fusionFilter.getYaw();
+  return orientation;
 }

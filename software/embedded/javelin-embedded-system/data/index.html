@@ -4,93 +4,329 @@
   <title>Logs CSV</title>
   <script src="/libs/chart.js"></script>
   <script src="/libs/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .date-group {
+      margin-bottom: 25px;
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .date-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    .file-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .file-time {
+      flex: 1;
+      color: #333;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+      font-size: 14px;
+    }
+
+    .btn-pdf {
+      background-color: #e74c3c;
+    }
+
+    .btn-csv {
+      background-color: #27ae60;
+    }
+
+    #loadingIndicator {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      z-index: 1000;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 3px solid white;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
   <h2>Archivos CSV</h2>
-  <ul id="fileList"></ul>
-  <div style="width: 100%; max-width: 800px;">
+  <div id="fileContainer"></div>
+
+  <div style="display:none;">
     <canvas id="accChart"></canvas>
     <canvas id="gyroChart"></canvas>
     <canvas id="magChart"></canvas>
+    <canvas id="oriChart"></canvas>
   </div>
-  <button onclick="generatePDF()">Exportar PDF</button>
+
+  <div id="loadingIndicator">
+    <div class="spinner"></div>
+    <span class="loading-text">Generando PDF...</span>
+  </div>
 
   <script>
+    Chart.defaults.devicePixelRatio = 2;
     async function loadFiles() {
       const res = await fetch('/list');
       const files = await res.json();
-      const ul = document.getElementById('fileList');
-      ul.innerHTML = '';
+
+      const grouped = {};
       files.forEach(file => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = '#';
-        a.textContent = file;
-        a.onclick = () => loadCSV(file);
-        li.appendChild(a);
-        ul.appendChild(li);
+        const match = file.match(/datalog_(\d{8})_(\d{6})\.csv/);
+        if (!match) return;
+        const dateStr = match[1];
+        const timeStr = match[2];
+        const dateFormatted = `${dateStr.slice(0,4)}-${dateStr.slice(4,6)}-${dateStr.slice(6,8)}`;
+        const timeFormatted = `${timeStr.slice(0,2)}:${timeStr.slice(2,4)}:${timeStr.slice(4,6)}`;
+        if (!grouped[dateFormatted]) grouped[dateFormatted] = [];
+        grouped[dateFormatted].push({ file, time: timeFormatted });
+      });
+
+      const container = document.getElementById('fileContainer');
+      container.innerHTML = '';
+      Object.keys(grouped).sort().reverse().forEach(date => {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'date-group';
+
+        const title = document.createElement('div');
+        title.className = 'date-title';
+        title.textContent = date;
+        groupDiv.appendChild(title);
+
+        grouped[date].sort((a, b) => a.time.localeCompare(b.time)).forEach(({ file, time }) => {
+          const entry = document.createElement('div');
+          entry.className = 'file-entry';
+
+          const fileTime = document.createElement('div');
+          fileTime.className = 'file-time';
+          fileTime.textContent = time;
+          entry.appendChild(fileTime);
+
+          const buttons = document.createElement('div');
+          buttons.className = 'buttons';
+
+          const csvBtn = document.createElement('button');
+          csvBtn.className = 'btn btn-csv';
+          csvBtn.textContent = 'Descargar CSV';
+          csvBtn.onclick = () => window.location.href = '/logs/' + file;
+          buttons.appendChild(csvBtn);
+
+          const pdfBtn = document.createElement('button');
+          pdfBtn.className = 'btn btn-pdf';
+          pdfBtn.textContent = 'Descargar PDF';
+          pdfBtn.onclick = () => generatePDFfromCSV(file);
+          buttons.appendChild(pdfBtn);
+
+          entry.appendChild(buttons);
+          groupDiv.appendChild(entry);
+        });
+
+        container.appendChild(groupDiv);
       });
     }
 
-    async function loadCSV(filename) {
+    async function generatePDFfromCSV(filename) {
+      const loadingDiv = document.getElementById('loadingIndicator');
+      loadingDiv.style.display = 'flex';
+
+      Chart.defaults.devicePixelRatio = 2;
+      ['accChart','gyroChart','magChart','oriChart'].forEach(id => {
+        const c = document.getElementById(id);
+        // Pon un tamaño grande en píxeles:
+        c.width  = 2560;
+        c.height = 800;
+      });
+
       const res = await fetch('/logs/' + filename);
       const text = await res.text();
       const lines = text.trim().split('\n');
       const time = [];
-      const acc = [[], [], []], gyro = [[], [], []], mag = [[], [], []];
+      const acc = [[], [], []], gyro = [[], [], []], mag = [[], [], []], ori = [[], [], []];
 
       lines.forEach((line, idx) => {
         const parts = line.split(',');
-        if (parts.length < 9) return;
-        time.push(idx); // o podés usar timestamp si lo tenés
+        if (parts.length < 12) return;
+        time.push(idx);
         for (let i = 0; i < 3; i++) acc[i].push(parseFloat(parts[i]));
         for (let i = 0; i < 3; i++) gyro[i].push(parseFloat(parts[i + 3]));
         for (let i = 0; i < 3; i++) mag[i].push(parseFloat(parts[i + 6]));
+        for (let i = 0; i < 3; i++) ori[i].push(parseFloat(parts[i + 9]));
       });
+      // 1) Acelerómetro en G’s
+      await drawChart('accChart',
+                      "Acceleration (G's)",
+                      time, acc,
+                      { /* usa default labels X/Y/Z y colores */ });
 
-      drawChart('accChart', 'Acelerómetro', time, acc);
-      drawChart('gyroChart', 'Giroscopio', time, gyro);
-      drawChart('magChart', 'Magnetómetro', time, mag);
+      // 2) Velocidad angular en DPS
+      await drawChart('gyroChart',
+                      "Angular Speed (DPS)",
+                      time, gyro,
+                      { /* default */ });
+
+      // 3) Campo magnético en Gauss
+      await drawChart('magChart',
+                      "Magnetic Field (Gauss)",
+                      time, mag,
+                      { /* default */ });
+
+      // 4) Orientación en grados con leyenda Roll/Pitch/Yaw
+      await drawChart('oriChart',
+                      "Orientation (Degrees)",
+                      time, ori,
+                      {
+                        labels: ['Roll','Pitch','Yaw'],
+                        colors: ['#ff9900','#66ccff','#cc00cc']
+                      });
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+
+      let yOffset = 10;
+      const addChartToPDF = async (id, label) => {
+        const canvas = document.getElementById(id);
+        const imgData = canvas.toDataURL('image/png');
+        pdf.text(label, 10, yOffset);
+        yOffset += 5;
+        pdf.addImage(imgData, 'PNG', 10, yOffset, 180, 60);
+        yOffset += 70;
+      };
+
+      await addChartToPDF('accChart', 'Acceleration');
+      await addChartToPDF('gyroChart', 'Angular Speed');
+      await addChartToPDF('magChart', 'Magnetic Field');
+      await addChartToPDF('oriChart', 'Orientation');
+
+      pdf.save(filename.replace('.csv', '.pdf'));
+      loadingDiv.style.display = 'none';
     }
 
     let charts = {};
-    function drawChart(id, label, time, data) {
+    /**
+    * id            → el ID del canvas
+    * yAxisLabel    → texto para el eje Y
+    * time          → array de etiquetas de tiempo
+    * data          → array de 3 arrays con tus datos
+    * opts          → { labels:[], colors:[] }
+    */
+    async function drawChart(id, yAxisLabel, time, data, opts = {}) {
+      const { labels = ['X','Y','Z'], colors = ['red','green','blue'] } = opts;
       if (charts[id]) charts[id].destroy();
       const ctx = document.getElementById(id).getContext('2d');
       charts[id] = new Chart(ctx, {
         type: 'line',
         data: {
           labels: time,
-          datasets: [
-            { label: label + ' X', data: data[0], borderColor: 'red', fill: false },
-            { label: label + ' Y', data: data[1], borderColor: 'green', fill: false },
-            { label: label + ' Z', data: data[2], borderColor: 'blue', fill: false },
-          ]
+          datasets: labels.map((lab, i) => ({
+            label: lab,
+            data: data[i],
+            borderColor: colors[i],
+            backgroundColor: colors[i].replace(/([0-9\.]+\))$/, '0.2)'), 
+            borderWidth: 2,
+            pointRadius: 3,
+            fill: false
+          }))
         },
         options: {
-          responsive: true,
-          scales: { x: { display: true }, y: { display: true } }
+          responsive: false,
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Tiempo (s)',
+                font: {
+                  size: 34  // <-- tamaño del título eje X
+                }
+              },
+              ticks: {
+                font: {
+                  size: 12  // <-- tamaño de las etiquetas del eje X
+                }
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: yAxisLabel,
+                font: {
+                  size: 34  // <-- tamaño del título eje Y
+                }
+              },
+              ticks: {
+                font: {
+                  size: 25  // <-- tamaño de las etiquetas del eje Y
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: {
+                font: {
+                  size: 34  // <-- tamaño de la fuente de la leyenda
+                }
+              }
+            }
+          },
+          elements: {
+            line: { tension: 0.1 },
+            point: { radius: 3 }
+          },
+          animation: false
         }
       });
+      return Promise.resolve();
     }
-
-    async function generatePDF() {
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF();
-
-      const addChart = async (id, yOffset) => {
-        const canvas = document.getElementById(id);
-        const imgData = canvas.toDataURL("image/png");
-        pdf.addImage(imgData, 'PNG', 10, yOffset, 180, 60);
-      }
-
-      await addChart('accChart', 10);
-      await addChart('gyroChart', 80);
-      await addChart('magChart', 150);
-
-      pdf.save('log.pdf');
-    }
-
     loadFiles();
   </script>
 </body>

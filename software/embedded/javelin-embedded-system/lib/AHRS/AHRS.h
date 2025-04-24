@@ -8,6 +8,7 @@
 
 #include <Adafruit_ICM20649.h>
 #include <Adafruit_LIS3MDL.h>
+#include <MadgwickAHRS.h>
 
 #define EEPROM_SIZE 1024 ///< Size of EEPROM for storing system parameters
 enum EEPROM_ADDR {
@@ -29,6 +30,10 @@ typedef struct {
     magZ;      ///< Magnetometer Z axis in uT
 } ahrs_axes_t;
 
+typedef struct {
+    float roll, pitch, yaw; ///< Quaternion values
+} ahrs_orientation_t;
+
 typedef enum
 {
     AHRS_WAITING,
@@ -36,6 +41,17 @@ typedef enum
     AHRS_SAMPLING,
     AHRS_END
 }state_t;
+
+typedef enum
+{   
+    AHRS_15HZ,
+    AHRS_25HZ,
+    AHRS_45HZ,
+    AHRS_125HZ,
+    AHRS_225HZ,
+    AHRS_375HZ,
+    AHRS_1125HZ
+} ahrs_sample_rate_t;
 
 class AHRS {    
 public:
@@ -48,10 +64,12 @@ public:
         icm20649_accel_range_t accelRange, icm20649_gyro_range_t gyroRange, lis3mdl_range_t magRange);
     bool setAHRSSampleRate(uint8_t sampleRate);
     ahrs_axes_t scaleAxes(icm20x_raw_axes_t raw_axes);
+
     void magHardIronCalc(float x, float y, float z);
     void magCalibWrite();
     void saveMagCalibToEEPROM();
     void loadMagCalibFromEEPROM();
+    ahrs_orientation_t computeAHRSOrientation(ahrs_axes_t scaled_axes);
     
     Adafruit_ICM20649 icm20649;
     Adafruit_LIS3MDL lis3mdl;
@@ -61,6 +79,12 @@ icm20x_raw_axes_t raw_axes[ICM20X_FIFO_SIZE/6];  ///< Raw data axes buffer array
 icm20649_accel_range_t accelRange = ICM20649_ACCEL_RANGE_30_G; ///< Accelerometer range
 icm20649_gyro_range_t gyroRange = ICM20649_GYRO_RANGE_500_DPS; ///< Gyroscope range
 lis3mdl_range_t magRange =LIS3MDL_RANGE_4_GAUSS; ///< Magnetometer range
+
+ahrs_sample_rate_t sampleRate = AHRS_225HZ; ///< AHRS sample rate
+uint16_t getAHRSSampleRate();
+uint8_t getAHRSSampleRateDivisor();
+
+Madgwick fusionFilter;
 
 };
 
