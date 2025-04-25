@@ -9,13 +9,18 @@
 #define TOUCH_PIN 1
 
 #define TOUCH_THRESHOLD 10000
-#define DEBOUNCE_DELAY 150//ms
 #define MAX_TOUCH_INTERVAL 500//ms
+
+#define ISR_DEBOUNCE_DELAY     150   // ms: tu debounce original en la ISR
+#define VALIDATE_DELAY         50    // ms: tiempo para validar en loop
+
+enum DebounceState { IDLE, VALIDATING };
 
 typedef enum {
     NO_INPUT,
     THREE_TOUCHES,
-    FIVE_TOUCHES
+    FIVE_TOUCHES,
+    SEVEN_TOUCHES
 } UserAction_t;
 
 typedef enum {
@@ -44,6 +49,8 @@ private:
     static void IRAM_ATTR gotTouchEvent();
 
     static volatile bool touchDetected; // Flag compartido con la ISR
+    DebounceState debounceState = IDLE;
+    unsigned long validationTime = 0;
 
     uint8_t touchCount = 0;
     unsigned long lastTouchTime = 0; // Para medir intervalo entre toques

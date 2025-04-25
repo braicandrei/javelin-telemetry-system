@@ -67,6 +67,13 @@ void loop() {
     }
     
     break;
+  case SEVEN_TOUCHES:
+    if (logger.getLoggerState() == LOGGER_WAITING) {
+      logger.setCalibration(); // Set calibration flag
+      logger.startSamplig(); // Start data sampling
+      ui.setSystemTransition(SAMPLE_BEGIN); // Set system transition to sample begin
+    }
+    break;
   default:
     // No action needed for other cases
     break;

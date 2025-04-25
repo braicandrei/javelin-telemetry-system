@@ -24,7 +24,7 @@
 #include <Adafruit_LIS3MDL.h>
 #include <Wire.h>
 
-#define LIS3MDL_DEBUG 0
+#define LIS3MDL_DEBUG 1
 
 /**************************************************************************/
 /*!
