@@ -36,7 +36,7 @@ void loop() {
     }
   }
   switch (ui.updateUI()) {
-  case THREE_TOUCHES:
+  case INPUT_1:
     if (logger.getLoggerState() == LOGGER_WAITING && !serverOn) {
       // Handle three touches detected
       logger.startSamplig(); // Start data sampling
@@ -47,7 +47,7 @@ void loop() {
       ui.setSystemTransition(SAMPLE_END); // Set system transition to sample end
     }
     break;
-  case FIVE_TOUCHES:
+  case INPUT_2:
     //if (logger.getLoggerState() == LOGGER_WAITING) {
     //  // Handle three touches detected
     //  logger.setCalibration(); // Set calibration flag
@@ -67,7 +67,7 @@ void loop() {
     }
     
     break;
-  case SEVEN_TOUCHES:
+  case INPUT_3:
     if (logger.getLoggerState() == LOGGER_WAITING) {
       logger.setCalibration(); // Set calibration flag
       logger.startSamplig(); // Start data sampling

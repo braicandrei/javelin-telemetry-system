@@ -92,18 +92,18 @@ UserAction_t UserInterface::updateUI() {
           break;
       }
     if ((currentTime - lastTouchTime) > maxTouchInterval && touchCount > 0) {
-        if (touchCount == 3) {
-            userAction = THREE_TOUCHES;
+        if (touchCount == INPUT_1_COUNT) {
+            userAction = INPUT_1;
             #if (DEBUUG_UI) 
               Serial.println("¡Tres toques detectados!");
             #endif
-        } else if (touchCount == 5) {
-            userAction = FIVE_TOUCHES;
+        } else if (touchCount == INPUT_2_COUNT) {
+            userAction = INPUT_2;
             #if (DEBUUG_UI) 
               Serial.println("¡Cinco toques detectados!");
             #endif
-        } else if (touchCount == 7) {
-            userAction = SEVEN_TOUCHES;
+        } else if (touchCount == INPUT_3_COUNT) {
+            userAction = INPUT_3;
             #if (DEBUUG_UI) 
               Serial.println("Siete toques detectados!");
             #endif

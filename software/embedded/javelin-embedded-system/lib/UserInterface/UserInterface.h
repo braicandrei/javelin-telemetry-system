@@ -18,10 +18,16 @@ enum DebounceState { IDLE, VALIDATING };
 
 typedef enum {
     NO_INPUT,
-    THREE_TOUCHES,
-    FIVE_TOUCHES,
-    SEVEN_TOUCHES
+    INPUT_1,
+    INPUT_2,
+    INPUT_3
 } UserAction_t;
+
+typedef enum {
+    INPUT_1_COUNT = 2,
+    INPUT_2_COUNT = 4,
+    INPUT_3_COUNT = 6
+} InputCount_t;
 
 typedef enum {
     NONE,

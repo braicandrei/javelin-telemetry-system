@@ -619,9 +619,9 @@ bool Adafruit_LIS3MDL::writeOffsetxyz() {
     Serial.println(_z);
   #endif
 
-  this->xoffset = _x-this->xoffset;
-  this->yoffset = _y-this->yoffset;
-  this->zoffset = _z-this->zoffset;
+  this->xoffset = _x+this->xoffset;
+  this->yoffset = _y+this->yoffset;
+  this->zoffset = _z+this->zoffset;
 
   int16_t xOffsetInt = (int16_t)(this->xoffset * this->_scale);
   int16_t yOffsetInt = (int16_t)(this->yoffset * this->_scale);
@@ -681,9 +681,10 @@ void Adafruit_LIS3MDL::hardIronCalc(float x, float y, float z)
   } else if (z < minZ) {
     minZ = z;
   }
-  this->xoffset = -(maxX + minX) / 2.0;
-  this->yoffset = -(maxY + minY) / 2.0;
-  this->zoffset = -(maxZ + minZ) / 2.0;
+  this->xoffset = (maxX + minX) / 2.0;
+  this->yoffset = (maxY + minY) / 2.0;
+  this->zoffset = (maxZ + minZ) / 2.0;
+  Serial.println("MaxX: " + String(maxX) + " MinX: " + String(minX) + " MaxY: " + String(maxY) + " MinY: " + String(minY) + " MaxZ: " + String(maxZ) + " MinZ: " + String(minZ) + "-->Hard Iron x:" + String(this->xoffset) + " y:" + String(this->yoffset) + " z:" + String(this->zoffset));
 }
 
 /**

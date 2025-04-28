@@ -98,8 +98,8 @@ void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame) {
                     String(dataFrame.gyroX, 4) + "," +
                     String(dataFrame.gyroY, 4) + "," +
                     String(dataFrame.gyroZ, 4) + "," +
-                    String(dataFrame.magX, 4)  + "," +
-                    String(dataFrame.magY, 4)  + "," +
+                    String(-dataFrame.magX, 4)  + "," +
+                    String(-dataFrame.magY, 4)  + "," +
                     String(dataFrame.magZ, 4)  + "\n";
     dataFile.print(data); // Write the data to the file
 }
@@ -119,12 +119,36 @@ void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame, ahrs_orientation_t or
                     String(dataFrame.gyroX, 4) + "," +
                     String(dataFrame.gyroY, 4) + "," +
                     String(dataFrame.gyroZ, 4) + "," +
-                    String(dataFrame.magX, 4)  + "," +
-                    String(dataFrame.magY, 4)  + "," +
+                    String(-dataFrame.magX, 4)  + "," +
+                    String(-dataFrame.magY, 4)  + "," +
                     String(dataFrame.magZ, 4)  + "," +
                     String(orientation.roll, 4) + "," +
                     String(orientation.pitch, 4) + "," +
                     String(orientation.yaw, 4) + "\n";
+    dataFile.print(data); // Write the data to the file
+}
+
+/**
+ * @brief Write a data frame to the SD card
+ * 
+ * This function writes a data frame to the SD card in CSV format.
+ * 
+ * @param dataFrame Data frame to be written to the SD card
+ * @param orientation Orientation data
+ */
+void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame, ahrs_angles_t angles) {
+    String data =   String(dataFrame.accX, 4)  + "," +
+                    String(dataFrame.accY, 4)  + "," +
+                    String(dataFrame.accZ, 4)  + "," +
+                    String(dataFrame.gyroX, 4) + "," +
+                    String(dataFrame.gyroY, 4) + "," +
+                    String(dataFrame.gyroZ, 4) + "," +
+                    String(-dataFrame.magX, 4)  + "," +
+                    String(-dataFrame.magY, 4)  + "," +
+                    String(dataFrame.magZ, 4)  + "," +
+                    String(angles.inclination, 4) + "," +
+                    String(angles.direction, 4) + "," +
+                    String(angles.direction, 4) + "\n";
     dataFile.print(data); // Write the data to the file
 }
 
@@ -160,6 +184,10 @@ LoggerStatus_t DataLogger::updateLogger() {
             loggerState = LOGGER_WAITING;
             return SD_FAILED;
         }
+        if (calibration_flag) 
+        {
+            ahrs.setHardIronOffsets(0.f, 0.f, 0.f);//set hard iron offsets to 0
+        }
         ahrs.icm20649.resetFIFO();// Reset FIFO buffer
         xQueueReset(queue);// Reset the queue
         frameCounter = 0;// Reset frame counter
@@ -188,15 +216,18 @@ LoggerStatus_t DataLogger::updateLogger() {
             }
         }
         if (xQueueReceive(queue, &dataFrame, 0) == pdPASS) { // Check if data is available in the queue
-            ahrs_orientation_t orientation = ahrs.computeAHRSOrientation(dataFrame); // Compute AHRS orientation
-            writeDataFrameToSD(dataFrame, orientation); // Write the data frame to SD card
+            //ahrs_orientation_t orientation = ahrs.computeAHRSOrientation(dataFrame); // Compute AHRS orientation
+            //writeDataFrameToSD(dataFrame, orientation); // Write the data frame to SD card
+            ahrs_angles_t angles = ahrs.computeAHRSAngles(dataFrame); // Compute AHRS angles
+            writeDataFrameToSD(dataFrame, angles); // Write the data frame to SD card
             if (shockCheck(dataFrame))
             {
                 return SHOCK_DETECTED;
             }
             if (calibration_flag)
             {
-                ahrs.magHardIronCalc(dataFrame.magX, dataFrame.magY, dataFrame.magZ); // Perform hard iron calibration
+                //ahrs.magHardIronCalc(dataFrame.magX, dataFrame.magY, dataFrame.magZ); // Perform hard iron calibration
+                ahrs.hardIronCalib(dataFrame.magX, dataFrame.magY, dataFrame.magZ);
             }
             
         } else if (stopSampling_flag)
@@ -210,8 +241,9 @@ LoggerStatus_t DataLogger::updateLogger() {
         dataFile.close(); // Close the file
         if (calibration_flag){
             calibration_flag = false; // Reset the calibration flag
-            ahrs.magCalibWrite(); // Write offset values to magnetometer for hard iron calibration
-            ahrs.saveMagCalibToEEPROM(); // Save calibration data to EEPROM
+            ahrs.endHardIronCalib();
+            //ahrs.magCalibWrite(); // Write offset values to magnetometer for hard iron calibration
+            //ahrs.saveMagCalibToEEPROM(); // Save calibration data to EEPROM
         }
         #if(DEBUG_LOGER)
             Serial.println("End sampling!");

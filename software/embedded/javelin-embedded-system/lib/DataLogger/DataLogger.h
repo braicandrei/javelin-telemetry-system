@@ -59,6 +59,7 @@ private:
     ahrs_axes_t dataFrame; // Data frame for sensor data
     void writeDataFrameToSD(ahrs_axes_t dataFrame); // Write data frame to SD card
     void writeDataFrameToSD(ahrs_axes_t dataFrame, ahrs_orientation_t orientation);
+    void writeDataFrameToSD(ahrs_axes_t dataFrame, ahrs_angles_t angles);
     ahrs_axes_t dataFrameBuffer[FRAME_BUFFER_LENGTH];
     bool shockCheck(ahrs_axes_t dataFrame);
     const float shockThreshold = 15.0;

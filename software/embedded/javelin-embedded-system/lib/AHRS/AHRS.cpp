@@ -71,23 +71,23 @@ uint8_t AHRS::beginAHRSi2c() {
 bool AHRS::configAHRS() {
 
   EEPROM.begin(EEPROM_SIZE); // Initialize EEPROM
-  loadMagCalibFromEEPROM(); // Load magnetometer calibration offsets from EEPROM
+  //loadMagCalibFromEEPROM(); // Load magnetometer calibration offsets from EEPROM
 
   icm20649.setI2CBypass(true); // Enable I2C bypass
   
-  lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
+  //lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
   lis3mdl.setPerformanceMode(LIS3MDL_HIGHMODE); // Set magentometer performance mode to high
   lis3mdl.setOperationMode(LIS3MDL_CONTINUOUSMODE); // Set magnetometer operation mode to continuous
   lis3mdl.setDataRate(LIS3MDL_DATARATE_560_HZ); // Set magnetometer data rate to 560 Hz
-  lis3mdl.setRange(LIS3MDL_RANGE_4_GAUSS); // Set magnetometer range to 4 gauss
+  lis3mdl.setRange(LIS3MDL_RANGE_8_GAUSS); // Set magnetometer range to 4 gauss
   //lis3mdl.loadOffsetsFromEEPROM();  // Load offsets from EEPROM
-  lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
+  //lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
   icm20649.setI2CBypass(false); // Disable I2C bypass
 
   
   icm20649.odrAlign(true); // Enable ODR alignment
   icm20649.setAccelRange(ICM20649_ACCEL_RANGE_30_G); // Set accelerometer range to 30 G
-  icm20649.setGyroRange(ICM20649_GYRO_RANGE_500_DPS); // Set gyroscope range to 500 DPS
+  icm20649.setGyroRange(ICM20649_GYRO_RANGE_2000_DPS); // Set gyroscope range to 500 DPS
   icm20649.setAccelRateDivisor(getAHRSSampleRateDivisor()); // Set accelerometer data rate divisor
   icm20649.setGyroRateDivisor(getAHRSSampleRateDivisor()); // Set gyroscope data rate divisor 
   
@@ -208,13 +208,13 @@ ahrs_axes_t AHRS::scaleAxes(icm20x_raw_axes_t raw_axes){
     scaled_axes.accY = raw_axes.rawAccY / accel_scale;
     scaled_axes.accZ = raw_axes.rawAccZ / accel_scale;
 
-    scaled_axes.gyroX = raw_axes.rawGyroX / gyro_scale;
-    scaled_axes.gyroY = raw_axes.rawGyroY / gyro_scale;
-    scaled_axes.gyroZ = raw_axes.rawGyroZ / gyro_scale;
+    scaled_axes.gyroX = (raw_axes.rawGyroX / gyro_scale) + 0.5f;
+    scaled_axes.gyroY = (raw_axes.rawGyroY / gyro_scale) - 2.0f;
+    scaled_axes.gyroZ = (raw_axes.rawGyroZ / gyro_scale) + 0.5f;
 
-    scaled_axes.magX = raw_axes.rawMagX / mag_scale;
-    scaled_axes.magY = raw_axes.rawMagY / mag_scale;
-    scaled_axes.magZ = raw_axes.rawMagZ / mag_scale;
+    scaled_axes.magX = (raw_axes.rawMagX / mag_scale)-magOffsets.xoffset;   //correccion de los ejes de los sensores
+    scaled_axes.magY = (raw_axes.rawMagY / mag_scale)-magOffsets.yoffset;
+    scaled_axes.magZ = (raw_axes.rawMagZ / mag_scale)-magOffsets.zoffset;
 
     return scaled_axes;
 
@@ -260,6 +260,63 @@ void AHRS::magHardIronCalc(float x, float y, float z)
 {
   //Serial.println("MagX: " + String(x) + " MagY: " + String(y) + " MagZ: " + String(z));
   lis3mdl.hardIronCalc(x, y, z); // Calculate hard iron offsets
+}
+
+/**
+ * @brief Call the hard iron calibration compute function for the magnetometer
+ * 
+ * @param x The X value for hard iron calibration
+ * @param y The Y value for hard iron calibration
+ * @param z The Z value for hard iron calibration
+ */
+void AHRS::hardIronCalib(float x, float y, float z)
+{
+  static float maxX = 0, minX = 0, maxY = 0, minY = 0, maxZ = 0, minZ = 0;
+  if (!magCalibrationFlag)
+  {
+    maxX = 0;
+    minX = 0;
+    maxY = 0;
+    minY = 0;
+    maxZ = 0;
+    minZ = 0;
+    magCalibrationFlag = true;
+  }
+  
+  if (x > maxX) {
+    maxX = x;
+  } else if (x < minX) {
+    minX = x;
+  }
+  if (y > maxY) {
+    maxY = y;
+  } else if (y < minY) {
+    minY = y;
+  }
+  if (z > maxZ) {
+    maxZ = z;
+  } else if (z < minZ) {
+    minZ = z;
+  }
+  this->magOffsetsTemp.xoffset = (maxX + minX) / 2.0;
+  this->magOffsetsTemp.yoffset = (maxY + minY) / 2.0;
+  this->magOffsetsTemp.zoffset = (maxZ + minZ) / 2.0;
+  Serial.println("MaxX: " + String(maxX) + " MinX: " + String(minX) + " MaxY: " + String(maxY) + " MinY: " + String(minY) + " MaxZ: " + String(maxZ) + " MinZ: " + String(minZ) + "-->Hard Iron x:" + String(this->magOffsetsTemp.xoffset) + " y:" + String(this->magOffsetsTemp.yoffset) + " z:" + String(this->magOffsetsTemp.zoffset));
+}
+
+void AHRS::setHardIronOffsets(float x, float y, float z)
+{
+  magOffsets.xoffset = x;
+  magOffsets.yoffset = y;
+  magOffsets.zoffset = z;
+}
+void AHRS::endHardIronCalib()
+{
+  magCalibrationFlag = false;
+  magOffsets.xoffset = magOffsetsTemp.xoffset;
+  magOffsets.yoffset = magOffsetsTemp.yoffset;
+  magOffsets.zoffset = magOffsetsTemp.zoffset;
+
 }
 
 /**
@@ -351,12 +408,39 @@ ahrs_orientation_t AHRS::computeAHRSOrientation(ahrs_axes_t scaled_axes)
     scaled_axes.accX,
     scaled_axes.accY,
     scaled_axes.accZ,
-    scaled_axes.magX*100.f,//convert to uTeslas
-    scaled_axes.magY*100.f,
+    -scaled_axes.magX*100.f,//convert to uTeslas and invert X y axis to correct orientation
+    -scaled_axes.magY*100.f,
     scaled_axes.magZ*100.f
   );
   orientation.roll = fusionFilter.getRoll();
   orientation.pitch = fusionFilter.getPitch();
   orientation.yaw = fusionFilter.getYaw();
   return orientation;
+}
+ahrs_angles_t AHRS::computeAHRSAngles(ahrs_axes_t scaled_axes)
+{
+  ahrs_angles_t angles = {0, 0};
+  float direction = 0, inclination = 0;
+  fusionFilter.update(
+    scaled_axes.gyroX,
+    scaled_axes.gyroY,
+    scaled_axes.gyroZ,
+    scaled_axes.accX,
+    scaled_axes.accY,
+    scaled_axes.accZ,
+    -scaled_axes.magX*100.f,//convert to uTeslas and invert X y axis to correct orientation
+    -scaled_axes.magY*100.f,
+    scaled_axes.magZ*100.f
+  );
+  fusionFilter.getAngles(&direction, &inclination);
+
+  angles.direction = direction;
+  angles.inclination = inclination;
+  return angles;
+}
+void AHRS::calibrateRelativeOrientation(ahrs_orientation_t orientation)
+{
+  relativeOrientation.roll =  (relativeOrientation.roll + orientation.roll)/2.f;
+  relativeOrientation.pitch = (relativeOrientation.pitch + orientation.pitch)/2.f;
+  relativeOrientation.yaw =   (relativeOrientation.yaw + orientation.yaw)/2.f;
 }
