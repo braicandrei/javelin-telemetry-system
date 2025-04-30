@@ -5,6 +5,8 @@
 
 #include "AHRS.h"
 
+#define DEBUG_AHRS 0
+
 /**
  * @brief AHRS constructor
  * 
@@ -35,7 +37,9 @@ uint8_t AHRS::beginAHRSi2c() {
   uint8_t magConexionTry = 0;
 
   while (!icm20649.begin_I2C() && accelConexionTry < 3) { // Initialize ICM20649 I2C bus
-    Serial.println("ICM20649 I2C bus initialization failed!");
+    #if(DEBUG_AHRS)
+      Serial.println("ICM20649 I2C bus initialization failed!");
+    #endif
     delay(1000); // Wait for 1 second before retrying
     accelConexionTry++;
   }
@@ -47,7 +51,9 @@ uint8_t AHRS::beginAHRSi2c() {
   icm20649.setI2CBypass(true); // Enable I2C bypass
 
   if (!lis3mdl.begin_I2C() && magConexionTry < 3) { // Initialize LIS3MDL I2C bus
-    Serial.println("LIS3MDL I2C bus initialization failed!");
+    #if(DEBUG_AHRS)
+      Serial.println("LIS3MDL I2C bus initialization failed!");
+    #endif
     delay(1000); // Wait for 1 second before retrying
     magConexionTry++;
   }
@@ -208,12 +214,12 @@ ahrs_axes_t AHRS::scaleAxes(icm20x_raw_axes_t raw_axes){
     scaled_axes.accY = raw_axes.rawAccY / accel_scale;
     scaled_axes.accZ = raw_axes.rawAccZ / accel_scale;
 
-    scaled_axes.gyroX = (raw_axes.rawGyroX / gyro_scale) + 0.5f;
-    scaled_axes.gyroY = (raw_axes.rawGyroY / gyro_scale) - 2.0f;
-    scaled_axes.gyroZ = (raw_axes.rawGyroZ / gyro_scale) + 0.5f;
+    scaled_axes.gyroX = (raw_axes.rawGyroX / gyro_scale) + gyroOffsets.xoffset;
+    scaled_axes.gyroY = (raw_axes.rawGyroY / gyro_scale) - gyroOffsets.yoffset;
+    scaled_axes.gyroZ = (raw_axes.rawGyroZ / gyro_scale) + gyroOffsets.zoffset;
 
-    scaled_axes.magX = (raw_axes.rawMagX / mag_scale)-magOffsets.xoffset;   //correccion de los ejes de los sensores
-    scaled_axes.magY = (raw_axes.rawMagY / mag_scale)-magOffsets.yoffset;
+    scaled_axes.magX = -(raw_axes.rawMagX / mag_scale)-magOffsets.xoffset;   //correccion de los ejes de los sensores X e Y
+    scaled_axes.magY = -(raw_axes.rawMagY / mag_scale)-magOffsets.yoffset;   //compensacion de las distorsiones de campo 
     scaled_axes.magZ = (raw_axes.rawMagZ / mag_scale)-magOffsets.zoffset;
 
     return scaled_axes;
@@ -263,7 +269,7 @@ void AHRS::magHardIronCalc(float x, float y, float z)
 }
 
 /**
- * @brief Call the hard iron calibration compute function for the magnetometer
+ * @brief Update the hard iron calibration compute function 
  * 
  * @param x The X value for hard iron calibration
  * @param y The Y value for hard iron calibration
@@ -301,15 +307,26 @@ void AHRS::hardIronCalib(float x, float y, float z)
   this->magOffsetsTemp.xoffset = (maxX + minX) / 2.0;
   this->magOffsetsTemp.yoffset = (maxY + minY) / 2.0;
   this->magOffsetsTemp.zoffset = (maxZ + minZ) / 2.0;
-  Serial.println("MaxX: " + String(maxX) + " MinX: " + String(minX) + " MaxY: " + String(maxY) + " MinY: " + String(minY) + " MaxZ: " + String(maxZ) + " MinZ: " + String(minZ) + "-->Hard Iron x:" + String(this->magOffsetsTemp.xoffset) + " y:" + String(this->magOffsetsTemp.yoffset) + " z:" + String(this->magOffsetsTemp.zoffset));
+  //Serial.println("MaxX: " + String(maxX) + " MinX: " + String(minX) + " MaxY: " + String(maxY) + " MinY: " + String(minY) + " MaxZ: " + String(maxZ) + " MinZ: " + String(minZ) + "-->Hard Iron x:" + String(this->magOffsetsTemp.xoffset) + " y:" + String(this->magOffsetsTemp.yoffset) + " z:" + String(this->magOffsetsTemp.zoffset));
 }
 
+/*!
+  @brief Setter for the hard iron calibration values for external use
+  
+  @param x The X value for hard iron calibration
+  @param y The Y value for hard iron calibration
+  @param z The Z value for hard iron calibration
+*/
 void AHRS::setHardIronOffsets(float x, float y, float z)
 {
   magOffsets.xoffset = x;
   magOffsets.yoffset = y;
   magOffsets.zoffset = z;
 }
+
+/*!
+  @brief End calibration flag and transfer the values to the class attributes 
+*/
 void AHRS::endHardIronCalib()
 {
   magCalibrationFlag = false;
@@ -336,6 +353,11 @@ void AHRS::magCalibWrite(){
   icm20649.enableI2CMaster(true);//enable i2c master
 }
 
+/*!
+  @brief Getter fot he  the AHRS sample rate 
+
+  @return Sample rate 
+*/
 uint16_t AHRS::getAHRSSampleRate()
 {
   switch (sampleRate)
@@ -366,6 +388,12 @@ uint16_t AHRS::getAHRSSampleRate()
     break;
   }
 }
+
+/*!
+  @brief Getter for the AHRS sample rate divisor for ICM 20649 configuration
+
+  @return Sample rate divisor 
+*/
 uint8_t AHRS::getAHRSSampleRateDivisor()
 {
   switch (sampleRate)
@@ -397,6 +425,12 @@ uint8_t AHRS::getAHRSSampleRateDivisor()
   }
 }
 
+/*!
+  @brief Update the Madgwick filter and get the orientation
+
+  @param  scaled_axes Structure with the last AHRS measurements 
+  @return Structure with roll, pitch and yaw angles.
+*/
 ahrs_orientation_t AHRS::computeAHRSOrientation(ahrs_axes_t scaled_axes)
 {
   ahrs_orientation_t orientation = {0, 0, 0};
@@ -408,8 +442,8 @@ ahrs_orientation_t AHRS::computeAHRSOrientation(ahrs_axes_t scaled_axes)
     scaled_axes.accX,
     scaled_axes.accY,
     scaled_axes.accZ,
-    -scaled_axes.magX*100.f,//convert to uTeslas and invert X y axis to correct orientation
-    -scaled_axes.magY*100.f,
+    scaled_axes.magX*100.f,//convert to uTeslas and invert X y axis to correct orientation
+    scaled_axes.magY*100.f,
     scaled_axes.magZ*100.f
   );
   orientation.roll = fusionFilter.getRoll();
@@ -417,6 +451,13 @@ ahrs_orientation_t AHRS::computeAHRSOrientation(ahrs_axes_t scaled_axes)
   orientation.yaw = fusionFilter.getYaw();
   return orientation;
 }
+
+/*!
+  @brief Update the Madgwick filter and get the inclination and direction angles
+
+  @param  scaled_axes Structure with the last AHRS measurements 
+  @return Structure with inclination and direction angles.
+*/
 ahrs_angles_t AHRS::computeAHRSAngles(ahrs_axes_t scaled_axes)
 {
   ahrs_angles_t angles = {0, 0};
@@ -428,16 +469,18 @@ ahrs_angles_t AHRS::computeAHRSAngles(ahrs_axes_t scaled_axes)
     scaled_axes.accX,
     scaled_axes.accY,
     scaled_axes.accZ,
-    -scaled_axes.magX*100.f,//convert to uTeslas and invert X y axis to correct orientation
-    -scaled_axes.magY*100.f,
+    scaled_axes.magX*100.f,//convert to uTeslas and invert X y axis to correct orientation
+    scaled_axes.magY*100.f,
     scaled_axes.magZ*100.f
   );
-  fusionFilter.getAngles(&direction, &inclination);
+  fusionFilter.getAngles(&inclination, &direction);
 
   angles.direction = direction;
   angles.inclination = inclination;
   return angles;
 }
+
+
 void AHRS::calibrateRelativeOrientation(ahrs_orientation_t orientation)
 {
   relativeOrientation.roll =  (relativeOrientation.roll + orientation.roll)/2.f;

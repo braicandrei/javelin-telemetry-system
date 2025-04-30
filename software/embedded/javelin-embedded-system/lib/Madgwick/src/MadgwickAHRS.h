@@ -18,6 +18,8 @@
 #define MadgwickAHRS_h
 #include <math.h>
 
+#define RAD2DEG 57.29577951308232f
+
 //--------------------------------------------------------------------------------------------
 // Variable declaration
 class Madgwick{

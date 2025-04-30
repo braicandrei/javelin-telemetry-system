@@ -67,6 +67,12 @@ private:
     bool userInputEnabled = true;
     const int threshold = TOUCH_THRESHOLD;
 
+    SystemTransitions_t lastSystemTransition = NONE;
+    unsigned long samplingTimeStamp, serverModeOnTimeStamp;
+    const unsigned long notificationTime = 1500;
+    unsigned long transitionTimeStamp;
+    const unsigned long transitionLockTime = 1000;
+
     const char * touch_tone = "touch_tone:d=4,o=6,b=250:16b6";
     const char * power_on_tone = "power_on_tone:d=4,o=6,b=225:4d#4,4e4,4f4";
     const char * sample_begin_tone = "sample_begin_tone:d=4,o=5,b=140:8g#6,8a6,4a#6";
@@ -74,6 +80,7 @@ private:
     const char * sample_error_tone = "sample_error_tone:d=4,o=5,b=140:";
     const char * server_mode_on_tone = "server_on_tone:d=4,o=6,b=140:16d#5,16e5,16f5,16f#5,16g5";
     const char * server_mode_off_tone = "server_off_tone:d=4,o=6,b=140:16g5,16f#5,16f5,16e5,16d#5";
+    const char * notification_tone = "notification_tone:d=4,o=5,b=140:16a#6";
 
 };
 

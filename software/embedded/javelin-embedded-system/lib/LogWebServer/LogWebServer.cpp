@@ -1,6 +1,6 @@
 #include "LogWebServer.h"
 
-#define DEBUG_WEBSERVER 0
+#define DEBUG_WEBSERVER 1
 LogWebServer::LogWebServer(uint8_t sdCsPin, const char* ssid, const char* password, const char* mdnsName)
   : _sdCsPin(sdCsPin), _ssid(ssid), _password(password), _mdnsName(mdnsName), _server(80), _running(false) {}
 

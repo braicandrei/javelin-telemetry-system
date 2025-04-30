@@ -22,7 +22,9 @@ typedef struct {
     float xoffset,
     yoffset,
     zoffset;
-} mag_offsets_t;
+} offsets_t;
+
+
 
 typedef struct {
     float accX, ///< Accelerometer X axis in G's
@@ -90,13 +92,15 @@ public:
     Adafruit_LIS3MDL lis3mdl;
 private:
     bool magCalibrationFlag = false;
-    mag_offsets_t magOffsetsTemp = {0, 0, 0};
-    mag_offsets_t magOffsets = {-0.04, 0.08, -0.47};
+    offsets_t magOffsetsTemp = {0, 0, 0};
+    offsets_t magOffsets = {-0.04, 0.08, -0.47};
+    offsets_t gyroOffsets = {0.5, -2.0, 0.5};
+
 protected:
 icm20x_raw_axes_t raw_axes[ICM20X_FIFO_SIZE/6];  ///< Raw data axes buffer array (set to max size of frames in FIFO)
 icm20649_accel_range_t accelRange = ICM20649_ACCEL_RANGE_30_G; ///< Accelerometer range
-icm20649_gyro_range_t gyroRange = ICM20649_GYRO_RANGE_500_DPS; ///< Gyroscope range
-lis3mdl_range_t magRange =LIS3MDL_RANGE_4_GAUSS; ///< Magnetometer range
+icm20649_gyro_range_t gyroRange = ICM20649_GYRO_RANGE_4000_DPS; ///< Gyroscope range
+lis3mdl_range_t magRange =LIS3MDL_RANGE_8_GAUSS; ///< Magnetometer range
 
 ahrs_sample_rate_t sampleRate = AHRS_225HZ; ///< AHRS sample rate
 uint16_t getAHRSSampleRate();

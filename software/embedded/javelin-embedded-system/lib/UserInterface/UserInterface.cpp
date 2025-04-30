@@ -54,12 +54,38 @@ void UserInterface::beginUI() {
  * @return UserAction_t The user action detected by the user interface
  */
 UserAction_t UserInterface::updateUI() {
+    if (lastSystemTransition==SAMPLE_BEGIN)
+    {
+      unsigned long now = millis();
+      if (now-samplingTimeStamp>notificationTime)
+      {
+        samplingTimeStamp = now;
+        if (!rtttl::isPlaying()) {
+          rtttl::begin(BUZZER_PIN, notification_tone);
+        }
+      }
+    }
+    //if (lastSystemTransition==SERVER_MODE_ON)
+    //{
+    //  unsigned long now = millis();
+    //  if (now-serverModeOnTimeStamp>notificationTime)
+    //  {
+    //    serverModeOnTimeStamp = now;
+    //    if (!rtttl::isPlaying()) {
+    //      rtttl::begin(BUZZER_PIN, notification_tone);
+    //    }
+    //  }
+    //}
     rtttl::play(); //update the RTTTL player
-    if (!userInputEnabled) return NO_INPUT;
 
     unsigned long currentTime = millis();
     const unsigned long maxTouchInterval = MAX_TOUCH_INTERVAL;
     UserAction_t userAction = NO_INPUT;
+
+    if (!userInputEnabled && (millis()-transitionTimeStamp)>transitionLockTime)
+    {
+      userInputEnabled = true;
+    }
     
     switch (debounceState) {
 
@@ -77,14 +103,14 @@ UserAction_t UserInterface::updateUI() {
           // Segunda fase: cuando llega el momento, comprobamos si sigue presionado
           if (currentTime >= validationTime) {
             // Si el pin sigue LOW → botón efectivamente presionado
-            if (digitalRead(TOUCH_PIN) == LOW) {
+            if (digitalRead(TOUCH_PIN) == LOW && userInputEnabled) {
               touchCount++;
-              Serial.print("Pulsación válida #");
-              Serial.println(touchCount);
               lastTouchTime = millis();
-              if (!rtttl::isPlaying()) {
-                rtttl::begin(BUZZER_PIN, touch_tone);
-              }
+              rtttl::begin(BUZZER_PIN, touch_tone);
+              #if (DEBUUG_UI) 
+                Serial.print("Pulsación válida #");
+                Serial.println(touchCount);
+              #endif
             }
             // Volvemos a IDLE para la siguiente
             debounceState = IDLE;
@@ -122,18 +148,23 @@ UserAction_t UserInterface::updateUI() {
  * @param transition The system transition type
  */
 void UserInterface::setSystemTransition(SystemTransitions_t transition) {
+    lastSystemTransition = transition;
+    transitionTimeStamp = millis();
+    userInputEnabled = false;
     switch (transition) {
         case POWER_ON:
             rtttl::begin(BUZZER_PIN, power_on_tone);
             break;
         case SAMPLE_BEGIN:
             rtttl::begin(BUZZER_PIN, sample_begin_tone);
+            samplingTimeStamp = millis();
             break;
         case SAMPLE_END:
             rtttl::begin(BUZZER_PIN, sample_end_tone);
             break;
         case SERVER_MODE_ON:
             rtttl::begin(BUZZER_PIN, server_mode_on_tone);
+            serverModeOnTimeStamp = millis();
             break;
         case SERVER_MODE_OFF:
             rtttl::begin(BUZZER_PIN, server_mode_off_tone);

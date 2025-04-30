@@ -251,24 +251,26 @@ void Madgwick::computeAngles()
 
 void Madgwick::getAngles(float *inclination, float *direction)
 {
-	// Rotar el vector (0,1,0) usando el cuaternión (notación Madgwick)
-	float forward_x = 2.0f * (q1 * q2 + q0 * q3);
-	float forward_y = q0*q0 - q1*q1 + q2*q2 - q3*q3;
-	float forward_z = 2.0f * (q2 * q3 - q0 * q1);
+    // 1) calcular vector “forward” en coordenadas de mundo
+    float fx = 2.0f * (q1 * q2 - q0 * q3);
+    float fy =       (q0*q0 + q2*q2 - q1*q1 - q3*q3);
+    float fz = -2.0f * (q0 * q1 + q2 * q3);
+	//float fx = 2*(q0*q2 + q1*q3);
+	//float fy = q0*q0 + q3*q3 - q1*q1 - q2*q2;
+	//float fz = 2*(q2*q3 - q0*q1);
+    // 2) ángulo de inclinación sobre la horizontal (elevación, “attack angle”)
+    float incl_rad = atan2f(fz, sqrtf(fx*fx + fy*fy));
 
-	// Calcular inclinación respecto a horizontal (ángulo de ataque)
-	*inclination = atan2f(forward_z, sqrtf(forward_x*forward_x + forward_y*forward_y)); // radianes
+    // 3) rumbo en el plano XY (0° = hacia +Y “norte”, 90° = +X “este”)
+    float dir_rad = atan2f(fx, fy);
 
-	// Calcular dirección en el plano XY (rumbo)
-	*direction = atan2f(forward_x, forward_y); // radianes
+    // 4) convertir a grados
+    *inclination = incl_rad * RAD2DEG;
+    *direction   = dir_rad  * RAD2DEG;
 
-	// Convertir radianes a grados
-	*inclination *= (180.0f / M_PI);
-	*direction *= (180.0f / M_PI);
-
-	// Normalizar dirección a [0, 360)
-	if (*direction < 0.0f) {
-		*direction += 360.0f;
-	}
+    // 5) normalizar [0,360)
+    if (*direction < 0.0f) {
+        *direction += 360.0f;
+    }
 }
 

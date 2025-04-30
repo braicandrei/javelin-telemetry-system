@@ -41,21 +41,21 @@ LoggerStatus_t DataLogger::begin() {
     //    return SD_FAILED;
     //}
     #if(DEBUG_LOGER)
-        Serial.println("SD card initialized.");
+        Serial.println("[DataLogger] SD card initialized.");
     #endif
     if (!rtc.begin()) {
         #if(DEBUG_LOGER)
-            Serial.println("RTC initialization failed!");
+            Serial.println("[DataLogger] RTC initialization failed!");
         #endif
         return RTC_FAILED;
     }
     #if(DEBUG_LOGER)
-        Serial.println("RTC initialized.");
+        Serial.println("[DataLogger] RTC initialized.");
     #endif
     queue = xQueueCreate(1000, sizeof(ahrs_axes_t));//create queue for 500 elements of type ahrs_axes_t
     if (ahrs.beginAHRSi2c()!=0x00) {
         #if(DEBUG_LOGER)
-            Serial.println("AHRS initialization failed!");
+            Serial.println("[DataLogger] AHRS initialization failed!");
         #endif
         return AHRS_FAILED;
     }
@@ -98,8 +98,8 @@ void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame) {
                     String(dataFrame.gyroX, 4) + "," +
                     String(dataFrame.gyroY, 4) + "," +
                     String(dataFrame.gyroZ, 4) + "," +
-                    String(-dataFrame.magX, 4)  + "," +
-                    String(-dataFrame.magY, 4)  + "," +
+                    String(dataFrame.magX, 4)  + "," +
+                    String(dataFrame.magY, 4)  + "," +
                     String(dataFrame.magZ, 4)  + "\n";
     dataFile.print(data); // Write the data to the file
 }
@@ -119,8 +119,8 @@ void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame, ahrs_orientation_t or
                     String(dataFrame.gyroX, 4) + "," +
                     String(dataFrame.gyroY, 4) + "," +
                     String(dataFrame.gyroZ, 4) + "," +
-                    String(-dataFrame.magX, 4)  + "," +
-                    String(-dataFrame.magY, 4)  + "," +
+                    String(dataFrame.magX, 4)  + "," +
+                    String(dataFrame.magY, 4)  + "," +
                     String(dataFrame.magZ, 4)  + "," +
                     String(orientation.roll, 4) + "," +
                     String(orientation.pitch, 4) + "," +
@@ -143,8 +143,8 @@ void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame, ahrs_angles_t angles)
                     String(dataFrame.gyroX, 4) + "," +
                     String(dataFrame.gyroY, 4) + "," +
                     String(dataFrame.gyroZ, 4) + "," +
-                    String(-dataFrame.magX, 4)  + "," +
-                    String(-dataFrame.magY, 4)  + "," +
+                    String(dataFrame.magX, 4)  + "," +
+                    String(dataFrame.magY, 4)  + "," +
                     String(dataFrame.magZ, 4)  + "," +
                     String(angles.inclination, 4) + "," +
                     String(angles.direction, 4) + "," +
@@ -167,10 +167,9 @@ LoggerStatus_t DataLogger::updateLogger() {
         if (startSampling_flag) {
             startSampling_flag = false; // Reiniciar el flag
             #if(DEBUG_LOGER)
-                Serial.println("Start sampling!");
+                Serial.println("[DataLogger] Start sampling!");
             #endif
             loggerState = LOGGER_PREP;
-
         }
         break;
     case LOGGER_PREP:
@@ -179,7 +178,7 @@ LoggerStatus_t DataLogger::updateLogger() {
         if (!dataFile)
         {
             #if(DEBUG_LOGER)
-                Serial.println("Error opening datalog.txt");
+                Serial.println("[DataLogger] Error opening datalog.txt");
             #endif
             loggerState = LOGGER_WAITING;
             return SD_FAILED;
@@ -193,7 +192,7 @@ LoggerStatus_t DataLogger::updateLogger() {
         frameCounter = 0;// Reset frame counter
         loggerState = LOGGER_SAMPLING;
         #if(DEBUG_LOGER)
-            Serial.println("Begin sampling in file" + logPath);
+            Serial.println("[DataLogger] Begin sampling in file" + logPath);
         #endif
         startTime = millis();
         break;
@@ -209,12 +208,13 @@ LoggerStatus_t DataLogger::updateLogger() {
               ahrs_axes_t scaled_axes = ahrs.scaleAxes(raw_axesD[i]);
               if (xQueueSend(queue, &scaled_axes, 0) != pdPASS) {
                 #if(DEBUG_LOGER)
-                    Serial.println("Queue full");
+                    Serial.println("[DataLogger] Queue full");
                 #endif
               }
               frameCounter++;
             }
         }
+        //! Check if new data is available
         if (xQueueReceive(queue, &dataFrame, 0) == pdPASS) { // Check if data is available in the queue
             //ahrs_orientation_t orientation = ahrs.computeAHRSOrientation(dataFrame); // Compute AHRS orientation
             //writeDataFrameToSD(dataFrame, orientation); // Write the data frame to SD card
@@ -229,7 +229,6 @@ LoggerStatus_t DataLogger::updateLogger() {
                 //ahrs.magHardIronCalc(dataFrame.magX, dataFrame.magY, dataFrame.magZ); // Perform hard iron calibration
                 ahrs.hardIronCalib(dataFrame.magX, dataFrame.magY, dataFrame.magZ);
             }
-            
         } else if (stopSampling_flag)
         {
             loggerState = LOGGER_END; // Change state to LOGGER_END if stopSampling is true
@@ -246,7 +245,7 @@ LoggerStatus_t DataLogger::updateLogger() {
             //ahrs.saveMagCalibToEEPROM(); // Save calibration data to EEPROM
         }
         #if(DEBUG_LOGER)
-            Serial.println("End sampling!");
+            Serial.println("[DataLogger] End sampling!");
         #endif
         //###################################
         //put the ahrs in low power mode (pending)
@@ -315,19 +314,23 @@ bool DataLogger::shockCheck(ahrs_axes_t dataFrame) {
   
     // Check for abrupt acceleration
     if (abs(accXDiff) > shockThreshold || abs(accYDiff) > shockThreshold || abs(accZDiff) > shockThreshold) {
-        Serial.println("SHOCK! in time:" + String(millis()));
-        Serial.print("Average X: " + String(avgSample.accX) );
-        Serial.print("Average Y: " + String(avgSample.accY) );
-        Serial.println("Average Z: " + String(avgSample.accZ) );
-        Serial.print("New X: " + String(dataFrameBuffer[3].accX) );
-        Serial.print("New Y: " + String(dataFrameBuffer[3].accY) );
-        Serial.println("New Z: " + String(dataFrameBuffer[3].accZ) );
-        Serial.print("Diff X: " + String(accXDiff) );
-        Serial.print("Diff Y: " + String(accYDiff) );
-        Serial.println("Diff Z: " + String(accZDiff) );
-        Serial.println("END SHOCK!");
-      return true;
+        #if(DEBUG_LOGER)
+            Serial.println("[DataLogger]");
+            Serial.println("SHOCK! in time:" + String(millis()));
+            Serial.print("Average X: " + String(avgSample.accX) );
+            Serial.print("Average Y: " + String(avgSample.accY) );
+            Serial.println("Average Z: " + String(avgSample.accZ) );
+            Serial.print("New X: " + String(dataFrameBuffer[3].accX) );
+            Serial.print("New Y: " + String(dataFrameBuffer[3].accY) );
+            Serial.println("New Z: " + String(dataFrameBuffer[3].accZ) );
+            Serial.print("Diff X: " + String(accXDiff) );
+            Serial.print("Diff Y: " + String(accYDiff) );
+            Serial.println("Diff Z: " + String(accZDiff) );
+            Serial.println("END SHOCK!");
+            Serial.println("[DataLogger]");
+        #endif
+        return true;
     } else {
-      return false;
+        return false;
     }
   }
