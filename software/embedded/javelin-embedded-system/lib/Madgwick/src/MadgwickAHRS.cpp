@@ -26,7 +26,7 @@
 // Definitions
 
 #define sampleFreqDef   512.0f          // sample frequency in Hz
-#define betaDef         1.4f            // 2 * proportional gain
+#define betaDef         0.4f            // 2 * proportional gain
 
 
 //============================================================================================
@@ -249,28 +249,19 @@ void Madgwick::computeAngles()
 	anglesComputed = 1;
 }
 
-void Madgwick::getAngles(float *inclination, float *direction)
+float Madgwick::getInclination()
 {
     // 1) calcular vector “forward” en coordenadas de mundo
-    float fx = 2.0f * (q1 * q2 - q0 * q3);
-    float fy =       (q0*q0 + q2*q2 - q1*q1 - q3*q3);
-    float fz = -2.0f * (q0 * q1 + q2 * q3);
-	//float fx = 2*(q0*q2 + q1*q3);
-	//float fy = q0*q0 + q3*q3 - q1*q1 - q2*q2;
-	//float fz = 2*(q2*q3 - q0*q1);
+    //float fx = 2.0f * (q1 * q2 - q0 * q3);
+    //float fy =       (q0*q0 + q2*q2 - q1*q1 - q3*q3);
+    //float fz = -2.0f * (q0 * q1 + q2 * q3);
+	float fx = 2*(q0*q2 + q1*q3);
+	float fy = q0*q0 + q3*q3 - q1*q1 - q2*q2;
+	float fz = 2*(q2*q3 - q0*q1);
     // 2) ángulo de inclinación sobre la horizontal (elevación, “attack angle”)
     float incl_rad = atan2f(fz, sqrtf(fx*fx + fy*fy));
 
-    // 3) rumbo en el plano XY (0° = hacia +Y “norte”, 90° = +X “este”)
-    float dir_rad = atan2f(fx, fy);
-
     // 4) convertir a grados
-    *inclination = incl_rad * RAD2DEG;
-    *direction   = dir_rad  * RAD2DEG;
-
-    // 5) normalizar [0,360)
-    if (*direction < 0.0f) {
-        *direction += 360.0f;
-    }
+    return incl_rad * RAD2DEG;
 }
 

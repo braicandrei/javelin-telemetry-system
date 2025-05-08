@@ -218,8 +218,8 @@ ahrs_axes_t AHRS::scaleAxes(icm20x_raw_axes_t raw_axes){
     scaled_axes.gyroY = (raw_axes.rawGyroY / gyro_scale) - gyroOffsets.yoffset;
     scaled_axes.gyroZ = (raw_axes.rawGyroZ / gyro_scale) + gyroOffsets.zoffset;
 
-    scaled_axes.magX = -(raw_axes.rawMagX / mag_scale)-magOffsets.xoffset;   //correccion de los ejes de los sensores X e Y
-    scaled_axes.magY = -(raw_axes.rawMagY / mag_scale)-magOffsets.yoffset;   //compensacion de las distorsiones de campo 
+    scaled_axes.magX = (raw_axes.rawMagX / mag_scale)-magOffsets.xoffset;   //correccion de los ejes de los sensores X e Y
+    scaled_axes.magY = (raw_axes.rawMagY / mag_scale)-magOffsets.yoffset;   //compensacion de las distorsiones de campo 
     scaled_axes.magZ = (raw_axes.rawMagZ / mag_scale)-magOffsets.zoffset;
 
     return scaled_axes;
@@ -436,14 +436,14 @@ ahrs_orientation_t AHRS::computeAHRSOrientation(ahrs_axes_t scaled_axes)
   ahrs_orientation_t orientation = {0, 0, 0};
 
   fusionFilter.update(
-    scaled_axes.gyroX,
     scaled_axes.gyroY,
+    scaled_axes.gyroX,
     scaled_axes.gyroZ,
-    scaled_axes.accX,
     scaled_axes.accY,
+    scaled_axes.accX,
     scaled_axes.accZ,
-    scaled_axes.magX*100.f,//convert to uTeslas and invert X y axis to correct orientation
-    scaled_axes.magY*100.f,
+    scaled_axes.magY*100.f,//convert to uTeslas and invert X y axis to correct orientation
+    scaled_axes.magX*100.f,
     scaled_axes.magZ*100.f
   );
   orientation.roll = fusionFilter.getRoll();
@@ -458,25 +458,26 @@ ahrs_orientation_t AHRS::computeAHRSOrientation(ahrs_axes_t scaled_axes)
   @param  scaled_axes Structure with the last AHRS measurements 
   @return Structure with inclination and direction angles.
 */
-ahrs_angles_t AHRS::computeAHRSAngles(ahrs_axes_t scaled_axes)
+ahrs_angles_t AHRS::computeAHRSInclination(ahrs_axes_t scaled_axes)
 {
-  ahrs_angles_t angles = {0, 0};
-  float direction = 0, inclination = 0;
+  ahrs_angles_t angles = {0, 0, {0, 0, 0}};
+
   fusionFilter.update(
+    -scaled_axes.gyroY,
     scaled_axes.gyroX,
-    scaled_axes.gyroY,
     scaled_axes.gyroZ,
+    -scaled_axes.accY,
     scaled_axes.accX,
-    scaled_axes.accY,
     scaled_axes.accZ,
-    scaled_axes.magX*100.f,//convert to uTeslas and invert X y axis to correct orientation
-    scaled_axes.magY*100.f,
+    scaled_axes.magY*100.f,//convert to uTeslas and invert X y axis to correct orientation
+    -scaled_axes.magX*100.f,
     scaled_axes.magZ*100.f
   );
-  fusionFilter.getAngles(&inclination, &direction);
-
-  angles.direction = direction;
-  angles.inclination = inclination;
+  
+  angles.inclination = fusionFilter.getInclination();
+  angles.orientation.roll = fusionFilter.getRoll();
+  angles.orientation.pitch = fusionFilter.getPitch();
+  angles.orientation.yaw = fusionFilter.getYaw();
   return angles;
 }
 

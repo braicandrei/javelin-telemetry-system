@@ -44,6 +44,7 @@ typedef struct {
 
 typedef struct {
     float direction, inclination;
+    ahrs_orientation_t orientation;
 } ahrs_angles_t;
 
 typedef enum
@@ -85,7 +86,7 @@ public:
     void saveMagCalibToEEPROM();
     void loadMagCalibFromEEPROM();
     ahrs_orientation_t computeAHRSOrientation(ahrs_axes_t scaled_axes);
-    ahrs_angles_t computeAHRSAngles(ahrs_axes_t scaled_axes);
+    ahrs_angles_t computeAHRSInclination(ahrs_axes_t scaled_axes);
     void calibrateRelativeOrientation(ahrs_orientation_t newOrientation);
     ahrs_orientation_t relativeOrientation = {0, 0, 0};
     Adafruit_ICM20649 icm20649;

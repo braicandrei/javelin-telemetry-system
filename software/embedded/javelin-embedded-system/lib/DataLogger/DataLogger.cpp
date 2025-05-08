@@ -146,9 +146,9 @@ void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame, ahrs_angles_t angles)
                     String(dataFrame.magX, 4)  + "," +
                     String(dataFrame.magY, 4)  + "," +
                     String(dataFrame.magZ, 4)  + "," +
-                    String(angles.inclination, 4) + "," +
-                    String(angles.direction, 4) + "," +
-                    String(angles.direction, 4) + "\n";
+                    String(angles.orientation.roll, 4) + "," +
+                    String(angles.orientation.pitch, 4) + "," +
+                    String(angles.orientation.yaw, 4) + "\n";
     dataFile.print(data); // Write the data to the file
 }
 
@@ -218,7 +218,7 @@ LoggerStatus_t DataLogger::updateLogger() {
         if (xQueueReceive(queue, &dataFrame, 0) == pdPASS) { // Check if data is available in the queue
             //ahrs_orientation_t orientation = ahrs.computeAHRSOrientation(dataFrame); // Compute AHRS orientation
             //writeDataFrameToSD(dataFrame, orientation); // Write the data frame to SD card
-            ahrs_angles_t angles = ahrs.computeAHRSAngles(dataFrame); // Compute AHRS angles
+            ahrs_angles_t angles = ahrs.computeAHRSInclination(dataFrame); // Compute AHRS angles
             writeDataFrameToSD(dataFrame, angles); // Write the data frame to SD card
             if (shockCheck(dataFrame))
             {

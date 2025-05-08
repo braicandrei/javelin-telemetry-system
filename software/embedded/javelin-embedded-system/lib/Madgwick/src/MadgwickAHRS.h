@@ -71,7 +71,7 @@ public:
         if (!anglesComputed) computeAngles();
         return yaw;
     }
-    void getAngles(float *inclination, float *direction);
+    float getInclination();
 };
 #endif
 
