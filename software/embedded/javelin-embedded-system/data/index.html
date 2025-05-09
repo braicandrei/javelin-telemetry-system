@@ -97,7 +97,7 @@
   </style>
 </head>
 <body>
-  <h2>Archivos CSV</h2>
+  <h2>Registro de lanzamientos</h2>
   <div id="fileContainer"></div>
 
   <div style="display:none;">
@@ -105,6 +105,9 @@
     <canvas id="gyroChart"></canvas>
     <canvas id="magChart"></canvas>
     <canvas id="oriChart"></canvas>
+    <canvas id="combinedChart1"></canvas>
+    <canvas id="combinedChart2"></canvas>
+    <canvas id="combinedChart3"></canvas>
   </div>
 
   <div id="loadingIndicator">
@@ -173,81 +176,114 @@
       });
     }
 
-    async function generatePDFfromCSV(filename) {
-      const loadingDiv = document.getElementById('loadingIndicator');
-      loadingDiv.style.display = 'flex';
+  async function generatePDFfromCSV(filename) {
+  const loadingDiv = document.getElementById('loadingIndicator');
+  loadingDiv.style.display = 'flex';
 
-      Chart.defaults.devicePixelRatio = 2;
-      ['accChart','gyroChart','magChart','oriChart'].forEach(id => {
-        const c = document.getElementById(id);
-        // Pon un tamaño grande en píxeles:
-        c.width  = 2560;
-        c.height = 800;
-      });
+  Chart.defaults.devicePixelRatio = 2;
+  ['accChart', 'gyroChart', 'magChart', 'oriChart','combinedChart1', 'combinedChart2', 'combinedChart3'].forEach(id => {
+    const c = document.getElementById(id);
+    c.width = 2560;
+    c.height = 800;
+  });
 
-      const res = await fetch('/logs/' + filename);
-      const text = await res.text();
-      const lines = text.trim().split('\n');
-      const time = [];
-      const acc = [[], [], []], gyro = [[], [], []], mag = [[], [], []], ori = [[], [], []];
+  const res = await fetch('/logs/' + filename);
+  const text = await res.text();
+  const lines = text.trim().split('\n');
 
-      lines.forEach((line, idx) => {
-        const parts = line.split(',');
-        if (parts.length < 12) return;
-        time.push(idx);
-        for (let i = 0; i < 3; i++) acc[i].push(parseFloat(parts[i]));
-        for (let i = 0; i < 3; i++) gyro[i].push(parseFloat(parts[i + 3]));
-        for (let i = 0; i < 3; i++) mag[i].push(parseFloat(parts[i + 6]));
-        for (let i = 0; i < 3; i++) ori[i].push(parseFloat(parts[i + 9]));
-      });
-      // 1) Acelerómetro en G’s
-      await drawChart('accChart',
-                      "Acceleration (G's)",
-                      time, acc,
-                      { /* usa default labels X/Y/Z y colores */ });
+  const n = 500; // Number of header lines to remove
+  const removedRows = lines.splice(0, n);
 
-      // 2) Velocidad angular en DPS
-      await drawChart('gyroChart',
-                      "Angular Speed (DPS)",
-                      time, gyro,
-                      { /* default */ });
+  const time = [];
+  const acc = [[], [], []], gyro = [[], [], []], mag = [[], [], []], ori = [[], [], []];
 
-      // 3) Campo magnético en Gauss
-      await drawChart('magChart',
-                      "Magnetic Field (Gauss)",
-                      time, mag,
-                      { /* default */ });
+  const samplingFrequency = 225; // Frecuencia de muestreo en Hz
+  const timeStep = 1 / samplingFrequency;
 
-      // 4) Orientación en grados con leyenda Roll/Pitch/Yaw
-      await drawChart('oriChart',
-                      "Orientation (Degrees)",
-                      time, ori,
-                      {
-                        labels: ['Roll','Pitch','Yaw'],
-                        colors: ['#ff9900','#66ccff','#cc00cc']
-                      });
+  lines.forEach((line, idx) => {
+    const parts = line.split(',');
+    if (parts.length < 12) return;
+    time.push((idx * timeStep).toFixed(0));
+    for (let i = 0; i < 3; i++) acc[i].push(parseFloat(parts[i]));
+    for (let i = 0; i < 3; i++) gyro[i].push(parseFloat(parts[i + 3]));
+    for (let i = 0; i < 3; i++) mag[i].push(parseFloat(parts[i + 6]));
+    for (let i = 0; i < 3; i++) ori[i].push(parseFloat(parts[i + 9]));
+  });
 
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF();
+  await drawChart('accChart', "Acceleration (G's)", time, acc);
+  await drawChart('gyroChart', "Angular Speed (DPS)", time, gyro);
+  await drawChart('magChart', "Magnetic Field (Gauss)", time, mag);
+  await drawChart('oriChart', "Orientation (Degrees)", time, ori, {
+    labels: ['Roll', 'Pitch', 'Yaw'],
+    colors: ['#ff9900', '#66ccff', '#cc00cc']
+  });
+  await drawCombinedChart('combinedChart1', time, acc[0], gyro[0], "Acceleration X (G)", "Angular Speed X (DPS)");
+  await drawCombinedChart('combinedChart2', time, acc[1], mag[1], "Acceleration Y (G)", "Magnetic Field Y (Gauss)");
+  await drawCombinedChart('combinedChart3', time, acc[2], ori[2], "Acceleration Z (G)", "Orientation Z (Degrees)");
 
-      let yOffset = 10;
-      const addChartToPDF = async (id, label) => {
-        const canvas = document.getElementById(id);
-        const imgData = canvas.toDataURL('image/png');
-        pdf.text(label, 10, yOffset);
-        yOffset += 5;
-        pdf.addImage(imgData, 'PNG', 10, yOffset, 180, 60);
-        yOffset += 70;
-      };
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
 
-      await addChartToPDF('accChart', 'Acceleration');
-      await addChartToPDF('gyroChart', 'Angular Speed');
-      await addChartToPDF('magChart', 'Magnetic Field');
-      await addChartToPDF('oriChart', 'Orientation');
+  // Add title
+  pdf.setFontSize(22);
+  pdf.text("Javelin Throw Metrics", 105, 20, { align: 'center' });
 
-      pdf.save(filename.replace('.csv', '.pdf'));
-      loadingDiv.style.display = 'none';
+  // Add subtitle with date
+  const match = filename.match(/datalog_(\d{8})_(\d{6})/);
+  const dateFormatted = match ? `${match[1].slice(0, 4)}-${match[1].slice(4, 6)}-${match[1].slice(6, 8)}` : 'Fecha desconocida';
+  const timeFormatted = match ? `${match[2].slice(0, 2)}:${match[2].slice(2, 4)}:${match[2].slice(4, 6)}` : 'Hora desconocida';
+  pdf.setFontSize(16);
+  pdf.text(`Date: ${dateFormatted}`, 105, 30, { align: 'center' });
+  pdf.text(`Time: ${timeFormatted}`, 105, 40, { align: 'center' });
+
+  // Add infographic image
+  const imgPath = 'javInfo.png'; // Path relative to the server
+  const imgRes = await fetch(imgPath);
+  const imgBlob = await imgRes.blob();
+  const imgData = await new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(imgBlob);
+  });
+
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  const imgWidth = pageWidth * 0.6; // 60% of the page width
+  const imgHeight = imgWidth * 0.75; // Maintain aspect ratio
+  const imgX = (pageWidth - imgWidth) / 2; // Center the image horizontally
+  const imgY = 40; // Position below the subtitle
+  pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth, imgHeight);
+
+  let yOffset = imgY + imgHeight + 10; // Adjust for the image
+
+  // Function to add a chart to the PDF and handle page breaks
+  const addChartToPDF = async (id, label) => {
+    const canvas = document.getElementById(id);
+    const imgData = canvas.toDataURL('image/png');
+
+    // Check if there's enough space for the chart, otherwise add a new page
+    if (yOffset + 70 > pageHeight) {
+      pdf.addPage();
+      yOffset = 10; // Reset yOffset for the new page
     }
+
+    pdf.text(label, 10, yOffset);
+    yOffset += 5;
+    pdf.addImage(imgData, 'PNG', 10, yOffset, 180, 60);
+    yOffset += 70;
+  };
+
+  await addChartToPDF('accChart', 'Acceleration');
+  await addChartToPDF('gyroChart', 'Angular Speed');
+  await addChartToPDF('magChart', 'Magnetic Field');
+  await addChartToPDF('oriChart', 'Orientation');
+  await addChartToPDF('combinedChart1', 'Acceleration X and Angular Speed X');
+  await addChartToPDF('combinedChart2', 'Acceleration Y and Magnetic Field Y');
+  await addChartToPDF('combinedChart3', 'Acceleration Z and Orientation Z');
+
+  pdf.save(filename.replace('.csv', '.pdf'));
+  loadingDiv.style.display = 'none';
+}
 
     let charts = {};
     /**
@@ -288,7 +324,7 @@
               },
               ticks: {
                 font: {
-                  size: 12  // <-- tamaño de las etiquetas del eje X
+                  size: 20  // <-- tamaño de las etiquetas del eje X
                 }
               }
             },
@@ -326,6 +362,85 @@
         }
       });
       return Promise.resolve();
+    }
+    
+    async function drawCombinedChart(id, time, data1, data2, label1, label2) {
+      const ctx = document.getElementById(id).getContext('2d');
+      if (charts[id]) charts[id].destroy();
+      charts[id] = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: time,
+          datasets: [
+            {
+              label: label1,
+              data: data1,
+              borderColor: 'red',
+              backgroundColor: 'rgba(255, 0, 0, 0.2)',
+              yAxisID: 'y1',
+              borderWidth: 2,
+              pointRadius: 3,
+              fill: false
+            },
+            {
+              label: label2,
+              data: data2,
+              borderColor: 'blue',
+              backgroundColor: 'rgba(0, 0, 255, 0.2)',
+              yAxisID: 'y2',
+              borderWidth: 2,
+              pointRadius: 3,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: false,
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Tiempo (s)',
+                font: { size: 34 }
+              },
+              ticks: { font: { size: 20 } }
+            },
+            y1: {
+              type: 'linear',
+              position: 'left',
+              title: {
+                display: true,
+                text: label1,
+                font: { size: 34 }
+              },
+              ticks: { font: { size: 20 } }
+            },
+            y2: {
+              type: 'linear',
+              position: 'right',
+              title: {
+                display: true,
+                text: label2,
+                font: { size: 34 }
+              },
+              ticks: { font: { size: 20 } },
+              grid: { drawOnChartArea: false }
+            }
+          },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: { font: { size: 14 } }
+            }
+          },
+          elements: {
+            line: { tension: 0.1 },
+            point: { radius: 3 }
+          },
+          animation: false
+        }
+      });
     }
     loadFiles();
   </script>
