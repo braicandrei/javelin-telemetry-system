@@ -84,6 +84,35 @@ String DataLogger::getFileName() {
     return String(fileName);
 }
 
+void DataLogger::writeMetaDataToSD()
+{
+    String fileHeader = "Olympic Javelin Telemetry System V1.0  UNED - Master Thesis\n";
+    DateTime now = rtc.now();
+    String timeStamp =  "Start Time: " +
+                        String(now.year()) + "-" +
+                        String(now.month()) + "-" +
+                        String(now.day()) + " " +
+                        String(now.hour()) + ":" +
+                        String(now.minute()) + ":" +
+                        String(now.second()) + "\n";
+    String magOffsets = "Magnetometer Offsets: " +
+                        String(ahrs.getMagOffsets().xoffset, 4) + "," +
+                        String(ahrs.getMagOffsets().yoffset, 4) + "," +
+                        String(ahrs.getMagOffsets().zoffset, 4) + "\n";
+    String gyroOffsets = "Gyroscope Offsets: " +
+                        String(ahrs.getGyroOffsets().xoffset, 4) + "," +
+                        String(ahrs.getGyroOffsets().yoffset, 4) + "," +
+                        String(ahrs.getGyroOffsets().zoffset, 4) + "\n";
+    String sampleRate = "Sample Rate: " + String(ahrs.getAHRSSampleRate()) + " Hz\n\n";
+    String dataHeader = "Acc_Y, Acc_Z, Gyr_X, Gyr_Y, Gyr_Z, Mag_X, Mag_Y, Mag_Z, Euler_X, Euler_Y, Euler_Z, Acc_X\n";
+    dataFile.print(fileHeader); // Write the file header
+    dataFile.print(timeStamp); // Write the timestamp
+    dataFile.print(magOffsets); // Write the magnetometer offsets
+    dataFile.print(gyroOffsets); // Write the gyroscope offsets
+    dataFile.print(sampleRate); // Write the sample rate
+    dataFile.print(dataHeader); // Write the data header
+}
+
 /**
  * @brief Write a data frame to the SD card
  * 
@@ -183,6 +212,7 @@ LoggerStatus_t DataLogger::updateLogger() {
             loggerState = LOGGER_WAITING;
             return SD_FAILED;
         }
+        writeMetaDataToSD();
         if (calibration_flag) 
         {
             ahrs.setHardIronOffsets(0.f, 0.f, 0.f);//set hard iron offsets to 0
@@ -206,7 +236,8 @@ LoggerStatus_t DataLogger::updateLogger() {
             //Serial.println("Time to read FIFO: " + String(millis() - t0) + "ms"); // Debugging time taken to read FIFO
             for (size_t i = 0; i < frameCount; i++) { // Process each frame of data
               ahrs_axes_t scaled_axes = ahrs.scaleAxes(raw_axesD[i]);
-              if (xQueueSend(queue, &scaled_axes, 0) != pdPASS) {
+              ahrs_axes_t corrected_axes = ahrs.correctAxex(scaled_axes);
+              if (xQueueSend(queue, &corrected_axes, 0) != pdPASS) {
                 #if(DEBUG_LOGER)
                     Serial.println("[DataLogger] Queue full");
                 #endif
@@ -216,10 +247,10 @@ LoggerStatus_t DataLogger::updateLogger() {
         }
         //! Check if new data is available
         if (xQueueReceive(queue, &dataFrame, 0) == pdPASS) { // Check if data is available in the queue
-            //ahrs_orientation_t orientation = ahrs.computeAHRSOrientation(dataFrame); // Compute AHRS orientation
-            //writeDataFrameToSD(dataFrame, orientation); // Write the data frame to SD card
-            ahrs_angles_t angles = ahrs.computeAHRSInclination(dataFrame); // Compute AHRS angles
-            writeDataFrameToSD(dataFrame, angles); // Write the data frame to SD card
+            ahrs_orientation_t orientation = ahrs.computeAHRSOrientation(dataFrame); // Compute AHRS orientation
+            writeDataFrameToSD(dataFrame, orientation); // Write the data frame to SD card
+            //ahrs_angles_t angles = ahrs.computeAHRSInclination(dataFrame); // Compute AHRS angles
+            //writeDataFrameToSD(dataFrame, angles); // Write the data frame to SD card
             if (shockCheck(dataFrame))
             {
                 return SHOCK_DETECTED;

@@ -214,16 +214,45 @@ ahrs_axes_t AHRS::scaleAxes(icm20x_raw_axes_t raw_axes){
     scaled_axes.accY = raw_axes.rawAccY / accel_scale;
     scaled_axes.accZ = raw_axes.rawAccZ / accel_scale;
 
-    scaled_axes.gyroX = (raw_axes.rawGyroX / gyro_scale) + gyroOffsets.xoffset;
-    scaled_axes.gyroY = (raw_axes.rawGyroY / gyro_scale) - gyroOffsets.yoffset;
-    scaled_axes.gyroZ = (raw_axes.rawGyroZ / gyro_scale) + gyroOffsets.zoffset;
+    scaled_axes.gyroX = raw_axes.rawGyroX / gyro_scale;
+    scaled_axes.gyroY = raw_axes.rawGyroY / gyro_scale;
+    scaled_axes.gyroZ = raw_axes.rawGyroZ / gyro_scale;
 
-    scaled_axes.magX = (raw_axes.rawMagX / mag_scale)-magOffsets.xoffset;   //correccion de los ejes de los sensores X e Y
-    scaled_axes.magY = (raw_axes.rawMagY / mag_scale)-magOffsets.yoffset;   //compensacion de las distorsiones de campo 
-    scaled_axes.magZ = (raw_axes.rawMagZ / mag_scale)-magOffsets.zoffset;
+    scaled_axes.magX = raw_axes.rawMagX / mag_scale;   
+    scaled_axes.magY = raw_axes.rawMagY / mag_scale; 
+    scaled_axes.magZ = raw_axes.rawMagZ / mag_scale;
 
     return scaled_axes;
 
+}
+
+/*!
+ * @brief Correct the axis of the sensors to match in orientation and apply offsets
+ *
+ * @param scaled_axes The scaled axes data to correct
+ * @return ahrs_axes_t The corrected axes data 
+ */
+ahrs_axes_t AHRS::correctAxex(ahrs_axes_t scaled_axes)
+{
+  ahrs_axes_t corrected_axes;
+  corrected_axes.accX = -scaled_axes.accY;
+  corrected_axes.accY = scaled_axes.accX;
+  corrected_axes.accZ = scaled_axes.accZ;
+  corrected_axes.gyroX = -scaled_axes.gyroY;
+  corrected_axes.gyroY = scaled_axes.gyroX;
+  corrected_axes.gyroZ = scaled_axes.gyroZ;
+  corrected_axes.magX = scaled_axes.magY;
+  corrected_axes.magY = -scaled_axes.magX;
+  corrected_axes.magZ = scaled_axes.magZ;
+
+  corrected_axes.gyroX = corrected_axes.gyroX - gyroOffsets.xoffset;
+  corrected_axes.gyroY = corrected_axes.gyroY - gyroOffsets.yoffset;
+  corrected_axes.gyroZ = corrected_axes.gyroZ - gyroOffsets.zoffset;
+  corrected_axes.magX = corrected_axes.magX - magOffsets.xoffset;
+  corrected_axes.magY = corrected_axes.magY - magOffsets.yoffset;
+  corrected_axes.magZ = corrected_axes.magZ - magOffsets.zoffset;
+
+  return corrected_axes;
 }
 
 /**
@@ -425,26 +454,35 @@ uint8_t AHRS::getAHRSSampleRateDivisor()
   }
 }
 
+offsets_t AHRS::getMagOffsets()
+{
+  return magOffsets;
+}
+offsets_t AHRS::getGyroOffsets()
+{
+  return gyroOffsets;
+}
+
 /*!
   @brief Update the Madgwick filter and get the orientation
 
   @param  scaled_axes Structure with the last AHRS measurements 
   @return Structure with roll, pitch and yaw angles.
 */
-ahrs_orientation_t AHRS::computeAHRSOrientation(ahrs_axes_t scaled_axes)
+ahrs_orientation_t AHRS::computeAHRSOrientation(ahrs_axes_t axes)
 {
   ahrs_orientation_t orientation = {0, 0, 0};
 
   fusionFilter.update(
-    scaled_axes.gyroY,
-    scaled_axes.gyroX,
-    scaled_axes.gyroZ,
-    scaled_axes.accY,
-    scaled_axes.accX,
-    scaled_axes.accZ,
-    scaled_axes.magY*100.f,//convert to uTeslas and invert X y axis to correct orientation
-    scaled_axes.magX*100.f,
-    scaled_axes.magZ*100.f
+    axes.gyroX,
+    axes.gyroY,
+    axes.gyroZ,
+    axes.accX,
+    axes.accY,
+    axes.accZ,
+    axes.magX*100.f,//convert to uTeslas and invert X y axis to correct orientation
+    axes.magY*100.f,
+    axes.magZ*100.f
   );
   orientation.roll = fusionFilter.getRoll();
   orientation.pitch = fusionFilter.getPitch();

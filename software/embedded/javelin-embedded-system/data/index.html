@@ -191,7 +191,7 @@
   const text = await res.text();
   const lines = text.trim().split('\n');
 
-  const n = 500; // Number of header lines to remove
+  const n = 7; // Number of header lines to remove
   const removedRows = lines.splice(0, n);
 
   const time = [];
@@ -218,8 +218,9 @@
     colors: ['#ff9900', '#66ccff', '#cc00cc']
   });
   await drawCombinedChart('combinedChart1', time, acc[0], gyro[0], "Acceleration X (G)", "Angular Speed X (DPS)");
-  await drawCombinedChart('combinedChart2', time, acc[1], mag[1], "Acceleration Y (G)", "Magnetic Field Y (Gauss)");
-  await drawCombinedChart('combinedChart3', time, acc[2], ori[2], "Acceleration Z (G)", "Orientation Z (Degrees)");
+  await drawCombinedChart('combinedChart2', time, acc[0], ori[1], "Acceleration X (G)", "Pitch (Degrees)");
+  await drawCombinedChart('combinedChart3', time, acc[0], ori[2], "Acceleration X (G)", "Yaw (Degrees)");
+
 
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF();
@@ -277,9 +278,9 @@
   await addChartToPDF('gyroChart', 'Angular Speed');
   await addChartToPDF('magChart', 'Magnetic Field');
   await addChartToPDF('oriChart', 'Orientation');
-  await addChartToPDF('combinedChart1', 'Acceleration X and Angular Speed X');
-  await addChartToPDF('combinedChart2', 'Acceleration Y and Magnetic Field Y');
-  await addChartToPDF('combinedChart3', 'Acceleration Z and Orientation Z');
+  await addChartToPDF('combinedChart1', 'Acceleration X vs Angular Speed X (spinning)');
+  await addChartToPDF('combinedChart2', 'Acceleration X vs Pitch (vertival tilt)');
+  await addChartToPDF('combinedChart3', 'Acceleration X vs Yaw (horizontal tilt)');
 
   pdf.save(filename.replace('.csv', '.pdf'));
   loadingDiv.style.display = 'none';

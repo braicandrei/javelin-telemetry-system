@@ -77,6 +77,7 @@ public:
         icm20649_accel_range_t accelRange, icm20649_gyro_range_t gyroRange, lis3mdl_range_t magRange);
     bool setAHRSSampleRate(uint8_t sampleRate);
     ahrs_axes_t scaleAxes(icm20x_raw_axes_t raw_axes);
+    ahrs_axes_t correctAxex (ahrs_axes_t scaled_axes);
 
     void magHardIronCalc(float x, float y, float z);
     void hardIronCalib(float x, float y, float z);
@@ -91,6 +92,9 @@ public:
     ahrs_orientation_t relativeOrientation = {0, 0, 0};
     Adafruit_ICM20649 icm20649;
     Adafruit_LIS3MDL lis3mdl;
+    uint16_t getAHRSSampleRate();
+    offsets_t getMagOffsets();
+    offsets_t getGyroOffsets();
 private:
     bool magCalibrationFlag = false;
     offsets_t magOffsetsTemp = {0, 0, 0};
@@ -104,7 +108,7 @@ icm20649_gyro_range_t gyroRange = ICM20649_GYRO_RANGE_4000_DPS; ///< Gyroscope r
 lis3mdl_range_t magRange =LIS3MDL_RANGE_8_GAUSS; ///< Magnetometer range
 
 ahrs_sample_rate_t sampleRate = AHRS_225HZ; ///< AHRS sample rate
-uint16_t getAHRSSampleRate();
+
 uint8_t getAHRSSampleRateDivisor();
 
 Madgwick fusionFilter;
