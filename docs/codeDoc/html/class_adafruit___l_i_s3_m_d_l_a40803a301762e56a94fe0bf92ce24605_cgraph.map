@@ -1,0 +1,5 @@
+<map id="setRange" name="setRange">
+<area shape="rect" id="Node000001" title="Set the resolution range: +&#45;4 gauss, 8 gauss, 12 gauss, or 16 gauss." alt="" coords="5,13,83,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register_bits.html#a813f4ef469295b1771bebe1a954986b5" title="Write 4 bytes of data to the register." alt="" coords="131,5,320,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,24,115,24,115,29,83,29"/>
+</map>

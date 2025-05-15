@@ -1,0 +1,36 @@
+<map id="C:/Users/Andrei/Documents/javelin&#45;telemetry&#45;system/software/embedded/javelin&#45;embedded&#45;system/lib/Adafruit ICM20X/Adafruit_ICM20649.h" name="C:/Users/Andrei/Documents/javelin&#45;telemetry&#45;system/software/embedded/javelin&#45;embedded&#45;system/lib/Adafruit ICM20X/Adafruit_ICM20649.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="533,5,733,96"/>
+<area shape="rect" id="Node000002" href="$_adafruit___i_c_m20_x_8h.html" title=" " alt="" coords="567,144,699,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="636,96,636,128,631,128,631,96"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="195,443,271,469"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="567,173,428,202,259,246,178,273,106,303,50,335,30,352,16,369,8,390,13,406,29,419,53,430,116,444,180,450,179,456,115,449,51,435,26,424,9,409,3,389,11,367,26,348,47,331,104,298,176,268,257,241,426,197,566,168"/>
+<area shape="rect" id="Node000004" href="$_adafruit___bus_i_o___register_8h_source.html" title=" " alt="" coords="194,293,371,320"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="594,174,462,221,321,288,318,283,460,216,592,169"/>
+<area shape="rect" id="Node000006" href="$_adafruit___i2_c_device_8h_source.html" title=" " alt="" coords="441,368,588,395"/>
+<area shape="poly" id="edge13_Node000002_Node000006" title=" " alt="" coords="666,169,720,194,776,230,797,251,811,274,814,298,802,322,789,333,770,342,721,358,662,369,604,376,603,371,661,363,720,353,768,338,786,328,798,318,808,297,806,275,793,255,772,234,718,199,664,174"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="596,443,655,469"/>
+<area shape="poly" id="edge15_Node000002_Node000007" title=" " alt="" coords="699,169,748,187,771,200,792,217,816,241,831,265,836,291,826,321,795,364,754,397,711,423,671,442,668,437,708,419,751,393,791,360,822,319,830,291,826,267,811,244,789,221,768,205,746,192,698,174"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="663,293,788,320"/>
+<area shape="poly" id="edge14_Node000002_Node000010" title=" " alt="" coords="643,170,712,279,707,281,639,173"/>
+<area shape="rect" id="Node000011" href="$_adafruit___l_i_s3_m_d_l_8h.html" title=" " alt="" coords="473,219,612,245"/>
+<area shape="poly" id="edge16_Node000002_Node000011" title=" " alt="" coords="619,173,571,211,568,207,616,169"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="280,321,261,369,243,428,238,427,256,367,275,319"/>
+<area shape="rect" id="Node000005" href="$_adafruit___generic_device_8h_source.html" title=" " alt="" coords="25,368,196,395"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="254,323,156,364,154,359,252,318"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="324,318,461,360,459,366,322,323"/>
+<area shape="rect" id="Node000008" href="$_adafruit___s_p_i_device_8h_source.html" title=" " alt="" coords="270,368,418,395"/>
+<area shape="poly" id="edge10_Node000004_Node000008" title=" " alt="" coords="295,319,326,354,322,358,291,322"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="133,393,200,432,197,437,131,398"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="466,398,287,444,286,439,465,393"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="535,393,595,432,592,436,532,397"/>
+<area shape="poly" id="edge11_Node000008_Node000003" title=" " alt="" coords="326,397,267,436,264,432,323,393"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="317,443,371,469"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="347,395,347,427,341,427,341,395"/>
+<area shape="poly" id="edge17_Node000011_Node000004" title=" " alt="" coords="498,248,344,291,342,286,497,243"/>
+<area shape="poly" id="edge18_Node000011_Node000006" title=" " alt="" coords="527,248,505,268,488,294,485,309,487,325,499,354,494,356,482,326,480,309,483,292,501,264,523,244"/>
+<area shape="poly" id="edge21_Node000011_Node000007" title=" " alt="" coords="561,244,583,265,602,292,616,327,623,364,629,427,623,427,618,364,610,329,598,295,579,268,557,248"/>
+<area shape="poly" id="edge19_Node000011_Node000008" title=" " alt="" coords="527,248,374,361,371,357,524,244"/>
+<area shape="poly" id="edge20_Node000011_Node000010" title=" " alt="" coords="575,243,680,285,678,290,573,248"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="497,293,588,320"/>
+<area shape="poly" id="edge22_Node000011_Node000012" title=" " alt="" coords="545,246,545,278,540,278,540,246"/>
+</map>

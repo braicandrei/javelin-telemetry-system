@@ -454,10 +454,22 @@ uint8_t AHRS::getAHRSSampleRateDivisor()
   }
 }
 
+/*!
+  @brief Getter for the magnetometer offsets
+
+  @return Magnetometer offsets
+*/
+
 offsets_t AHRS::getMagOffsets()
 {
   return magOffsets;
 }
+
+/*!
+  @brief Getter for the gyroscope offsets
+
+  @return Gyroscope offsets
+*/
 offsets_t AHRS::getGyroOffsets()
 {
   return gyroOffsets;
@@ -517,12 +529,4 @@ ahrs_angles_t AHRS::computeAHRSInclination(ahrs_axes_t scaled_axes)
   angles.orientation.pitch = fusionFilter.getPitch();
   angles.orientation.yaw = fusionFilter.getYaw();
   return angles;
-}
-
-
-void AHRS::calibrateRelativeOrientation(ahrs_orientation_t orientation)
-{
-  relativeOrientation.roll =  (relativeOrientation.roll + orientation.roll)/2.f;
-  relativeOrientation.pitch = (relativeOrientation.pitch + orientation.pitch)/2.f;
-  relativeOrientation.yaw =   (relativeOrientation.yaw + orientation.yaw)/2.f;
 }

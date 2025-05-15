@@ -1,0 +1,128 @@
+\doxysection{Data\+Logger Class Reference}
+\hypertarget{class_data_logger}{}\label{class_data_logger}\index{DataLogger@{DataLogger}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_data_logger_ab71019a5463ea88ecfb266e2218c1ded}{Data\+Logger}} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{class_data_logger}{Data\+Logger} constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_data_logger_abea0bb585f09f86f6acd6d966d824938}{\texorpdfstring{$\sim$}{\string~}\+Data\+Logger}} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{class_data_logger}{Data\+Logger} destructor. \end{DoxyCompactList}\item 
+Logger\+Status\+\_\+t \mbox{\hyperlink{class_data_logger_ab4b2c3f60e7a05f260131c91925467e7}{begin}} ()
+\begin{DoxyCompactList}\small\item\em Initialize the data logger. \end{DoxyCompactList}\item 
+Logger\+Status\+\_\+t \mbox{\hyperlink{class_data_logger_aa7abba545626378b60d526eeb24d6299}{update\+Logger}} ()
+\begin{DoxyCompactList}\small\item\em Update the data logger. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_data_logger_adbdb74a748bbe5e05ee73f0ee89ab5aa}{start\+Samplig}} ()
+\begin{DoxyCompactList}\small\item\em Start data sampling. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_data_logger_a915f7259277c93560ebddab8bae4ef6c}{stop\+Samplig}} ()
+\begin{DoxyCompactList}\small\item\em Stop data sampling. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_data_logger_a563f775eb6d1422f1d9f233e5ec446c3}{set\+Calibration}} ()
+\begin{DoxyCompactList}\small\item\em Set calibration flag. \end{DoxyCompactList}\item 
+Logger\+State\+\_\+t \mbox{\hyperlink{class_data_logger_ab605e0a19cad4860584485d59a488f3f}{get\+Logger\+State}} ()
+\begin{DoxyCompactList}\small\item\em Get the current logger state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_data_logger_ab71019a5463ea88ecfb266e2218c1ded}\index{DataLogger@{DataLogger}!DataLogger@{DataLogger}}
+\index{DataLogger@{DataLogger}!DataLogger@{DataLogger}}
+\doxysubsubsection{\texorpdfstring{DataLogger()}{DataLogger()}}
+{\footnotesize\ttfamily \label{class_data_logger_ab71019a5463ea88ecfb266e2218c1ded} 
+\mbox{\hyperlink{class_data_logger}{Data\+Logger}} (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxylink{class_data_logger}{Data\+Logger} constructor. 
+
+The constructor initializes the data logger object \Hypertarget{class_data_logger_abea0bb585f09f86f6acd6d966d824938}\index{DataLogger@{DataLogger}!````~DataLogger@{\texorpdfstring{$\sim$}{\string~}DataLogger}}
+\index{````~DataLogger@{\texorpdfstring{$\sim$}{\string~}DataLogger}!DataLogger@{DataLogger}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}DataLogger()}{\string~DataLogger()}}
+{\footnotesize\ttfamily \label{class_data_logger_abea0bb585f09f86f6acd6d966d824938} 
+\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_data_logger}{Data\+Logger}} (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxylink{class_data_logger}{Data\+Logger} destructor. 
+
+The destructor cleans up the data logger object 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_data_logger_ab4b2c3f60e7a05f260131c91925467e7}\index{DataLogger@{DataLogger}!begin@{begin}}
+\index{begin@{begin}!DataLogger@{DataLogger}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \label{class_data_logger_ab4b2c3f60e7a05f260131c91925467e7} 
+Logger\+Status\+\_\+t begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the data logger. 
+
+This function initializes the SD card, RTC, and \doxylink{class_a_h_r_s}{AHRS} sensor.
+
+\begin{DoxyReturn}{Returns}
+Logger\+Status\+\_\+t Status of the logger initialization 
+\end{DoxyReturn}
+\Hypertarget{class_data_logger_ab605e0a19cad4860584485d59a488f3f}\index{DataLogger@{DataLogger}!getLoggerState@{getLoggerState}}
+\index{getLoggerState@{getLoggerState}!DataLogger@{DataLogger}}
+\doxysubsubsection{\texorpdfstring{getLoggerState()}{getLoggerState()}}
+{\footnotesize\ttfamily \label{class_data_logger_ab605e0a19cad4860584485d59a488f3f} 
+Logger\+State\+\_\+t get\+Logger\+State (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Get the current logger state. 
+
+This function returns the current state of the data logger.
+
+\begin{DoxyReturn}{Returns}
+Logger\+State\+\_\+t Current logger state 
+\end{DoxyReturn}
+\Hypertarget{class_data_logger_a563f775eb6d1422f1d9f233e5ec446c3}\index{DataLogger@{DataLogger}!setCalibration@{setCalibration}}
+\index{setCalibration@{setCalibration}!DataLogger@{DataLogger}}
+\doxysubsubsection{\texorpdfstring{setCalibration()}{setCalibration()}}
+{\footnotesize\ttfamily \label{class_data_logger_a563f775eb6d1422f1d9f233e5ec446c3} 
+void set\+Calibration (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Set calibration flag. 
+
+This function sets the calibration flag to true. \Hypertarget{class_data_logger_adbdb74a748bbe5e05ee73f0ee89ab5aa}\index{DataLogger@{DataLogger}!startSamplig@{startSamplig}}
+\index{startSamplig@{startSamplig}!DataLogger@{DataLogger}}
+\doxysubsubsection{\texorpdfstring{startSamplig()}{startSamplig()}}
+{\footnotesize\ttfamily \label{class_data_logger_adbdb74a748bbe5e05ee73f0ee89ab5aa} 
+void start\+Samplig (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Start data sampling. 
+
+This function sets the flag to start data sampling. \Hypertarget{class_data_logger_a915f7259277c93560ebddab8bae4ef6c}\index{DataLogger@{DataLogger}!stopSamplig@{stopSamplig}}
+\index{stopSamplig@{stopSamplig}!DataLogger@{DataLogger}}
+\doxysubsubsection{\texorpdfstring{stopSamplig()}{stopSamplig()}}
+{\footnotesize\ttfamily \label{class_data_logger_a915f7259277c93560ebddab8bae4ef6c} 
+void stop\+Samplig (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Stop data sampling. 
+
+This function sets the flag to stop data sampling. \Hypertarget{class_data_logger_aa7abba545626378b60d526eeb24d6299}\index{DataLogger@{DataLogger}!updateLogger@{updateLogger}}
+\index{updateLogger@{updateLogger}!DataLogger@{DataLogger}}
+\doxysubsubsection{\texorpdfstring{updateLogger()}{updateLogger()}}
+{\footnotesize\ttfamily \label{class_data_logger_aa7abba545626378b60d526eeb24d6299} 
+Logger\+Status\+\_\+t update\+Logger (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Update the data logger. 
+
+This function updates the data logger state machine.
+
+\begin{DoxyReturn}{Returns}
+Logger\+Status\+\_\+t Status of the data logger update 
+\end{DoxyReturn}
+Check if new data is available
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+Data\+Logger/Data\+Logger.\+h\item 
+C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+Data\+Logger/Data\+Logger.\+cpp\end{DoxyCompactItemize}

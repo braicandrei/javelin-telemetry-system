@@ -1,0 +1,318 @@
+\doxysection{Adafruit\+\_\+\+ICM20\+X.\+h}
+\hypertarget{_adafruit___i_c_m20_x_8h_source}{}\label{_adafruit___i_c_m20_x_8h_source}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit ICM20X/Adafruit\_ICM20X.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit ICM20X/Adafruit\_ICM20X.h}}
+\mbox{\hyperlink{_adafruit___i_c_m20_x_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ \_ADAFRUIT\_ICM20X\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ \_ADAFRUIT\_ICM20X\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <Adafruit\_BusIO\_Register.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <Adafruit\_I2CDevice.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <Adafruit\_Sensor.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <Wire.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h}{Adafruit\_LIS3MDL.h}}>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ Misc\ configuration\ macros}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ I2C\_MASTER\_RESETS\_BEFORE\_FAIL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ 5\ }}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ NUM\_FINISHED\_CHECKS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ 100\ }}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ Bank\ 0}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_WHOAMI\ 0x00\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_USER\_CTRL\ 0x03\ \ \ \ \ \ }}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_LP\_CONFIG\ 0x05\ \ \ \ \ \ }}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_REG\_INT\_PIN\_CFG\ 0xF\ }}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_REG\_INT\_ENABLE\ 0x10\ }}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_REG\_INT\_ENABLE\_1\ 0x11\ }}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_REG\_INT\_ENABLE\_3\ 0x13\ }}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_INT\_STATUS\_3\ \ \ \ \ 0x1C\ \ \ \ \ \ }}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_FIFO\_EN\_1\ \ \ \ \ \ \ \ 0x66\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_FIFO\_EN\_2\ \ \ \ \ \ \ \ 0x67\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_FIFO\_RST\ \ \ \ \ \ \ \ \ 0x68\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_FIFO\_COUNTH\ \ \ \ \ \ 0x70\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_FIFO\_COUNTL\ \ \ \ \ \ 0x71\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_FIFO\_R\_W\ \ \ \ \ \ \ \ \ 0x72\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_I2C\_MST\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ 0x17\ }}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_REG\_BANK\_SEL\ 0x7F\ }}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_PWR\_MGMT\_1\ 0x06\ \ \ }}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_ACCEL\_XOUT\_H\ 0x2D\ }}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ICM20X\_B0\_GYRO\_XOUT\_H\ 0x33\ \ }}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ Bank\ 2}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ ICM20X\_B2\_GYRO\_SMPLRT\_DIV\ 0x00\ \ \ \ }}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ ICM20X\_B2\_GYRO\_CONFIG\_1\ 0x01\ \ \ \ \ \ }}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ ICM20X\_B2\_ODR\_ALIGN\_EN\ 0x09\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ICM20X\_B2\_ACCEL\_SMPLRT\_DIV\_1\ 0x10\ }}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ ICM20X\_B2\_ACCEL\_SMPLRT\_DIV\_2\ 0x11\ }}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ICM20X\_B2\_ACCEL\_CONFIG\_1\ 0x14\ \ \ \ \ }}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ Bank\ 3}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_MST\_ODR\_CONFIG\ 0x0\ }}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_MST\_CTRL\ 0x1\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_MST\_DELAY\_CTRL\ 0x2\ }}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_SLV0\_ADDR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ 0x3\ }}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_SLV0\_REG\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ 0x4\ }}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_SLV0\_CTRL\ 0x5\ }}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_SLV0\_DO\ 0x6\ \ \ }}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_SLV4\_ADDR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ 0x13\ }}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_SLV4\_REG\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ 0x14\ }}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_SLV4\_CTRL\ 0x15\ }}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_SLV4\_DO\ 0x16\ \ \ }}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ ICM20X\_B3\_I2C\_SLV4\_DI\ 0x17\ \ \ }}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ ICM20948\_CHIP\_ID\ 0xEA\ }}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ICM20649\_CHIP\_ID\ 0xE1\ }}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ ICM20X\_FIFO\_SIZE\ 4096\ }}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{//\ MMC5603\ magnetoemeter\ register\ mappping\ }}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ MMC5603\_I2C\_ADDR\ 0x30\ \ \ }}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ MMC5603\_ODR\ \ \ \ \ \ 0x1A\ \ \ }}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ MMC5603\_CTRL0\ \ \ \ 0x1B\ \ \ }}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ MMC5603\_CTRL1\ \ \ \ 0x1C\ \ \ }}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ MMC5603\_CTRL2\ \ \ \ 0x1D\ \ \ }}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00100\ \ \ ICM20X\_ACCEL\_FREQ\_246\_0\_HZ\ =\ 0x1,}
+\DoxyCodeLine{00101\ \ \ ICM20X\_ACCEL\_FREQ\_111\_4\_HZ\ =\ 0x2,}
+\DoxyCodeLine{00102\ \ \ ICM20X\_ACCEL\_FREQ\_50\_4\_HZ\ =\ 0x3,}
+\DoxyCodeLine{00103\ \ \ ICM20X\_ACCEL\_FREQ\_23\_9\_HZ\ =\ 0x4,}
+\DoxyCodeLine{00104\ \ \ ICM20X\_ACCEL\_FREQ\_11\_5\_HZ\ =\ 0x5,}
+\DoxyCodeLine{00105\ \ \ ICM20X\_ACCEL\_FREQ\_5\_7\_HZ\ =\ 0x6,}
+\DoxyCodeLine{00106\ \ \ ICM20X\_ACCEL\_FREQ\_473\_HZ\ =\ 0x7,}
+\DoxyCodeLine{00107\ \}\ \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_abe70000e68e2c0e96dcb487debded478}{icm20x\_accel\_cutoff\_t}};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00111\ \ \ ICM20X\_GYRO\_FREQ\_196\_6\_HZ\ =\ 0x0,}
+\DoxyCodeLine{00112\ \ \ ICM20X\_GYRO\_FREQ\_151\_8\_HZ\ =\ 0x1,}
+\DoxyCodeLine{00113\ \ \ ICM20X\_GYRO\_FREQ\_119\_5\_HZ\ =\ 0x2,}
+\DoxyCodeLine{00114\ \ \ ICM20X\_GYRO\_FREQ\_51\_2\_HZ\ =\ 0x3,}
+\DoxyCodeLine{00115\ \ \ ICM20X\_GYRO\_FREQ\_23\_9\_HZ\ =\ 0x4,}
+\DoxyCodeLine{00116\ \ \ ICM20X\_GYRO\_FREQ\_11\_6\_HZ\ =\ 0x5,}
+\DoxyCodeLine{00117\ \ \ ICM20X\_GYRO\_FREQ\_5\_7\_HZ\ =\ 0x6,}
+\DoxyCodeLine{00118\ \ \ ICM20X\_GYRO\_FREQ\_361\_4\_HZ\ =\ 0x7,}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \}\ \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_ad4e8d6c90935e4cf645f08f002e0af09}{icm20x\_gyro\_cutoff\_t}};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00124\ \ \ FIFO\_DATA\_ACCEL\ =\ 0x10,}
+\DoxyCodeLine{00125\ \ \ FIFO\_DATA\_ACCEL\_GYRO\ =\ 0x1E,}
+\DoxyCodeLine{00126\ \ \ FIFO\_DATA\_ACCEL\_GYRO\_S0\ =\ 0x3E,}
+\DoxyCodeLine{00127\ \}\ \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_a3eab3fdc9cbbad3bca961712c582ccc7}{icm20\_fifo\_data\_select\_t}};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00130\ \ \ int16\_t\ rawAccX,\ }
+\DoxyCodeLine{00131\ \ \ rawAccY,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ rawAccZ,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00133\ \ \ rawTemp,\ \ \ \ \ }
+\DoxyCodeLine{00134\ \ \ rawGyroX,\ \ \ \ }
+\DoxyCodeLine{00135\ \ \ rawGyroY,\ \ \ \ }
+\DoxyCodeLine{00136\ \ \ rawGyroZ,\ \ \ \ }
+\DoxyCodeLine{00137\ \ \ rawMagX,\ \ \ \ \ }
+\DoxyCodeLine{00138\ \ \ rawMagY,\ \ \ \ \ }
+\DoxyCodeLine{00139\ \ \ rawMagZ;\ \ \ \ \ }
+\DoxyCodeLine{00140\ \}\ \mbox{\hyperlink{structicm20x__raw__axes__t}{icm20x\_raw\_axes\_t}};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i_c_m20_x}{Adafruit\_ICM20X}};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i_c_m20_x___accelerometer_a4963d57dfcdbdb6dace7ad190a0d0d7d}{Adafruit\_ICM20X\_Accelerometer}}\ :\ \textcolor{keyword}{public}\ Adafruit\_Sensor\ \{}
+\DoxyCodeLine{00146\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00150\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x___accelerometer_a4963d57dfcdbdb6dace7ad190a0d0d7d}{Adafruit\_ICM20X\_Accelerometer}}(\mbox{\hyperlink{class_adafruit___i_c_m20_x}{Adafruit\_ICM20X}}\ *parent)\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \_theICM20X\ =\ parent;}
+\DoxyCodeLine{00152\ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x___accelerometer_acdae3399501c2020eae90c14a2133522}{getEvent}}(sensors\_event\_t\ *);}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x___accelerometer_a22c77fd5f2cf8cc5b35fc49b7b00a3fa}{getSensor}}(sensor\_t\ *);}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{int}\ \_sensorID\ =\ 0x20A;}
+\DoxyCodeLine{00158\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x}{Adafruit\_ICM20X}}\ *\_theICM20X\ =\ NULL;}
+\DoxyCodeLine{00159\ \};}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i_c_m20_x___gyro_abbedff7eaa2caf60c93df070e874eb19}{Adafruit\_ICM20X\_Gyro}}\ :\ \textcolor{keyword}{public}\ Adafruit\_Sensor\ \{}
+\DoxyCodeLine{00163\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00166\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x___gyro_abbedff7eaa2caf60c93df070e874eb19}{Adafruit\_ICM20X\_Gyro}}(\mbox{\hyperlink{class_adafruit___i_c_m20_x}{Adafruit\_ICM20X}}\ *parent)\ \{\ \_theICM20X\ =\ parent;\ \}}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x___gyro_acdae3399501c2020eae90c14a2133522}{getEvent}}(sensors\_event\_t\ *);}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x___gyro_a22c77fd5f2cf8cc5b35fc49b7b00a3fa}{getSensor}}(sensor\_t\ *);}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{int}\ \_sensorID\ =\ 0x20B;}
+\DoxyCodeLine{00172\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x}{Adafruit\_ICM20X}}\ *\_theICM20X\ =\ NULL;}
+\DoxyCodeLine{00173\ \};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00176\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i_c_m20_x___magnetometer_accc52b8b35f2361378ce0261619d2a3e}{Adafruit\_ICM20X\_Magnetometer}}\ :\ \textcolor{keyword}{public}\ Adafruit\_Sensor\ \{}
+\DoxyCodeLine{00177\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00181\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x___magnetometer_accc52b8b35f2361378ce0261619d2a3e}{Adafruit\_ICM20X\_Magnetometer}}(\mbox{\hyperlink{class_adafruit___i_c_m20_x}{Adafruit\_ICM20X}}\ *parent)\ \{\ \_theICM20X\ =\ parent;\ \}}
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x___magnetometer_acdae3399501c2020eae90c14a2133522}{getEvent}}(sensors\_event\_t\ *);}
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x___magnetometer_a22c77fd5f2cf8cc5b35fc49b7b00a3fa}{getSensor}}(sensor\_t\ *);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordtype}{int}\ \_sensorID\ =\ 0x20C;}
+\DoxyCodeLine{00187\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x}{Adafruit\_ICM20X}}\ *\_theICM20X\ =\ NULL;}
+\DoxyCodeLine{00188\ \};}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00191\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i_c_m20_x___temp_af5071901515eaf1a18ed14eb36c3eb00}{Adafruit\_ICM20X\_Temp}}\ :\ \textcolor{keyword}{public}\ Adafruit\_Sensor\ \{}
+\DoxyCodeLine{00192\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00195\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x___temp_af5071901515eaf1a18ed14eb36c3eb00}{Adafruit\_ICM20X\_Temp}}(\mbox{\hyperlink{class_adafruit___i_c_m20_x}{Adafruit\_ICM20X}}\ *parent)\ \{\ \_theICM20X\ =\ parent;\ \}}
+\DoxyCodeLine{00196\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x___temp_acdae3399501c2020eae90c14a2133522}{getEvent}}(sensors\_event\_t\ *);}
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x___temp_a22c77fd5f2cf8cc5b35fc49b7b00a3fa}{getSensor}}(sensor\_t\ *);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00200\ \ \ \textcolor{keywordtype}{int}\ \_sensorID\ =\ 0x20D;}
+\DoxyCodeLine{00201\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x}{Adafruit\_ICM20X}}\ *\_theICM20X\ =\ NULL;}
+\DoxyCodeLine{00202\ \};}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00208\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i_c_m20_x_ab688665dc43545b035a6f2ffac94f7ae}{Adafruit\_ICM20X}}\ \{}
+\DoxyCodeLine{00209\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00210\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ab688665dc43545b035a6f2ffac94f7ae}{Adafruit\_ICM20X}}();}
+\DoxyCodeLine{00211\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a2c29c1732cf61a58170e53701444cf8b}{\string~Adafruit\_ICM20X}}();}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a411de89d543ef3d5f41b19a33e3a0b94}{begin\_SPI}}(uint8\_t\ cs\_pin,\ SPIClass\ *theSPI\ =\ \&SPI,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ sensor\_id\ =\ 0);}
+\DoxyCodeLine{00215\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a411de89d543ef3d5f41b19a33e3a0b94}{begin\_SPI}}(int8\_t\ cs\_pin,\ int8\_t\ sck\_pin,\ int8\_t\ miso\_pin,}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int8\_t\ mosi\_pin,\ int32\_t\ sensor\_id\ =\ 0);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a3715849a474a4173362c4e50d13e0d8a}{getGyroRateDivisor}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a246cf4a026749fac771383618db3e0fa}{setGyroRateDivisor}}(uint8\_t\ new\_gyro\_divisor);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ uint16\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_afd9386732fd168460fbe03acbcb44bbc}{getAccelRateDivisor}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00222\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a224333ceb79ddfa2912f0e4c048e347f}{setAccelRateDivisor}}(uint16\_t\ new\_accel\_divisor);}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a4040b74298372f597d72b30143b51eff}{enableAccelDLPF}}(\textcolor{keywordtype}{bool}\ enable,\ \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_abe70000e68e2c0e96dcb487debded478}{icm20x\_accel\_cutoff\_t}}\ cutoff\_freq);}
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ade64da127099fbfc0146ecf4795e43c7}{enableGyrolDLPF}}(\textcolor{keywordtype}{bool}\ enable,\ \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_ad4e8d6c90935e4cf645f08f002e0af09}{icm20x\_gyro\_cutoff\_t}}\ cutoff\_freq);}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a3aea9deb2a0bfea9ff05a898f4822e31}{reset}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \textcolor{comment}{//\ TODO:\ bool-\/ify}}
+\DoxyCodeLine{00230\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ac272085c2c4c1d709db9e103fe597b71}{setInt1ActiveLow}}(\textcolor{keywordtype}{bool}\ active\_low);}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a6242da29c26dea7fcb82afc707c30d7a}{setInt2ActiveLow}}(\textcolor{keywordtype}{bool}\ active\_low);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ Adafruit\_Sensor\ *\mbox{\hyperlink{class_adafruit___i_c_m20_x_a52eb5c6eaf1174678f8e3caf14500b17}{getAccelerometerSensor}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00234\ \ \ Adafruit\_Sensor\ *\mbox{\hyperlink{class_adafruit___i_c_m20_x_a15519da90620aa0c7afb87627f857486}{getGyroSensor}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00235\ \ \ Adafruit\_Sensor\ *\mbox{\hyperlink{class_adafruit___i_c_m20_x_a53d467c5cedfa7496b08845ee83db9cb}{getMagnetometerSensor}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00236\ \ \ Adafruit\_Sensor\ *\mbox{\hyperlink{class_adafruit___i_c_m20_x_ac662d090527aa711cbcd346ece87f64f}{getTemperatureSensor}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_adb80c52240c2b64107bf4539a0de8c48}{getEvent}}(sensors\_event\_t\ *accel,\ sensors\_event\_t\ *gyro,}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sensors\_event\_t\ *temp,\ sensors\_event\_t\ *mag\ =\ NULL);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a4eb62667a1716d8a388108d141ca24d2}{readExternalRegister}}(uint8\_t\ slv\_addr,\ uint8\_t\ reg\_addr);}
+\DoxyCodeLine{00242\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a21f38775d2d7d1cdbaec60c29fd8c0b6}{writeExternalRegister}}(uint8\_t\ slv\_addr,\ uint8\_t\ reg\_addr,\ uint8\_t\ value);}
+\DoxyCodeLine{00243\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a9dbb92fb17b395a1be051c5f39b570b3}{configureI2CMaster}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00244\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ac7a7226e9e149a76f635e290c24a378c}{enableI2CMaster}}(\textcolor{keywordtype}{bool}\ enable\_i2c\_master);}
+\DoxyCodeLine{00245\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a184ecac5305a389314d5abbde7435899}{resetI2CMaster}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00246\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ae4609a1774e10294533229c0e7e935e4}{setI2CBypass}}(\textcolor{keywordtype}{bool}\ bypass\_i2c);}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \textcolor{comment}{//\ FIFO\ related\ methods\ //}}
+\DoxyCodeLine{00251\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a3d7f0a863b32a0d873dd3efd0224fd76}{enableFIFO}}(\textcolor{keywordtype}{bool}\ enable\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00252\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a0d73d1dc2c6b1df223cc1607ecba24bf}{enableFIFOWatermarkInt}}(\textcolor{keywordtype}{bool}\ enable\ =\ \textcolor{keyword}{true},\ \textcolor{keywordtype}{bool}\ logicLevel\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00253\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a505ac40b32317d76df72732599dc4222}{selectFIFOData}}(\mbox{\hyperlink{_adafruit___i_c_m20_x_8h_a3eab3fdc9cbbad3bca961712c582ccc7}{icm20\_fifo\_data\_select\_t}}\ data\_select);}
+\DoxyCodeLine{00254\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a0da9b182c188eb322a7e08aa15b2f006}{resetFIFO}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00255\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a1d7bfd70295786cf1fabd34e04a3f0e6}{odrAlign}}(\textcolor{keywordtype}{bool}\ enable\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00256\ \ \ uint32\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a5d17e05ae366435bc2d5191307c4ab63}{readFIFOCount}}();}
+\DoxyCodeLine{00257\ \ \ uint16\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a84ad0857d22f73d1d1f439042f69cd52}{readFIFOBuffer}}(\mbox{\hyperlink{structicm20x__raw__axes__t}{icm20x\_raw\_axes\_t}}\ *frameBuffer);}
+\DoxyCodeLine{00258\ \ }
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a23c7eeed0b0183a1263817864205d087}{configI2CSlave0}}(uint8\_t\ slv\_addr,\ uint8\_t\ reg\_addr,\ uint8\_t\ dataLemgth);}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_aa3c4622f8e7c71405a451a18265377d1}{sleepMode}}(\textcolor{keywordtype}{bool}\ mode);}
+\DoxyCodeLine{00266\ \ \ }
+\DoxyCodeLine{00267\ \ \ }
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00271\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_afc1d28cfbce795d6ea954ebe725241f5}{temperature}},\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a47554816068d5d859fd1d7971d5da628}{accX}},\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a7f86285d224e09b936fb97cda5a97f62}{accY}},\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ab76e62144bc5c94a7d5c985049fb72cf}{accZ}},\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a962106e17ae4758836727a307b089f2c}{gyroX}},\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_af48596e04270f285f36dca851eb8b137}{gyroY}},\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ad5c2a29caa9f5927e6325ce95cca417a}{gyroZ}},\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a10a4438fd536c497dd7870b8d0b421a3}{magX}},\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a76f23d66020047d43bc9d7d53d436ef1}{magY}},\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_aa6d3b5f9a4f5bf6997bf328d3e6cee11}{magZ}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \mbox{\hyperlink{class_adafruit___i2_c_device}{Adafruit\_I2CDevice}}\ *\mbox{\hyperlink{class_adafruit___i_c_m20_x_af74b2acb5c80bf27f6ffed759e4067c7}{i2c\_dev}}\ =\ NULL;\ }
+\DoxyCodeLine{00283\ \ \ \mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\_SPIDevice}}\ *\mbox{\hyperlink{class_adafruit___i_c_m20_x_a27c0d8ef0f97fe3dc0725a4315412a83}{spi\_dev}}\ =\ NULL;\ }
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a2017b07c8f08d7d8beb6917cfa8100fb}{Adafruit\_ICM20X\_Accelerometer}}\ *\mbox{\hyperlink{class_adafruit___i_c_m20_x_a65a8df389e34d0192e65eb8ac8471cd5}{accel\_sensor}}\ =}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00287\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a6d77bbf4bc663e897a6252c416738fb1}{Adafruit\_ICM20X\_Gyro}}\ *\mbox{\hyperlink{class_adafruit___i_c_m20_x_a16676b0830d7ed0593c3a59fe076e57d}{gyro\_sensor}}\ =\ NULL;\ }
+\DoxyCodeLine{00288\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a7fc5fbca4ab96ab49d79921a2a6d1f25}{Adafruit\_ICM20X\_Magnetometer}}\ *\mbox{\hyperlink{class_adafruit___i_c_m20_x_a7dd75eed8ab373db245ff3f320bf1cc9}{mag\_sensor}}\ =}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00290\ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a8200775046b854344ec7152e958a03e3}{Adafruit\_ICM20X\_Temp}}\ *\mbox{\hyperlink{class_adafruit___i_c_m20_x_abcecaba5f02b1f88e7c01f563c693f71}{temp\_sensor}}\ =\ NULL;\ }
+\DoxyCodeLine{00291\ \ \ uint16\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_aad92c84a70f4e7f5c606f299e4fee4ba}{\_sensorid\_accel}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ac068cea328ab31405d98961c265d3519}{\_sensorid\_gyro}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ac4443304abf09ac6abf2b4ee40a7c32c}{\_sensorid\_mag}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a7aaddb9d942c078c70e1e28f20672165}{\_sensorid\_temp}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a12e573b08cd62fa793c682783eb2a6b1}{\_read}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a7e34c7da3647b94fc48d8cbe94986dc2}{begin\_I2C}}(uint8\_t\ i2c\_add,\ TwoWire\ *wire,\ int32\_t\ sensor\_id);}
+\DoxyCodeLine{00299\ \ \ \textcolor{comment}{//\ virtual\ bool\ \_init(int32\_t\ sensor\_id);}}
+\DoxyCodeLine{00300\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ad2f2f11e0a66db1ca328be19d9b4e549}{\_init}}(int32\_t\ sensor\_id);}
+\DoxyCodeLine{00301\ \ \ int16\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a9a529335521b2bc6807368e4401bb975}{rawAccX}},\ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a297a9c3d6d6c37272d0739d98134e473}{rawAccY}},\ \ \ \ \ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a8552f2ae900ff54afb697e80d541bb6a}{rawAccZ}},\ \ \ \ \ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ab2b8f8a870dbf5e728c6ed81634ab2cb}{rawTemp}},\ \ \ \ \ }
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a796840fbdece9e0951c364daafcc1d30}{rawGyroX}},\ \ \ \ }
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ac4f56d3db4dd31c199d5f60030ecc9c4}{rawGyroY}},\ \ \ \ }
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_af40a97365fb9ade7e41b117238cfac1a}{rawGyroZ}},\ \ \ \ }
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a02afa220650188a09dec5aa820bcf14e}{rawMagX}},\ \ \ \ \ }
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a5d21779297d133e547f7c654fdf69a32}{rawMagY}},\ \ \ \ \ }
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a1ca05e7f131eecf24cc28af103c36f3f}{rawMagZ}};\ \ \ \ \ }
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_aae5b26fed05fb0d2d6dd47de405b1aec}{current\_accel\_range}};\ }
+\DoxyCodeLine{00313\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a1aebcb3b1f4ffec93f5f27ce3e583491}{current\_gyro\_range}};\ \ }
+\DoxyCodeLine{00314\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a3218cbe2f402670486a5f68bb328687d}{current\_mag\_range}};\ \ \ }
+\DoxyCodeLine{00315\ \ \ \textcolor{comment}{//\ virtual\ void\ \_setBank(uint8\_t\ bank\_number);}}
+\DoxyCodeLine{00316\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ac593fb583251fd207872779fd941011a}{\_setBank}}(uint8\_t\ bank\_number);}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a9a4bc76fa479e569a11c12d0e46cb874}{readAccelRange}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a3087f355400a190cf3e15bee33072faf}{writeAccelRange}}(uint8\_t\ new\_accel\_range);}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ac4ee081c43fc66254b48c42f1e0f62f3}{readGyroRange}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00322\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a98ed9acc3f4f35e61d7bb0511e88b113}{writeGyroRange}}(uint8\_t\ new\_gyro\_range);}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00325\ \ \ \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_a3eab3fdc9cbbad3bca961712c582ccc7}{icm20\_fifo\_data\_select\_t}}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_aaa843a3b153b35a21c845ff3876523bd}{fifo\_data\_select}};\ }
+\DoxyCodeLine{00326\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a77bd629ad1453c1c63c699f22ab4d709}{bytes\_per\_frame}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00327\ \ \ \textcolor{keyword}{const}\ uint8\_t\ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a9c03160944853e94409fdd2d3a14c7dc}{buffer\_size\_max}}\ =\ 234;\ \ \ }
+\DoxyCodeLine{00328\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a9ca9ac82ad39d1eb68e8162eef96d646}{buffer\_size}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00329\ \ \ uint8\_t\ \ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ae16fea9f87af002b5bf4122b38a8e555}{frames\_per\_chunk}};\ }
+\DoxyCodeLine{00330\ \ \ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l}{Adafruit\_LIS3MDL}}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_a0f58089326314933f264e8d8b281f23a}{lis3mdl}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00331\ \ \ \mbox{\hyperlink{structicm20x__raw__axes__t}{icm20x\_raw\_axes\_t}}\ \mbox{\hyperlink{class_adafruit___i_c_m20_x_ad56459f87128c370518b72ea11207519}{raw\_axes}}[\mbox{\hyperlink{_adafruit___i_c_m20_x_8h_addb09eb8c9b689cc43912c8e264a6312}{ICM20X\_FIFO\_SIZE}}/6];\ \ }
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00334\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i_c_m20_x_a2017b07c8f08d7d8beb6917cfa8100fb}{Adafruit\_ICM20X\_Accelerometer}};\ }
+\DoxyCodeLine{00337\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i_c_m20_x_a6d77bbf4bc663e897a6252c416738fb1}{Adafruit\_ICM20X\_Gyro}};\ }
+\DoxyCodeLine{00339\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i_c_m20_x_a7fc5fbca4ab96ab49d79921a2a6d1f25}{Adafruit\_ICM20X\_Magnetometer}};\ }
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i_c_m20_x_a8200775046b854344ec7152e958a03e3}{Adafruit\_ICM20X\_Temp}};\ }
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \textcolor{keywordtype}{void}\ fillAccelEvent(sensors\_event\_t\ *accel,\ uint32\_t\ timestamp);}
+\DoxyCodeLine{00347\ \ \ \textcolor{keywordtype}{void}\ fillGyroEvent(sensors\_event\_t\ *gyro,\ uint32\_t\ timestamp);}
+\DoxyCodeLine{00348\ \ \ \textcolor{keywordtype}{void}\ fillTempEvent(sensors\_event\_t\ *temp,\ uint32\_t\ timestamp);}
+\DoxyCodeLine{00349\ \ \ \textcolor{keywordtype}{void}\ fillMagEvent(sensors\_event\_t\ *mag,\ uint32\_t\ timestamp);}
+\DoxyCodeLine{00350\ \ \ uint8\_t\ auxillaryRegisterTransaction(\textcolor{keywordtype}{bool}\ read,\ uint8\_t\ slv\_addr,}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ reg\_addr,\ uint8\_t\ value\ =\ -\/1);}
+\DoxyCodeLine{00352\ \ \ }
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00355\ \ \ \textcolor{keywordtype}{void}\ configFifoParam(\mbox{\hyperlink{_adafruit___i_c_m20_x_8h_a3eab3fdc9cbbad3bca961712c582ccc7}{icm20\_fifo\_data\_select\_t}}\ data\_select);}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \};}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

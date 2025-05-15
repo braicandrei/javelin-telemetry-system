@@ -1,0 +1,9 @@
+<map id="writeGyroRange" name="writeGyroRange">
+<area shape="rect" id="Node000001" title="Sets the gyro&#39;s measurement range." alt="" coords="5,43,121,69"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20_x.html#ac593fb583251fd207872779fd941011a" title="Sets register bank." alt="" coords="225,13,302,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,45,209,32,210,37,121,50"/>
+<area shape="rect" id="Node000004" href="$class_adafruit___bus_i_o___register_bits.html#a813f4ef469295b1771bebe1a954986b5" title="Write 4 bytes of data to the register." alt="" coords="169,64,358,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="121,62,153,67,153,72,121,67"/>
+<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register.html#ab97b289f41d27715678b28fd3ccf7911" title="Write a buffer of data to the register location." alt="" coords="406,5,572,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,24,390,24,390,29,302,29"/>
+</map>

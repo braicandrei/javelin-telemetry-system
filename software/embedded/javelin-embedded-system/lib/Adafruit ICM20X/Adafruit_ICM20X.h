@@ -294,7 +294,7 @@ protected:
       _sensorid_temp;                       ///< ID number for temperature
 
   void _read(void);
-  virtual void scaleValues(void);
+
   virtual bool begin_I2C(uint8_t i2c_add, TwoWire *wire, int32_t sensor_id);
   // virtual bool _init(int32_t sensor_id);
   bool _init(int32_t sensor_id);

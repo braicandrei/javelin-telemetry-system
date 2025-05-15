@@ -75,7 +75,6 @@ public:
     bool lowPowerMode(bool mode);
     bool setAHRSRange(
         icm20649_accel_range_t accelRange, icm20649_gyro_range_t gyroRange, lis3mdl_range_t magRange);
-    bool setAHRSSampleRate(uint8_t sampleRate);
     ahrs_axes_t scaleAxes(icm20x_raw_axes_t raw_axes);
     ahrs_axes_t correctAxex (ahrs_axes_t scaled_axes);
 
@@ -88,7 +87,6 @@ public:
     void loadMagCalibFromEEPROM();
     ahrs_orientation_t computeAHRSOrientation(ahrs_axes_t scaled_axes);
     ahrs_angles_t computeAHRSInclination(ahrs_axes_t scaled_axes);
-    void calibrateRelativeOrientation(ahrs_orientation_t newOrientation);
     ahrs_orientation_t relativeOrientation = {0, 0, 0};
     Adafruit_ICM20649 icm20649;
     Adafruit_LIS3MDL lis3mdl;

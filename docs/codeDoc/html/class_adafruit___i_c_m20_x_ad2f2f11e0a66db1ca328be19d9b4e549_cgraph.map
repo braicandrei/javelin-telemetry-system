@@ -1,0 +1,46 @@
+<map id="_init" name="_init">
+<area shape="rect" id="Node000001" title="Initilizes the sensor." alt="" coords="5,284,51,311"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20_x.html#ac593fb583251fd207872779fd941011a" title="Sets register bank." alt="" coords="416,107,492,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="28,283,34,253,46,214,66,175,80,158,97,143,134,123,173,109,214,100,256,96,335,97,401,106,400,111,335,102,256,101,215,105,174,114,136,128,100,148,84,161,71,178,51,216,39,254,34,284"/>
+<area shape="rect" id="Node000004" href="$class_adafruit___i_c_m20_x.html#a2017b07c8f08d7d8beb6917cfa8100fb" title=" " alt="" coords="99,435,311,461"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="39,310,64,348,100,390,127,409,156,425,153,430,124,414,97,394,59,352,34,312"/>
+<area shape="rect" id="Node000005" href="$class_adafruit___i_c_m20_x.html#a6d77bbf4bc663e897a6252c416738fb1" title=" " alt="" coords="127,509,283,536"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="34,311,40,343,52,385,72,431,101,472,120,488,143,500,140,505,117,492,97,475,67,433,47,387,35,344,29,312"/>
+<area shape="rect" id="Node000006" href="$class_adafruit___i_c_m20_x.html#a7fc5fbca4ab96ab49d79921a2a6d1f25" title=" " alt="" coords="99,584,310,611"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="32,311,34,355,44,417,64,485,80,517,101,546,119,563,140,575,137,580,116,567,97,550,76,520,60,487,39,418,29,355,27,311"/>
+<area shape="rect" id="Node000007" href="$class_adafruit___i_c_m20_x.html#a8200775046b854344ec7152e958a03e3" title=" " alt="" coords="125,659,285,685"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="33,311,54,468,75,560,87,596,101,621,118,637,138,650,136,654,114,641,97,624,82,598,70,561,49,469,28,311"/>
+<area shape="rect" id="Node000008" href="$class_adafruit___bus_i_o___register.html#a84ed92b3d107e8895bdbc7e55991342e" title="Read a number of bytes from a register into a buffer." alt="" coords="596,323,763,365"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="44,309,69,329,100,346,165,363,221,372,272,373,320,370,420,355,479,349,548,345,580,345,581,350,548,351,480,354,421,361,320,375,272,379,221,377,164,369,98,350,66,334,41,313"/>
+<area shape="rect" id="Node000009" href="$class_adafruit___i_c_m20_x.html#a3aea9deb2a0bfea9ff05a898f4822e31" title="Reset the internal registers and restores the default settings." alt="" coords="180,309,230,336"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="51,298,165,314,164,320,51,303"/>
+<area shape="rect" id="Node000011" href="$class_adafruit___bus_i_o___register_bits.html#a813f4ef469295b1771bebe1a954986b5" title="Write 4 bytes of data to the register." alt="" coords="359,213,548,256"/>
+<area shape="poly" id="edge23_Node000001_Node000011" title=" " alt="" coords="51,292,343,248,344,253,51,297"/>
+<area shape="rect" id="Node000012" href="$class_adafruit___i_c_m20_x.html#a224333ceb79ddfa2912f0e4c048e347f" title="Sets the accelerometer&#39;s data rate divisor." alt="" coords="134,5,276,32"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="26,283,27,237,34,173,43,137,56,103,73,70,97,42,118,28,121,32,100,46,78,73,61,105,48,139,40,173,32,238,31,283"/>
+<area shape="rect" id="Node000013" href="$class_adafruit___i_c_m20_x.html#a246cf4a026749fac771383618db3e0fa" title="Sets the gyro&#39;s data rate divisor." alt="" coords="137,56,273,83"/>
+<area shape="poly" id="edge20_Node000001_Node000013" title=" " alt="" coords="27,283,32,247,43,198,63,145,78,121,97,99,121,83,124,88,100,103,83,124,68,148,48,199,37,248,33,284"/>
+<area shape="rect" id="Node000014" href="$class_adafruit___i_c_m20_x.html#a3087f355400a190cf3e15bee33072faf" title="Sets the accelerometer&#39;s measurement range." alt="" coords="145,208,265,235"/>
+<area shape="poly" id="edge24_Node000001_Node000014" title=" " alt="" coords="47,281,97,251,133,237,135,242,100,256,49,286"/>
+<area shape="rect" id="Node000015" href="$class_adafruit___i_c_m20_x.html#a98ed9acc3f4f35e61d7bb0511e88b113" title="Sets the gyro&#39;s measurement range." alt="" coords="147,157,262,184"/>
+<area shape="poly" id="edge27_Node000001_Node000015" title=" " alt="" coords="33,282,56,238,74,214,97,194,131,178,134,183,100,198,78,218,60,241,37,285"/>
+<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register.html#ab97b289f41d27715678b28fd3ccf7911" title="Write a buffer of data to the register location." alt="" coords="596,48,763,91"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="492,109,580,89,582,94,493,114"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="174,436,169,426,173,416,185,410,205,408,226,411,237,417,235,422,224,416,205,413,187,415,177,420,174,425,179,433"/>
+<area shape="poly" id="edge6_Node000005_Node000005" title=" " alt="" coords="174,510,169,501,173,491,185,485,205,483,226,485,237,492,235,496,224,490,205,488,187,490,177,495,174,500,179,508"/>
+<area shape="poly" id="edge8_Node000006_Node000006" title=" " alt="" coords="174,585,169,575,173,566,185,559,205,557,226,560,237,566,235,571,224,565,205,563,187,565,177,569,174,575,179,582"/>
+<area shape="poly" id="edge10_Node000007_Node000007" title=" " alt="" coords="174,660,169,650,173,640,185,634,205,632,226,635,237,641,235,646,224,640,205,637,187,639,177,644,174,649,179,657"/>
+<area shape="poly" id="edge13_Node000009_Node000002" title=" " alt="" coords="225,307,309,245,357,199,423,142,426,146,361,203,313,249,228,311"/>
+<area shape="rect" id="Node000010" href="$class_adafruit___bus_i_o___register_bits.html#af62b1bc77a3a952c021ca6876bc6a080" title="Read 4 bytes of data from the register." alt="" coords="359,293,548,336"/>
+<area shape="poly" id="edge14_Node000009_Node000010" title=" " alt="" coords="230,319,344,316,344,321,230,325"/>
+<area shape="poly" id="edge16_Node000009_Node000011" title=" " alt="" coords="230,313,310,288,385,260,387,265,312,293,231,318"/>
+<area shape="poly" id="edge15_Node000010_Node000008" title=" " alt="" coords="549,324,581,329,581,334,549,330"/>
+<area shape="poly" id="edge18_Node000012_Node000002" title=" " alt="" coords="275,30,312,42,369,68,419,96,416,100,367,73,310,46,274,35"/>
+<area shape="poly" id="edge19_Node000012_Node000003" title=" " alt="" coords="276,22,549,48,581,52,581,57,548,53,275,27"/>
+<area shape="poly" id="edge21_Node000013_Node000002" title=" " alt="" coords="274,81,401,107,399,112,273,86"/>
+<area shape="poly" id="edge22_Node000013_Node000003" title=" " alt="" coords="273,67,581,67,581,72,273,72"/>
+<area shape="poly" id="edge25_Node000014_Node000002" title=" " alt="" coords="264,207,310,194,367,167,416,140,419,144,369,172,312,198,266,212"/>
+<area shape="poly" id="edge26_Node000014_Node000011" title=" " alt="" coords="265,222,344,226,343,231,265,227"/>
+<area shape="poly" id="edge28_Node000015_Node000002" title=" " alt="" coords="262,156,400,128,401,133,263,162"/>
+<area shape="poly" id="edge29_Node000015_Node000011" title=" " alt="" coords="263,181,312,193,360,206,358,211,310,199,262,187"/>
+</map>

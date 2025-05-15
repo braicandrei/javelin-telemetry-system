@@ -1,0 +1,499 @@
+\doxysection{Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register Class Reference}
+\hypertarget{class_adafruit___bus_i_o___register}{}\label{class_adafruit___bus_i_o___register}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+
+
+The class which defines a device register (a location to read/write data from)  
+
+
+
+
+{\ttfamily \#include $<$Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_adafruit___bus_i_o___register_ad7da59cd2dbfaf46239330fd6e0a347e}{Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register}} (\mbox{\hyperlink{class_adafruit___i2_c_device}{Adafruit\+\_\+\+I2\+CDevice}} \texorpdfstring{$\ast$}{*}i2cdevice, uint16\+\_\+t reg\+\_\+addr, uint8\+\_\+t \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}}=1, uint8\+\_\+t byteorder=LSBFIRST, uint8\+\_\+t address\+\_\+width=1)
+\begin{DoxyCompactList}\small\item\em Create a register we access over an I2C Device (which defines the bus and address) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_adafruit___bus_i_o___register_aed1bc9c244331e76dfa5e3c73f864f68}{Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register}} (\mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\+\_\+\+SPIDevice}} \texorpdfstring{$\ast$}{*}spidevice, uint16\+\_\+t reg\+\_\+addr, Adafruit\+\_\+\+Bus\+IO\+\_\+\+SPIReg\+Type type, uint8\+\_\+t \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}}=1, uint8\+\_\+t byteorder=LSBFIRST, uint8\+\_\+t address\+\_\+width=1)
+\begin{DoxyCompactList}\small\item\em Create a register we access over an SPI Device (which defines the bus and CS pin) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_adafruit___bus_i_o___register_a13472d5b5375de0bfb52cd03ab5e2dc1}{Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register}} (\mbox{\hyperlink{class_adafruit___i2_c_device}{Adafruit\+\_\+\+I2\+CDevice}} \texorpdfstring{$\ast$}{*}i2cdevice, \mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\+\_\+\+SPIDevice}} \texorpdfstring{$\ast$}{*}spidevice, Adafruit\+\_\+\+Bus\+IO\+\_\+\+SPIReg\+Type type, uint16\+\_\+t reg\+\_\+addr, uint8\+\_\+t \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}}=1, uint8\+\_\+t byteorder=LSBFIRST, uint8\+\_\+t address\+\_\+width=1)
+\begin{DoxyCompactList}\small\item\em Create a register we access over an I2C or SPI Device. This is a handy function because we can pass in nullptr for the unused interface, allowing libraries to mass-\/define all the registers. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_adafruit___bus_i_o___register_ab85f49fafbbf24dfd38aac383715797d}{Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register}} (\mbox{\hyperlink{class_adafruit___generic_device}{Adafruit\+\_\+\+Generic\+Device}} \texorpdfstring{$\ast$}{*}genericdevice, uint16\+\_\+t reg\+\_\+addr, uint8\+\_\+t \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}}=1, uint8\+\_\+t byteorder=LSBFIRST, uint8\+\_\+t address\+\_\+width=1)
+\begin{DoxyCompactList}\small\item\em Create a register we access over a Generic\+Device. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___bus_i_o___register_a84ed92b3d107e8895bdbc7e55991342e}{read}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, uint8\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Read a number of bytes from a register into a buffer. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___bus_i_o___register_a3e2abaa013d876216ac6e221c348a3f0}{read}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}value)
+\begin{DoxyCompactList}\small\item\em Read 1 byte of data from the register location. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___bus_i_o___register_a4f2b08049c16781e637244078d1e5fda}{read}} (uint16\+\_\+t \texorpdfstring{$\ast$}{*}value)
+\begin{DoxyCompactList}\small\item\em Read 2 bytes of data from the register location. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{class_adafruit___bus_i_o___register_af62b1bc77a3a952c021ca6876bc6a080}{read}} (void)
+\begin{DoxyCompactList}\small\item\em Read data from the register location. This does not do any error checking! \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{class_adafruit___bus_i_o___register_a07a75c2f77605b4ed788fb2bd582bb34}{read\+Cached}} (void)
+\begin{DoxyCompactList}\small\item\em Read cached data from last time we wrote to this register. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___bus_i_o___register_ab97b289f41d27715678b28fd3ccf7911}{write}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, uint8\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Write a buffer of data to the register location. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___bus_i_o___register_abe41fba377e0382301ad70ae0eabaef3}{write}} (uint32\+\_\+t value, uint8\+\_\+t numbytes=0)
+\begin{DoxyCompactList}\small\item\em Write up to 4 bytes of data to the register location. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}} (void)
+\begin{DoxyCompactList}\small\item\em The width of the register data, helpful for doing calculations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___bus_i_o___register_a073158f79440f1904378bc417e796179}{set\+Width}} (uint8\+\_\+t \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}})
+\begin{DoxyCompactList}\small\item\em Set the default width of data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___bus_i_o___register_af768db025489be1159ec18a8fc4edb7d}{set\+Address}} (uint16\+\_\+t address)
+\begin{DoxyCompactList}\small\item\em Set register address. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___bus_i_o___register_a4a50a0ec7e7f532b9f8643295b53a9fc}{set\+Address\+Width}} (uint16\+\_\+t address\+\_\+width)
+\begin{DoxyCompactList}\small\item\em Set the width of register address. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___bus_i_o___register_a84a8005a8767e16a886a908674ba1e7e}{print}} (Stream \texorpdfstring{$\ast$}{*}s=\&Serial)
+\begin{DoxyCompactList}\small\item\em Pretty printer for this register. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___bus_i_o___register_acd7871d9c708bbdf16b81aea057f6425}{println}} (Stream \texorpdfstring{$\ast$}{*}s=\&Serial)
+\begin{DoxyCompactList}\small\item\em Pretty printer for this register. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The class which defines a device register (a location to read/write data from) 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_adafruit___bus_i_o___register_ad7da59cd2dbfaf46239330fd6e0a347e}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{Adafruit\_BusIO\_Register()}{Adafruit\_BusIO\_Register()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_ad7da59cd2dbfaf46239330fd6e0a347e} 
+\mbox{\hyperlink{class_adafruit___bus_i_o___register}{Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_adafruit___i2_c_device}{Adafruit\+\_\+\+I2\+CDevice}} \texorpdfstring{$\ast$}{*}}]{i2cdevice}{, }\item[{uint16\+\_\+t}]{reg\+\_\+addr}{, }\item[{uint8\+\_\+t}]{width}{ = {\ttfamily 1}, }\item[{uint8\+\_\+t}]{byteorder}{ = {\ttfamily LSBFIRST}, }\item[{uint8\+\_\+t}]{address\+\_\+width}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+Create a register we access over an I2C Device (which defines the bus and address) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i2cdevice} & The I2\+CDevice to use for underlying I2C access \\
+\hline
+{\em reg\+\_\+addr} & The address pointer value for the I2\+C/\+SMBus register, can be 8 or 16 bits \\
+\hline
+{\em width} & The width of the register data itself, defaults to 1 byte \\
+\hline
+{\em byteorder} & The byte order of the register (used when width is \texorpdfstring{$>$}{>} 1), defaults to LSBFIRST \\
+\hline
+{\em address\+\_\+width} & The width of the register address itself, defaults to 1 byte \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{class_adafruit___bus_i_o___register_ad7da59cd2dbfaf46239330fd6e0a347e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_aed1bc9c244331e76dfa5e3c73f864f68}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{Adafruit\_BusIO\_Register()}{Adafruit\_BusIO\_Register()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_aed1bc9c244331e76dfa5e3c73f864f68} 
+\mbox{\hyperlink{class_adafruit___bus_i_o___register}{Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\+\_\+\+SPIDevice}} \texorpdfstring{$\ast$}{*}}]{spidevice}{, }\item[{uint16\+\_\+t}]{reg\+\_\+addr}{, }\item[{Adafruit\+\_\+\+Bus\+IO\+\_\+\+SPIReg\+Type}]{type}{, }\item[{uint8\+\_\+t}]{width}{ = {\ttfamily 1}, }\item[{uint8\+\_\+t}]{byteorder}{ = {\ttfamily LSBFIRST}, }\item[{uint8\+\_\+t}]{address\+\_\+width}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+Create a register we access over an SPI Device (which defines the bus and CS pin) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em spidevice} & The SPIDevice to use for underlying SPI access \\
+\hline
+{\em reg\+\_\+addr} & The address pointer value for the SPI register, can be 8 or 16 bits \\
+\hline
+{\em type} & The method we use to read/write data to SPI (which is not as well defined as I2C) \\
+\hline
+{\em width} & The width of the register data itself, defaults to 1 byte \\
+\hline
+{\em byteorder} & The byte order of the register (used when width is \texorpdfstring{$>$}{>} 1), defaults to LSBFIRST \\
+\hline
+{\em address\+\_\+width} & The width of the register address itself, defaults to 1 byte \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{class_adafruit___bus_i_o___register_aed1bc9c244331e76dfa5e3c73f864f68_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_a13472d5b5375de0bfb52cd03ab5e2dc1}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{Adafruit\_BusIO\_Register()}{Adafruit\_BusIO\_Register()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_a13472d5b5375de0bfb52cd03ab5e2dc1} 
+\mbox{\hyperlink{class_adafruit___bus_i_o___register}{Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_adafruit___i2_c_device}{Adafruit\+\_\+\+I2\+CDevice}} \texorpdfstring{$\ast$}{*}}]{i2cdevice}{, }\item[{\mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\+\_\+\+SPIDevice}} \texorpdfstring{$\ast$}{*}}]{spidevice}{, }\item[{Adafruit\+\_\+\+Bus\+IO\+\_\+\+SPIReg\+Type}]{type}{, }\item[{uint16\+\_\+t}]{reg\+\_\+addr}{, }\item[{uint8\+\_\+t}]{width}{ = {\ttfamily 1}, }\item[{uint8\+\_\+t}]{byteorder}{ = {\ttfamily LSBFIRST}, }\item[{uint8\+\_\+t}]{address\+\_\+width}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+Create a register we access over an I2C or SPI Device. This is a handy function because we can pass in nullptr for the unused interface, allowing libraries to mass-\/define all the registers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i2cdevice} & The I2\+CDevice to use for underlying I2C access, if nullptr we use SPI \\
+\hline
+{\em spidevice} & The SPIDevice to use for underlying SPI access, if nullptr we use I2C \\
+\hline
+{\em reg\+\_\+addr} & The address pointer value for the I2\+C/\+SMBus/\+SPI register, can be 8 or 16 bits \\
+\hline
+{\em type} & The method we use to read/write data to SPI (which is not as well defined as I2C) \\
+\hline
+{\em width} & The width of the register data itself, defaults to 1 byte \\
+\hline
+{\em byteorder} & The byte order of the register (used when width is \texorpdfstring{$>$}{>} 1), defaults to LSBFIRST \\
+\hline
+{\em address\+\_\+width} & The width of the register address itself, defaults to 1 byte \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{class_adafruit___bus_i_o___register_a13472d5b5375de0bfb52cd03ab5e2dc1_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_ab85f49fafbbf24dfd38aac383715797d}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{Adafruit\_BusIO\_Register()}{Adafruit\_BusIO\_Register()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_ab85f49fafbbf24dfd38aac383715797d} 
+\mbox{\hyperlink{class_adafruit___bus_i_o___register}{Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_adafruit___generic_device}{Adafruit\+\_\+\+Generic\+Device}} \texorpdfstring{$\ast$}{*}}]{genericdevice}{, }\item[{uint16\+\_\+t}]{reg\+\_\+addr}{, }\item[{uint8\+\_\+t}]{width}{ = {\ttfamily 1}, }\item[{uint8\+\_\+t}]{byteorder}{ = {\ttfamily LSBFIRST}, }\item[{uint8\+\_\+t}]{address\+\_\+width}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+Create a register we access over a Generic\+Device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em genericdevice} & Generic device to use \\
+\hline
+{\em reg\+\_\+addr} & Register address we will read/write \\
+\hline
+{\em width} & Width of the register in bytes (1-\/4) \\
+\hline
+{\em byteorder} & Byte order of register data (LSBFIRST or MSBFIRST) \\
+\hline
+{\em address\+\_\+width} & Width of the register address in bytes (1 or 2) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{class_adafruit___bus_i_o___register_ab85f49fafbbf24dfd38aac383715797d_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_adafruit___bus_i_o___register_a84a8005a8767e16a886a908674ba1e7e}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!print@{print}}
+\index{print@{print}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_a84a8005a8767e16a886a908674ba1e7e} 
+void print (\begin{DoxyParamCaption}\item[{Stream \texorpdfstring{$\ast$}{*}}]{s}{ = {\ttfamily \&Serial}}\end{DoxyParamCaption})}
+
+
+
+Pretty printer for this register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The Stream to print to, defaults to \&Serial \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{class_adafruit___bus_i_o___register_a84a8005a8767e16a886a908674ba1e7e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{class_adafruit___bus_i_o___register_a84a8005a8767e16a886a908674ba1e7e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_acd7871d9c708bbdf16b81aea057f6425}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!println@{println}}
+\index{println@{println}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{println()}{println()}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_acd7871d9c708bbdf16b81aea057f6425} 
+void println (\begin{DoxyParamCaption}\item[{Stream \texorpdfstring{$\ast$}{*}}]{s}{ = {\ttfamily \&Serial}}\end{DoxyParamCaption})}
+
+
+
+Pretty printer for this register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The Stream to print to, defaults to \&Serial \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{class_adafruit___bus_i_o___register_acd7871d9c708bbdf16b81aea057f6425_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_a4f2b08049c16781e637244078d1e5fda}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!read@{read}}
+\index{read@{read}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_a4f2b08049c16781e637244078d1e5fda} 
+bool read (\begin{DoxyParamCaption}\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Read 2 bytes of data from the register location. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Pointer to uint16\+\_\+t variable to read into \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True on successful write (only really useful for I2C as SPI is uncheckable) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{class_adafruit___bus_i_o___register_a4f2b08049c16781e637244078d1e5fda_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_a84ed92b3d107e8895bdbc7e55991342e}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!read@{read}}
+\index{read@{read}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_a84ed92b3d107e8895bdbc7e55991342e} 
+bool read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint8\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Read a number of bytes from a register into a buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & Buffer to read data into \\
+\hline
+{\em len} & Number of bytes to read into the buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on successful read, otherwise false 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___bus_i_o___register_a84ed92b3d107e8895bdbc7e55991342e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_a3e2abaa013d876216ac6e221c348a3f0}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!read@{read}}
+\index{read@{read}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_a3e2abaa013d876216ac6e221c348a3f0} 
+bool read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Read 1 byte of data from the register location. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Pointer to uint8\+\_\+t variable to read into \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True on successful write (only really useful for I2C as SPI is uncheckable) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{class_adafruit___bus_i_o___register_a3e2abaa013d876216ac6e221c348a3f0_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_af62b1bc77a3a952c021ca6876bc6a080}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!read@{read}}
+\index{read@{read}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_af62b1bc77a3a952c021ca6876bc6a080} 
+uint32\+\_\+t read (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Read data from the register location. This does not do any error checking! 
+
+\begin{DoxyReturn}{Returns}
+Returns 0x\+FFFFFFFF on failure, value otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=115pt]{class_adafruit___bus_i_o___register_af62b1bc77a3a952c021ca6876bc6a080_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{class_adafruit___bus_i_o___register_af62b1bc77a3a952c021ca6876bc6a080_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_a07a75c2f77605b4ed788fb2bd582bb34}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!readCached@{readCached}}
+\index{readCached@{readCached}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{readCached()}{readCached()}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_a07a75c2f77605b4ed788fb2bd582bb34} 
+uint32\+\_\+t read\+Cached (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Read cached data from last time we wrote to this register. 
+
+\begin{DoxyReturn}{Returns}
+Returns 0x\+FFFFFFFF on failure, value otherwise 
+\end{DoxyReturn}
+\Hypertarget{class_adafruit___bus_i_o___register_af768db025489be1159ec18a8fc4edb7d}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!setAddress@{setAddress}}
+\index{setAddress@{setAddress}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{setAddress()}{setAddress()}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_af768db025489be1159ec18a8fc4edb7d} 
+void set\+Address (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{address}{}\end{DoxyParamCaption})}
+
+
+
+Set register address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & the address from register \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_adafruit___bus_i_o___register_a4a50a0ec7e7f532b9f8643295b53a9fc}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!setAddressWidth@{setAddressWidth}}
+\index{setAddressWidth@{setAddressWidth}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{setAddressWidth()}{setAddressWidth()}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_a4a50a0ec7e7f532b9f8643295b53a9fc} 
+void set\+Address\+Width (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{address\+\_\+width}{}\end{DoxyParamCaption})}
+
+
+
+Set the width of register address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address\+\_\+width} & the width for register address \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_adafruit___bus_i_o___register_a073158f79440f1904378bc417e796179}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!setWidth@{setWidth}}
+\index{setWidth@{setWidth}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{setWidth()}{setWidth()}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_a073158f79440f1904378bc417e796179} 
+void set\+Width (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{width}{}\end{DoxyParamCaption})}
+
+
+
+Set the default width of data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & the default width of data read from register \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{class_adafruit___bus_i_o___register_a073158f79440f1904378bc417e796179_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!width@{width}}
+\index{width@{width}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{width()}{width()}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2} 
+uint8\+\_\+t width (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+The width of the register data, helpful for doing calculations. 
+
+\begin{DoxyReturn}{Returns}
+The data width used when initializing the register 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_abe41fba377e0382301ad70ae0eabaef3}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!write@{write}}
+\index{write@{write}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_abe41fba377e0382301ad70ae0eabaef3} 
+bool write (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{value}{, }\item[{uint8\+\_\+t}]{numbytes}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+Write up to 4 bytes of data to the register location. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Data to write \\
+\hline
+{\em numbytes} & How many bytes from \textquotesingle{}value\textquotesingle{} to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True on successful write (only really useful for I2C as SPI is uncheckable) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{class_adafruit___bus_i_o___register_abe41fba377e0382301ad70ae0eabaef3_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___bus_i_o___register_ab97b289f41d27715678b28fd3ccf7911}\index{Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}!write@{write}}
+\index{write@{write}!Adafruit\_BusIO\_Register@{Adafruit\_BusIO\_Register}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_adafruit___bus_i_o___register_ab97b289f41d27715678b28fd3ccf7911} 
+bool write (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint8\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Write a buffer of data to the register location. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & Pointer to data to write \\
+\hline
+{\em len} & Number of bytes to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True on successful write (only really useful for I2C as SPI is uncheckable) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___bus_i_o___register_ab97b289f41d27715678b28fd3ccf7911_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+Adafruit Bus\+IO/Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register.\+h\item 
+C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+Adafruit Bus\+IO/Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register.\+cpp\end{DoxyCompactItemize}

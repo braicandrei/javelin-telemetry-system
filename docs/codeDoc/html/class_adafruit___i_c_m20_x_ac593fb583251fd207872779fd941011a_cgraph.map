@@ -1,0 +1,5 @@
+<map id="_setBank" name="_setBank">
+<area shape="rect" id="Node000001" title="Sets register bank." alt="" coords="5,13,82,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register.html#ab97b289f41d27715678b28fd3ccf7911" title="Write a buffer of data to the register location." alt="" coords="130,5,296,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,24,114,24,114,29,82,29"/>
+</map>

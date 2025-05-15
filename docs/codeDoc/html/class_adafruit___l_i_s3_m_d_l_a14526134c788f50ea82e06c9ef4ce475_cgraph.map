@@ -1,0 +1,5 @@
+<map id="readCalibrationOffsets" name="readCalibrationOffsets">
+<area shape="rect" id="Node000001" title="Read the calibration offsets from the device." alt="" coords="5,13,156,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register.html#a84ed92b3d107e8895bdbc7e55991342e" title="Read a number of bytes from a register into a buffer." alt="" coords="204,5,370,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,24,188,24,188,29,156,29"/>
+</map>

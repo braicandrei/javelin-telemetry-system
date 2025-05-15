@@ -1,0 +1,48 @@
+\doxysection{Adafruit\+\_\+\+Generic\+Device.\+h}
+\hypertarget{_adafruit___generic_device_8h_source}{}\label{_adafruit___generic_device_8h_source}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit BusIO/Adafruit\_GenericDevice.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit BusIO/Adafruit\_GenericDevice.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ADAFRUIT\_GENERICDEVICE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ADAFRUIT\_GENERICDEVICE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{typedef}\ bool\ (*busio\_genericdevice\_read\_t)(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00007\ \textcolor{keyword}{typedef}\ bool\ (*busio\_genericdevice\_write\_t)(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00008\ \textcolor{keyword}{typedef}\ bool\ (*busio\_genericdevice\_readreg\_t)(uint8\_t\ *addr\_buf,}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ addrsiz,\ uint8\_t\ *buf,}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ bufsiz);}
+\DoxyCodeLine{00011\ \textcolor{keyword}{typedef}\ bool\ (*busio\_genericdevice\_writereg\_t)(uint8\_t\ *addr\_buf,}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ addrsiz,}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *buf,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ bufsiz);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___generic_device_aa2b1ac33d37f0c36976487d0b4ec27b5}{Adafruit\_GenericDevice}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \mbox{\hyperlink{class_adafruit___generic_device_aa2b1ac33d37f0c36976487d0b4ec27b5}{Adafruit\_GenericDevice}}(}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ busio\_genericdevice\_read\_t\ read\_func,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ busio\_genericdevice\_write\_t\ write\_func,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ busio\_genericdevice\_readreg\_t\ readreg\_func\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ busio\_genericdevice\_writereg\_t\ writereg\_func\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___generic_device_a30a103a2e8dc97eb5fda377ea163f6fb}{begin}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___generic_device_a1420d4483a8fa9cd842191ff51513eda}{read}}(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___generic_device_acd00fd3fcfb0b4e432f82699a5f7ec60}{write}}(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___generic_device_a5ebdbf1c002b715cdc58fc47466bd411}{readRegister}}(uint8\_t\ *addr\_buf,\ uint8\_t\ addrsiz,\ uint8\_t\ *buf,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ bufsiz);}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___generic_device_ad724925b9816df642a00865f7fdaddf6}{writeRegister}}(uint8\_t\ *addr\_buf,\ uint8\_t\ addrsiz,\ \textcolor{keyword}{const}\ uint8\_t\ *buf,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ bufsiz);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00038\ \ \ busio\_genericdevice\_read\_t\ \mbox{\hyperlink{class_adafruit___generic_device_a4ba740a4c650060992c3ecd254bd507e}{\_read\_func}};}
+\DoxyCodeLine{00040\ \ \ busio\_genericdevice\_write\_t\ \mbox{\hyperlink{class_adafruit___generic_device_a5720cce430e6ed75e3f9376ac18680b7}{\_write\_func}};}
+\DoxyCodeLine{00042\ \ \ busio\_genericdevice\_readreg\_t\ \mbox{\hyperlink{class_adafruit___generic_device_ab1918c0c4fac7d6a0cb2eb430f6586cb}{\_readreg\_func}};}
+\DoxyCodeLine{00044\ \ \ busio\_genericdevice\_writereg\_t\ \mbox{\hyperlink{class_adafruit___generic_device_ad59841386c3617aae7662f7ca46c531d}{\_writereg\_func}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___generic_device_a7bcc3982f0082bdf33e47f9a8de9c349}{\_begun}};\ }
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ADAFRUIT\_GENERICDEVICE\_H}}
+
+\end{DoxyCode}

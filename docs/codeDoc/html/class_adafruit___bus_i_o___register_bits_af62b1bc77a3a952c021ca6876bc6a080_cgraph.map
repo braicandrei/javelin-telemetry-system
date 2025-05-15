@@ -1,0 +1,5 @@
+<map id="read" name="read">
+<area shape="rect" id="Node000001" title="Read 4 bytes of data from the register." alt="" coords="5,13,52,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register.html#a84ed92b3d107e8895bdbc7e55991342e" title="Read a number of bytes from a register into a buffer." alt="" coords="100,5,266,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="52,24,84,24,84,29,52,29"/>
+</map>

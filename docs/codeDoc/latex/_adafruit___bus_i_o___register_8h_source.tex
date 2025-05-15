@@ -1,0 +1,93 @@
+\doxysection{Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register.\+h}
+\hypertarget{_adafruit___bus_i_o___register_8h_source}{}\label{_adafruit___bus_i_o___register_8h_source}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit BusIO/Adafruit\_BusIO\_Register.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit BusIO/Adafruit\_BusIO\_Register.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ Adafruit\_BusIO\_Register\_h}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ Adafruit\_BusIO\_Register\_h}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#if\ !defined(SPI\_INTERFACES\_COUNT)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\ \ \ \ (defined(SPI\_INTERFACES\_COUNT)\ \&\&\ (SPI\_INTERFACES\_COUNT\ >\ 0))}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <Adafruit\_GenericDevice.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <Adafruit\_I2CDevice.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <Adafruit\_SPIDevice.h>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \_Adafruit\_BusIO\_SPIRegType\ \{}
+\DoxyCodeLine{00014\ \ \ ADDRBIT8\_HIGH\_TOREAD\ =\ 0,}
+\DoxyCodeLine{00021\ \ \ AD8\_HIGH\_TOREAD\_AD7\_HIGH\_TOINC\ =\ 1,}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00029\ \ \ ADDRBIT8\_HIGH\_TOWRITE\ =\ 2,}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00036\ \ \ ADDRESSED\_OPCODE\_BIT0\_LOW\_TO\_WRITE\ =\ 3,}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \}\ Adafruit\_BusIO\_SPIRegType;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___bus_i_o___register_ad7da59cd2dbfaf46239330fd6e0a347e}{Adafruit\_BusIO\_Register}}\ \{}
+\DoxyCodeLine{00045\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{class_adafruit___bus_i_o___register_ad7da59cd2dbfaf46239330fd6e0a347e}{Adafruit\_BusIO\_Register}}(\mbox{\hyperlink{class_adafruit___i2_c_device}{Adafruit\_I2CDevice}}\ *i2cdevice,\ uint16\_t\ reg\_addr,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}}\ =\ 1,\ uint8\_t\ byteorder\ =\ LSBFIRST,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ address\_width\ =\ 1);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{class_adafruit___bus_i_o___register_ad7da59cd2dbfaf46239330fd6e0a347e}{Adafruit\_BusIO\_Register}}(\mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\_SPIDevice}}\ *spidevice,\ uint16\_t\ reg\_addr,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Adafruit\_BusIO\_SPIRegType\ type,\ uint8\_t\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}}\ =\ 1,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ byteorder\ =\ LSBFIRST,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ address\_width\ =\ 1);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{class_adafruit___bus_i_o___register_ad7da59cd2dbfaf46239330fd6e0a347e}{Adafruit\_BusIO\_Register}}(\mbox{\hyperlink{class_adafruit___i2_c_device}{Adafruit\_I2CDevice}}\ *i2cdevice,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\_SPIDevice}}\ *spidevice,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Adafruit\_BusIO\_SPIRegType\ type,\ uint16\_t\ reg\_addr,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}}\ =\ 1,\ uint8\_t\ byteorder\ =\ LSBFIRST,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ address\_width\ =\ 1);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{class_adafruit___bus_i_o___register_ad7da59cd2dbfaf46239330fd6e0a347e}{Adafruit\_BusIO\_Register}}(\mbox{\hyperlink{class_adafruit___generic_device}{Adafruit\_GenericDevice}}\ *genericdevice,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ reg\_addr,\ uint8\_t\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}}\ =\ 1,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ byteorder\ =\ LSBFIRST,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ address\_width\ =\ 1);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_af62b1bc77a3a952c021ca6876bc6a080}{read}}(uint8\_t\ *buffer,\ uint8\_t\ len);}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_af62b1bc77a3a952c021ca6876bc6a080}{read}}(uint8\_t\ *value);}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_af62b1bc77a3a952c021ca6876bc6a080}{read}}(uint16\_t\ *value);}
+\DoxyCodeLine{00069\ \ \ uint32\_t\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_af62b1bc77a3a952c021ca6876bc6a080}{read}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00070\ \ \ uint32\_t\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_a07a75c2f77605b4ed788fb2bd582bb34}{readCached}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_ab97b289f41d27715678b28fd3ccf7911}{write}}(uint8\_t\ *buffer,\ uint8\_t\ len);}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_ab97b289f41d27715678b28fd3ccf7911}{write}}(uint32\_t\ value,\ uint8\_t\ numbytes\ =\ 0);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_a073158f79440f1904378bc417e796179}{setWidth}}(uint8\_t\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_a122f5d6a66a2cf7af8089a6491d202e2}{width}});}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_af768db025489be1159ec18a8fc4edb7d}{setAddress}}(uint16\_t\ address);}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_a4a50a0ec7e7f532b9f8643295b53a9fc}{setAddressWidth}}(uint16\_t\ address\_width);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_a84a8005a8767e16a886a908674ba1e7e}{print}}(Stream\ *s\ =\ \&Serial);}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_acd7871d9c708bbdf16b81aea057f6425}{println}}(Stream\ *s\ =\ \&Serial);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00084\ \ \ \mbox{\hyperlink{class_adafruit___i2_c_device}{Adafruit\_I2CDevice}}\ *\_i2cdevice;}
+\DoxyCodeLine{00085\ \ \ \mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\_SPIDevice}}\ *\_spidevice;}
+\DoxyCodeLine{00086\ \ \ \mbox{\hyperlink{class_adafruit___generic_device}{Adafruit\_GenericDevice}}\ *\_genericdevice;}
+\DoxyCodeLine{00087\ \ \ Adafruit\_BusIO\_SPIRegType\ \_spiregtype;}
+\DoxyCodeLine{00088\ \ \ uint16\_t\ \_address;}
+\DoxyCodeLine{00089\ \ \ uint8\_t\ \_width,\ \_addrwidth,\ \_byteorder;}
+\DoxyCodeLine{00090\ \ \ uint8\_t\ \_buffer[4];\ \textcolor{comment}{//\ we\ won't\ support\ anything\ larger\ than\ uint32\ for}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ non-\/buffered\ read}}
+\DoxyCodeLine{00092\ \ \ uint32\_t\ \_cached\ =\ 0;}
+\DoxyCodeLine{00093\ \};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___bus_i_o___register_bits_ac486eaf48ddf8dfc0c007468fc223f75}{Adafruit\_BusIO\_RegisterBits}}\ \{}
+\DoxyCodeLine{00100\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{class_adafruit___bus_i_o___register_bits_ac486eaf48ddf8dfc0c007468fc223f75}{Adafruit\_BusIO\_RegisterBits}}(\mbox{\hyperlink{class_adafruit___bus_i_o___register}{Adafruit\_BusIO\_Register}}\ *reg,\ uint8\_t\ bits,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ shift);}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_bits_a813f4ef469295b1771bebe1a954986b5}{write}}(uint32\_t\ value);}
+\DoxyCodeLine{00104\ \ \ uint32\_t\ \mbox{\hyperlink{class_adafruit___bus_i_o___register_bits_af62b1bc77a3a952c021ca6876bc6a080}{read}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00107\ \ \ \mbox{\hyperlink{class_adafruit___bus_i_o___register}{Adafruit\_BusIO\_Register}}\ *\_register;}
+\DoxyCodeLine{00108\ \ \ uint8\_t\ \_bits,\ \_shift;}
+\DoxyCodeLine{00109\ \};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SPI\ exists}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ BusIO\_Register\_h}}
+
+\end{DoxyCode}

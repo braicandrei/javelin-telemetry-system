@@ -325,6 +325,15 @@ LoggerState_t DataLogger::getLoggerState(){
     return loggerState; // Return the current logger state
 }
 
+
+/*!
+    * @brief Check for shock events
+    * 
+    * This function checks for shock events based on the accelerometer data.
+    * 
+    * @param dataFrame Data frame containing accelerometer data
+    * @return true if a shock event is detected, false otherwise
+*/
 bool DataLogger::shockCheck(ahrs_axes_t dataFrame) {
     // Shift older values in the buffer
     memmove(dataFrameBuffer, dataFrameBuffer + 1, sizeof(ahrs_axes_t) * (FRAME_BUFFER_LENGTH - 1));

@@ -1,0 +1,7 @@
+<map id="configAHRS" name="configAHRS">
+<area shape="rect" id="Node000001" title="Configure the AHRS sensors." alt="" coords="5,31,100,57"/>
+<area shape="rect" id="Node000002" href="$class_a_h_r_s.html#a8a30e0cb8872dffa929f9bea1e465a14" title="Getter fot he the AHRS sample rate." alt="" coords="168,5,318,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,35,152,28,153,33,101,40"/>
+<area shape="rect" id="Node000003" href="$class_a_h_r_s.html#a4dd54d35307d0ab93297ccfe6042173e" title="Getter for the AHRS sample rate divisor for ICM 20649 configuration." alt="" coords="148,56,338,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="101,48,133,52,132,57,100,53"/>
+</map>

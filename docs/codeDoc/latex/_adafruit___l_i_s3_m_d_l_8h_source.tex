@@ -1,0 +1,155 @@
+\doxysection{Adafruit\+\_\+\+LIS3\+MDL.\+h}
+\hypertarget{_adafruit___l_i_s3_m_d_l_8h_source}{}\label{_adafruit___l_i_s3_m_d_l_8h_source}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit LIS3MDL/Adafruit\_LIS3MDL.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit LIS3MDL/Adafruit\_LIS3MDL.h}}
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ ADAFRUIT\_LIS3MDL\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ ADAFRUIT\_LIS3MDL\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <Adafruit\_BusIO\_Register.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <Adafruit\_I2CDevice.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <Adafruit\_SPIDevice.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <Adafruit\_Sensor.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <Wire.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <EEPROM.h>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{/*=========================================================================}}
+\DoxyCodeLine{00017\ \textcolor{comment}{I2C\ ADDRESS/BITS}}
+\DoxyCodeLine{00018\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ LIS3MDL\_I2CADDR\_DEFAULT\ (0x1E)\ }}
+\DoxyCodeLine{00020\ \textcolor{comment}{/*=========================================================================*/}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ LIS3MDL\_OFFSET\_X\_REG\_L\ 0x05\ }}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ LIS3MDL\_OFFSET\_X\_REG\_H\ 0x06\ }}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ LIS3MDL\_OFFSET\_Y\_REG\_L\ 0x07\ }}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ LIS3MDL\_OFFSET\_Y\_REG\_H\ 0x08\ }}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ LIS3MDL\_OFFSET\_Z\_REG\_L\ 0x09\ }}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ LIS3MDL\_OFFSET\_Z\_REG\_H\ 0x0A\ }}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ LIS3MDL\_REG\_WHO\_AM\_I\ 0x0F\ \ }}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ LIS3MDL\_REG\_CTRL\_REG1\ 0x20\ }}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ LIS3MDL\_REG\_CTRL\_REG2\ 0x21\ }}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ LIS3MDL\_REG\_CTRL\_REG3\ 0x22\ }}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ LIS3MDL\_REG\_CTRL\_REG4\ 0x23\ }}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ LIS3MDL\_REG\_STATUS\ 0x27\ \ \ \ }}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ LIS3MDL\_REG\_OUT\_X\_L\ 0x28\ \ \ }}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ LIS3MDL\_REG\_INT\_CFG\ 0x30\ \ \ }}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ LIS3MDL\_REG\_INT\_THS\_L\ 0x32\ }}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ LIS3MDL\_OUT\_DATA\_LEN\ 6\ }}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ EEPROM\_X\_OFFSET\_ADDR\ 0}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ EEPROM\_Y\_OFFSET\_ADDR\ 4}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ EEPROM\_Z\_OFFSET\_ADDR\ 8}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a8ca0406fdb8e45c725c243c3e098fe47}{LIS3MDL\_RANGE\_4\_GAUSS}}\ =\ 0b00,\ \ }
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a199ff7db595917ecc71ea6ffa35e824f}{LIS3MDL\_RANGE\_8\_GAUSS}}\ =\ 0b01,\ \ }
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466ae290eeb5c8d65ef3934e81f6a79ccabc}{LIS3MDL\_RANGE\_12\_GAUSS}}\ =\ 0b10,\ }
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466adc7b3ff597618d7f12b8693416332f87}{LIS3MDL\_RANGE\_16\_GAUSS}}\ =\ 0b11,\ }
+\DoxyCodeLine{00050\ \}\ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\_range\_t}};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca11315dcc4fda4d072bb9bdb51b24601c}{LIS3MDL\_DATARATE\_0\_625\_HZ}}\ =\ 0b0000,\ }
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca954a806cce58b02ca499e476e8d4f82f}{LIS3MDL\_DATARATE\_1\_25\_HZ}}\ =\ 0b0010,\ \ }
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca16f20c08db6775a6db60e103af6c0267}{LIS3MDL\_DATARATE\_2\_5\_HZ}}\ =\ 0b0100,\ \ \ }
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652cacc1dc695e6aa48d913f36161c7ee8b57}{LIS3MDL\_DATARATE\_5\_HZ}}\ =\ 0b0110,\ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6ce212ff4334c1cb576c59b694b5ba8c}{LIS3MDL\_DATARATE\_10\_HZ}}\ =\ 0b1000,\ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca513877e5a8e5f6a30533fae2ae75aaec}{LIS3MDL\_DATARATE\_20\_HZ}}\ =\ 0b1010,\ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca2763fcdec5620f11629f49376434a589}{LIS3MDL\_DATARATE\_40\_HZ}}\ =\ 0b1100,\ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652caa035cf6402281eb8fb92396bfc5ff6d6}{LIS3MDL\_DATARATE\_80\_HZ}}\ =\ 0b1110,\ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652cadddbb4fc7b24b3a392d3128f04dd09ee}{LIS3MDL\_DATARATE\_155\_HZ}}\ =\ 0b0001,\ \ \ }
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6588c2064e55ef4e81aad14a36fb3350}{LIS3MDL\_DATARATE\_300\_HZ}}\ =\ 0b0011,\ \ \ }
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6b9148cb951d66709cca998f2e80ae91}{LIS3MDL\_DATARATE\_560\_HZ}}\ =\ 0b0101,\ \ \ }
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca52c6d943edcaef877210be651428fe46}{LIS3MDL\_DATARATE\_1000\_HZ}}\ =\ 0b0111,\ \ }
+\DoxyCodeLine{00066\ \}\ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\_dataRate\_t}};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa3470d82bab5b7bbe73a2419bfa071b1c}{LIS3MDL\_LOWPOWERMODE}}\ =\ 0b00,\ \ }
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa82ad9b80854532966dd39a09859a1300}{LIS3MDL\_MEDIUMMODE}}\ =\ 0b01,\ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa2c8f2500aeec8524414939e2e4efc8c9}{LIS3MDL\_HIGHMODE}}\ =\ 0b10,\ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aaf8c44414d5d74cee076f505e5701d46c}{LIS3MDL\_ULTRAHIGHMODE}}\ =\ 0b11,\ }
+\DoxyCodeLine{00074\ \}\ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\_performancemode\_t}};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731da96b59bf746cf48da5a03f4c8acf34038}{LIS3MDL\_CONTINUOUSMODE}}\ =\ 0b00,\ }
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731daaca7bb01235877b9856a7e453df3c07b}{LIS3MDL\_SINGLEMODE}}\ =\ 0b01,\ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731da949906f6184798711705c1c3ae986d91}{LIS3MDL\_POWERDOWNMODE}}\ =\ 0b11,\ \ }
+\DoxyCodeLine{00081\ \}\ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\_operationmode\_t}};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a5e5870dce8a149292658fb1ef1023657}{Adafruit\_LIS3MDL}}\ :\ \textcolor{keyword}{public}\ Adafruit\_Sensor\ \{}
+\DoxyCodeLine{00085\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00086\ \ \ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a5e5870dce8a149292658fb1ef1023657}{Adafruit\_LIS3MDL}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a583a6664ae4af4bdedb3d1ae0452a258}{begin\_I2C}}(uint8\_t\ i2c\_addr\ =\ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a51fd2dc234b55a85808541dcf3a17218}{LIS3MDL\_I2CADDR\_DEFAULT}},}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TwoWire\ *wire\ =\ \&Wire);}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a4eb61b1afbd9a3fe6f4e1874f76d0c56}{begin\_SPI}}(uint8\_t\ cs\_pin,\ SPIClass\ *theSPI\ =\ \&SPI,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ frequency\ =\ 1000000);}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a4eb61b1afbd9a3fe6f4e1874f76d0c56}{begin\_SPI}}(int8\_t\ cs\_pin,\ int8\_t\ sck\_pin,\ int8\_t\ miso\_pin,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int8\_t\ mosi\_pin,\ uint32\_t\ frequency\ =\ 1000000);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a3aea9deb2a0bfea9ff05a898f4822e31}{reset}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a7797c2848e051a248735fbf16fe76524}{setPerformanceMode}}(\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\_performancemode\_t}}\ mode);}
+\DoxyCodeLine{00097\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\_performancemode\_t}}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a81d7b152e2d3e5ea6f4a26dfeef3b720}{getPerformanceMode}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a522ac675edbe0d006d9221042311db9e}{setOperationMode}}(\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\_operationmode\_t}}\ mode);}
+\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\_operationmode\_t}}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ab414ec7778caa654d7def6d088bb891a}{getOperationMode}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a497979b74e6303a0b0e4a41d3e5bb8c1}{setDataRate}}(\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\_dataRate\_t}}\ dataRate);}
+\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\_dataRate\_t}}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af71c1007d6dad8a3b182f6179da6ddd9}{getDataRate}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a40803a301762e56a94fe0bf92ce24605}{setRange}}(\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\_range\_t}}\ range);}
+\DoxyCodeLine{00103\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\_range\_t}}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a0fa1ae1965b1e22ef8e00e781a6a06f2}{getRange}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a8d9de2059591e825291b8f48ec258cc8}{setIntThreshold}}(uint16\_t\ value);}
+\DoxyCodeLine{00105\ \ \ uint16\_t\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a2301c878a5d76f8ed98cc15209720293}{getIntThreshold}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abe6636911400b48a18ce3a4b13d0d258}{configInterrupt}}(\textcolor{keywordtype}{bool}\ enableX,\ \textcolor{keywordtype}{bool}\ enableY,\ \textcolor{keywordtype}{bool}\ enableZ,\ \textcolor{keywordtype}{bool}\ polarity,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ latch,\ \textcolor{keywordtype}{bool}\ enableInt);}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a051586baa8c73bd45dfd7b213f8c3e75}{selfTest}}(\textcolor{keywordtype}{bool}\ flag);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_aaa936da334e29618ece019bd8a9aa06f}{read}}();}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a3579ab819efb2ebd045b27e45529a533}{getEvent}}(sensors\_event\_t\ *event);}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ac30038292830ac3e38a75a07682cc958}{getSensor}}(sensor\_t\ *sensor);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ Arduino\ compatible\ API}}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_aa57cc19978464aa582ace2dbc59831c4}{readMagneticField}}(\textcolor{keywordtype}{float}\ \&\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}},\ \textcolor{keywordtype}{float}\ \&\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}},\ \textcolor{keywordtype}{float}\ \&\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}});}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a190b65288a58eb32301d8aa7a20501f4}{magneticFieldSampleRate}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_add1cc7f688602700413791d2772703ef}{magneticFieldAvailable}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ int16\_t\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}},\ \ \ \ \ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}},\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a13b0d7e7a6f83c9d0459ed753fcca852}{x\_gauss}},\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af8a316b60d8cf119450385a8c3f963b7}{y\_gauss}},\ \ \ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a9653bda0a4642c94b1de45495dfb7820}{z\_gauss}};\ \ \ }
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00127\ \ \ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\_range\_t}}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a6ff10403a76d3bd3142be673c41eb574}{rangeBuffered}}\ =\ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a8ca0406fdb8e45c725c243c3e098fe47}{LIS3MDL\_RANGE\_4\_GAUSS}};}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a628c42b0cc114c8082d18020ba03face}{resetRegisters}}();}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a3d4f666f49ac927f58dae9180cef96fb}{hardIronCalc}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}});}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_add94c2e76a0e26d66cb73cb5ae3b863b}{getCalibrationOffsets}}(\textcolor{keywordtype}{float}\ *\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}},\ \textcolor{keywordtype}{float}\ *\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}},\ \textcolor{keywordtype}{float}\ *\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}});}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_add86a75e264cd97f18cbff151e53f0ba}{setCalibrationOffsets}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}},\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}});}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a14526134c788f50ea82e06c9ef4ce475}{readCalibrationOffsets}}(\textcolor{keywordtype}{float}\ *\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}},\ \textcolor{keywordtype}{float}\ *\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}},\ \textcolor{keywordtype}{float}\ *\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}});}
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a1293de8875285a83cb754fbd3e1fec1f}{writeOffsetxyz}}();}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{void}\ loadOffsetsFromEEPROM();}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{void}\ saveOffsetsToEEPROM();}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a86b91bb77e636a8c22cf843303caa096}{lowPowerMode}}(\textcolor{keywordtype}{bool}\ mode);}
+\DoxyCodeLine{00141\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{bool}\ \_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \mbox{\hyperlink{class_adafruit___i2_c_device}{Adafruit\_I2CDevice}}\ *i2c\_dev\ =\ NULL;}
+\DoxyCodeLine{00145\ \ \ \mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\_SPIDevice}}\ *spi\_dev\ =\ NULL;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ int32\_t\ \_sensorID;}
+\DoxyCodeLine{00148\ \ \ }
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{float}\ \_scale=1.f;\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keywordtype}{float}\ xoffset=0.52,\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ yoffset=-\/0.52,\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ zoffset=1.27;\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{bool}\ calibrating\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00155\ \ \ }
+\DoxyCodeLine{00156\ \};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

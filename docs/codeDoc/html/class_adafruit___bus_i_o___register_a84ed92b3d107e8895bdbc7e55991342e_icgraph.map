@@ -1,0 +1,68 @@
+<map id="read" name="read">
+<area shape="rect" id="Node000001" title="Read a number of bytes from a register into a buffer." alt="" coords="1089,446,1135,473"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20_x.html#ad2f2f11e0a66db1ca328be19d9b4e549" title="Initilizes the sensor." alt="" coords="275,77,428,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1106,431,1100,354,1088,255,1068,163,1055,128,1039,105,1003,76,963,53,921,35,877,22,831,14,784,10,689,11,598,23,514,41,390,78,389,73,513,36,597,18,689,6,784,4,831,8,878,17,923,30,966,48,1006,71,1043,101,1059,126,1073,162,1094,254,1106,353,1112,430"/>
+<area shape="rect" id="Node000006" href="$class_adafruit___i_c_m20_x.html#a12e573b08cd62fa793c682783eb2a6b1" title="Updates the measurement data for all sensors simultaneously." alt="" coords="848,115,1010,142"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1107,431,1103,382,1093,320,1072,254,1057,223,1039,194,1024,178,1006,165,969,145,971,140,1009,160,1027,174,1043,191,1062,220,1077,252,1098,318,1109,381,1113,430"/>
+<area shape="rect" id="Node000008" href="$class_adafruit___i_c_m20_x.html#afd9386732fd168460fbe03acbcb44bbc" title="Get the accelerometer&#39;s data rate divisor." alt="" coords="839,205,1019,247"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1106,431,1100,392,1088,347,1069,301,1039,261,1018,247,1021,242,1043,257,1073,298,1093,345,1105,391,1111,430"/>
+<area shape="rect" id="Node000009" href="$class_adafruit___i_c_m20_x.html#a3715849a474a4173362c4e50d13e0d8a" title="Get the gyro&#39;s data rate divisor." alt="" coords="841,271,1017,314"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1100,432,1078,378,1061,351,1039,328,1016,313,1018,309,1042,324,1065,348,1083,376,1105,430"/>
+<area shape="rect" id="Node000010" href="$class_adafruit___l_i_s3_m_d_l.html#a2301c878a5d76f8ed98cc15209720293" title="Get the interrupt threshold value." alt="" coords="844,338,1014,381"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1088,436,1066,414,1039,395,1013,382,1015,377,1042,390,1069,410,1091,432"/>
+<area shape="rect" id="Node000011" href="$class_adafruit___l_i_s3_m_d_l.html#add1cc7f688602700413791d2772703ef" title="Check for available data from magnetic." alt="" coords="834,405,1024,447"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1073,455,1024,446,1025,441,1074,450"/>
+<area shape="rect" id="Node000012" href="$class_adafruit___bus_i_o___register_bits.html#af62b1bc77a3a952c021ca6876bc6a080" title="Read 4 bytes of data from the register." alt="" coords="834,471,1024,514"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1074,469,1025,478,1024,473,1073,463"/>
+<area shape="rect" id="Node000021" href="$class_adafruit___i_c_m20_x.html#a5d17e05ae366435bc2d5191307c4ab63" title="Read the number o bytes in the FIFO buffer." alt="" coords="530,631,749,658"/>
+<area shape="poly" id="edge33_Node000001_Node000021" title=" " alt="" coords="1091,486,1069,508,1042,528,966,567,885,597,806,618,736,633,735,628,805,613,883,592,964,562,1039,524,1065,504,1088,482"/>
+<area shape="rect" id="Node000022" href="$class_adafruit___i_c_m20_x.html#a84ad0857d22f73d1d1f439042f69cd52" title="Read the fifo buffer." alt="" coords="243,657,461,683"/>
+<area shape="poly" id="edge32_Node000001_Node000022" title=" " alt="" coords="1109,488,1101,520,1089,555,1069,590,1042,620,1005,646,965,668,923,685,880,699,790,716,699,721,612,718,531,710,405,686,406,681,532,705,612,713,699,716,789,710,878,693,922,680,963,663,1002,642,1039,616,1065,587,1084,553,1096,518,1104,487"/>
+<area shape="rect" id="Node000028" href="$class_adafruit___l_i_s3_m_d_l.html#aaa936da334e29618ece019bd8a9aa06f" title="Read the XYZ data from the magnetometer and store in the internal x, y and z (and x_g,..." alt="" coords="848,733,1010,759"/>
+<area shape="poly" id="edge28_Node000001_Node000028" title=" " alt="" coords="1114,488,1111,537,1101,598,1080,661,1064,690,1043,716,1028,727,1011,736,1009,731,1025,723,1039,712,1059,687,1075,659,1096,597,1106,536,1109,488"/>
+<area shape="rect" id="Node000030" href="$class_adafruit___l_i_s3_m_d_l.html#a14526134c788f50ea82e06c9ef4ce475" title="Read the calibration offsets from the device." alt="" coords="817,783,1041,826"/>
+<area shape="poly" id="edge30_Node000001_Node000030" title=" " alt="" coords="1110,489,1102,556,1089,641,1069,720,1057,751,1043,773,1029,785,1025,781,1039,769,1052,749,1064,718,1083,640,1097,555,1105,488"/>
+<area shape="rect" id="Node000032" href="$class_adafruit___l_i_s3_m_d_l.html#aa57cc19978464aa582ace2dbc59831c4" title="Read magnetic data." alt="" coords="822,850,1036,893"/>
+<area shape="poly" id="edge34_Node000001_Node000032" title=" " alt="" coords="1112,488,1106,569,1093,673,1073,773,1059,812,1043,840,1029,851,1026,847,1039,836,1054,810,1068,772,1088,673,1100,568,1106,488"/>
+<area shape="rect" id="Node000003" href="$class_adafruit___i_c_m20649.html#ab74e48aa483ed6eaf7a1c23853540266" title="Sets up the hardware and initializes I2C." alt="" coords="29,10,171,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="276,75,170,50,172,45,277,70"/>
+<area shape="rect" id="Node000004" href="$class_adafruit___i_c_m20_x.html#ad0bf94a1085d9a65d473f12c91faa25a" title="Sets up the hardware and initializes software SPI." alt="" coords="5,77,195,103"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="260,93,195,93,195,87,260,87"/>
+<area shape="rect" id="Node000005" href="$class_adafruit___i_c_m20_x.html#a411de89d543ef3d5f41b19a33e3a0b94" title="Sets up the hardware and initializes hardware SPI." alt="" coords="5,127,195,154"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="268,109,170,129,169,124,267,104"/>
+<area shape="rect" id="Node000007" href="$class_adafruit___i_c_m20_x.html#adb80c52240c2b64107bf4539a0de8c48" title="Gets the most recent sensor event, Adafruit Unified Sensor format." alt="" coords="548,77,730,103"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="832,118,730,105,731,99,833,113"/>
+<area shape="rect" id="Node000013" href="$class_adafruit___l_i_s3_m_d_l.html#af71c1007d6dad8a3b182f6179da6ddd9" title="Gets the data rate for the LIS3MDL (controls power consumption)" alt="" coords="534,479,744,506"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="819,495,745,495,745,490,819,490"/>
+<area shape="rect" id="Node000015" href="$class_adafruit___l_i_s3_m_d_l.html#ab414ec7778caa654d7def6d088bb891a" title="Get the operation mode." alt="" coords="518,530,760,557"/>
+<area shape="poly" id="edge14_Node000012_Node000015" title=" " alt="" coords="820,514,720,532,719,527,819,509"/>
+<area shape="rect" id="Node000016" href="$class_adafruit___l_i_s3_m_d_l.html#a81d7b152e2d3e5ea6f4a26dfeef3b720" title="Get the performance mode." alt="" coords="509,581,769,607"/>
+<area shape="poly" id="edge15_Node000012_Node000016" title=" " alt="" coords="877,524,826,549,770,571,728,582,727,577,768,566,824,544,875,519"/>
+<area shape="rect" id="Node000017" href="$class_adafruit___l_i_s3_m_d_l.html#a0fa1ae1965b1e22ef8e00e781a6a06f2" title="Read the resolution range: +&#45;4 gauss, 8 gauss, 12 gauss, or 16 gauss." alt="" coords="543,178,735,205"/>
+<area shape="poly" id="edge16_Node000012_Node000017" title=" " alt="" coords="820,466,815,461,795,430,787,398,788,367,792,336,797,306,797,276,788,247,767,218,752,207,735,199,737,194,755,202,771,215,793,245,802,275,802,306,797,337,793,367,792,398,800,427,819,458,824,462"/>
+<area shape="rect" id="Node000019" href="$class_adafruit___i_c_m20_x.html#a9a4bc76fa479e569a11c12d0e46cb874" title="Get the accelerometer&#39;s measurement range." alt="" coords="546,229,733,271"/>
+<area shape="poly" id="edge18_Node000012_Node000019" title=" " alt="" coords="820,465,815,461,799,438,791,416,791,371,791,327,783,306,767,285,751,273,732,264,735,259,754,268,771,281,788,303,796,326,796,371,797,415,804,436,819,457,823,461"/>
+<area shape="poly" id="edge20_Node000012_Node000021" title=" " alt="" coords="889,526,819,581,796,603,771,622,740,633,738,628,768,617,793,599,816,577,886,521"/>
+<area shape="rect" id="Node000023" href="$class_adafruit___i_c_m20_x.html#ac4ee081c43fc66254b48c42f1e0f62f3" title="Get the gyro&#39;s measurement range." alt="" coords="548,295,730,338"/>
+<area shape="poly" id="edge22_Node000012_Node000023" title=" " alt="" coords="820,465,815,461,803,447,796,433,791,405,786,377,779,365,768,352,750,340,730,331,732,326,752,335,771,348,784,361,791,376,796,404,801,431,808,444,819,457,823,461"/>
+<area shape="rect" id="Node000025" href="$class_adafruit___i_c_m20_x.html#a3aea9deb2a0bfea9ff05a898f4822e31" title="Reset the internal registers and restores the default settings." alt="" coords="560,127,718,154"/>
+<area shape="poly" id="edge24_Node000012_Node000025" title=" " alt="" coords="820,466,815,461,792,423,783,385,785,347,793,310,799,274,801,238,792,203,767,168,745,152,718,143,720,138,747,147,771,164,797,201,806,237,805,274,798,311,791,348,789,385,797,421,819,458,824,462"/>
+<area shape="rect" id="Node000026" href="$class_adafruit___i_c_m20_x.html#a184ecac5305a389314d5abbde7435899" title="Reset the I2C master." alt="" coords="554,362,724,405"/>
+<area shape="poly" id="edge26_Node000012_Node000026" title=" " alt="" coords="827,467,816,461,801,450,791,439,782,429,768,419,723,401,725,396,771,414,786,425,795,436,805,447,819,457,829,462"/>
+<area shape="rect" id="Node000027" href="$class_adafruit___l_i_s3_m_d_l.html#a628c42b0cc114c8082d18020ba03face" title="Reset all registers to default values." alt="" coords="528,429,750,455"/>
+<area shape="poly" id="edge27_Node000012_Node000027" title=" " alt="" coords="819,476,719,458,720,453,820,471"/>
+<area shape="rect" id="Node000014" href="$class_adafruit___l_i_s3_m_d_l.html#a190b65288a58eb32301d8aa7a20501f4" title="Get the magnetic data rate." alt="" coords="257,471,446,514"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="518,495,447,495,447,490,518,490"/>
+<area shape="rect" id="Node000018" href="$class_adafruit___l_i_s3_m_d_l.html#a3aea9deb2a0bfea9ff05a898f4822e31" title="Performs a software reset." alt="" coords="269,178,434,205"/>
+<area shape="poly" id="edge17_Node000017_Node000018" title=" " alt="" coords="528,194,435,194,435,189,528,189"/>
+<area shape="rect" id="Node000020" href="$class_adafruit___i_c_m20649.html#aea56469947407f4427d09bed2e67fd69" title="Get the accelerometer&#39;s measurement range." alt="" coords="281,229,422,271"/>
+<area shape="poly" id="edge19_Node000019_Node000020" title=" " alt="" coords="530,253,423,253,423,247,530,247"/>
+<area shape="poly" id="edge21_Node000021_Node000022" title=" " alt="" coords="514,658,462,663,461,658,514,653"/>
+<area shape="rect" id="Node000024" href="$class_adafruit___i_c_m20649.html#a0415b3dfbde1470c78bfe646952c7c7a" title="Get the gyro&#39;s measurement range." alt="" coords="281,295,422,338"/>
+<area shape="poly" id="edge23_Node000023_Node000024" title=" " alt="" coords="532,319,423,319,423,314,532,314"/>
+<area shape="poly" id="edge25_Node000025_Node000002" title=" " alt="" coords="545,127,428,106,429,101,545,121"/>
+<area shape="rect" id="Node000029" href="$class_adafruit___l_i_s3_m_d_l.html#a3579ab819efb2ebd045b27e45529a533" title="Gets the most recent sensor event, Adafruit Unified Sensor format." alt="" coords="545,733,733,759"/>
+<area shape="poly" id="edge29_Node000028_Node000029" title=" " alt="" coords="832,749,734,749,734,743,832,743"/>
+<area shape="rect" id="Node000031" href="$class_adafruit___l_i_s3_m_d_l.html#a1293de8875285a83cb754fbd3e1fec1f" title="Write the hard iron offsets to the device." alt="" coords="529,791,749,818"/>
+<area shape="poly" id="edge31_Node000030_Node000031" title=" " alt="" coords="802,807,750,807,750,802,802,802"/>
+</map>

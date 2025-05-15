@@ -1,0 +1,5 @@
+<map id="print" name="print">
+<area shape="rect" id="Node000001" title="Pretty printer for this register." alt="" coords="110,5,156,32"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register.html#acd7871d9c708bbdf16b81aea057f6425" title="Pretty printer for this register." alt="" coords="5,5,62,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,21,62,21,62,16,94,16"/>
+</map>

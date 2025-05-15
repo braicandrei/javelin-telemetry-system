@@ -1,0 +1,256 @@
+\doxysection{C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+Adafruit LIS3\+MDL/\+Adafruit\+\_\+\+LIS3\+MDL.h File Reference}
+\hypertarget{_adafruit___l_i_s3_m_d_l_8h}{}\label{_adafruit___l_i_s3_m_d_l_8h}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit LIS3MDL/Adafruit\_LIS3MDL.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit LIS3MDL/Adafruit\_LIS3MDL.h}}
+{\ttfamily \#include $<$Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register.\+h$>$}\newline
+{\ttfamily \#include $<$Adafruit\+\_\+\+I2\+CDevice.\+h$>$}\newline
+{\ttfamily \#include $<$Adafruit\+\_\+\+SPIDevice.\+h$>$}\newline
+{\ttfamily \#include $<$Adafruit\+\_\+\+Sensor.\+h$>$}\newline
+{\ttfamily \#include $<$Wire.\+h$>$}\newline
+{\ttfamily \#include $<$EEPROM.\+h$>$}\newline
+Include dependency graph for Adafruit\+\_\+\+LIS3\+MDL.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_adafruit___l_i_s3_m_d_l_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_adafruit___l_i_s3_m_d_l_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l}{Adafruit\+\_\+\+LIS3\+MDL}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a51fd2dc234b55a85808541dcf3a17218}\label{_adafruit___l_i_s3_m_d_l_8h_a51fd2dc234b55a85808541dcf3a17218} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+I2\+CADDR\+\_\+\+DEFAULT}~(0x1E)
+\begin{DoxyCompactList}\small\item\em Default breakout addres. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a0aca0062a12f56b8c2b6ec2dd36c0ef5}\label{_adafruit___l_i_s3_m_d_l_8h_a0aca0062a12f56b8c2b6ec2dd36c0ef5} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+OFFSET\+\_\+\+X\+\_\+\+REG\+\_\+L}~0x05
+\begin{DoxyCompactList}\small\item\em Register address for X axis offset low byte. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a2896e7bd3077df3c4eee3ec47b0c4c2f}\label{_adafruit___l_i_s3_m_d_l_8h_a2896e7bd3077df3c4eee3ec47b0c4c2f} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+OFFSET\+\_\+\+X\+\_\+\+REG\+\_\+H}~0x06
+\begin{DoxyCompactList}\small\item\em Register address for X axis offset high byte. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a3928ecdf002f20cd97eeca9ebbdaa8ef}\label{_adafruit___l_i_s3_m_d_l_8h_a3928ecdf002f20cd97eeca9ebbdaa8ef} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+OFFSET\+\_\+\+Y\+\_\+\+REG\+\_\+L}~0x07
+\begin{DoxyCompactList}\small\item\em Register address for Y axis offset low byte. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a3db83ce30d7846a2f049d3073d971765}\label{_adafruit___l_i_s3_m_d_l_8h_a3db83ce30d7846a2f049d3073d971765} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+OFFSET\+\_\+\+Y\+\_\+\+REG\+\_\+H}~0x08
+\begin{DoxyCompactList}\small\item\em Register address for Y axis offset high byte. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a65dce404b35989edcdafac05c788d211}\label{_adafruit___l_i_s3_m_d_l_8h_a65dce404b35989edcdafac05c788d211} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+OFFSET\+\_\+\+Z\+\_\+\+REG\+\_\+L}~0x09
+\begin{DoxyCompactList}\small\item\em Register address for Z axis offset low byte. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_af945f071b5c77cb645a89f97b3951c48}\label{_adafruit___l_i_s3_m_d_l_8h_af945f071b5c77cb645a89f97b3951c48} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+OFFSET\+\_\+\+Z\+\_\+\+REG\+\_\+H}~0x0A
+\begin{DoxyCompactList}\small\item\em Register address for Z axis offset high byte. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_ad33f9a4d126c3c083ead45d77735fd6b}\label{_adafruit___l_i_s3_m_d_l_8h_ad33f9a4d126c3c083ead45d77735fd6b} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+REG\+\_\+\+WHO\+\_\+\+AM\+\_\+I}~0x0F
+\begin{DoxyCompactList}\small\item\em Register that contains the part ID. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_ac60cad06556f0c538c92fd53d9a6d6d8}\label{_adafruit___l_i_s3_m_d_l_8h_ac60cad06556f0c538c92fd53d9a6d6d8} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+REG\+\_\+\+CTRL\+\_\+\+REG1}~0x20
+\begin{DoxyCompactList}\small\item\em Register address for control 1. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a78ee1d10509078222bd16f09e38b97fe}\label{_adafruit___l_i_s3_m_d_l_8h_a78ee1d10509078222bd16f09e38b97fe} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+REG\+\_\+\+CTRL\+\_\+\+REG2}~0x21
+\begin{DoxyCompactList}\small\item\em Register address for control 2. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_ad193f73fbf28ee3c16f021e2f5e0d337}\label{_adafruit___l_i_s3_m_d_l_8h_ad193f73fbf28ee3c16f021e2f5e0d337} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+REG\+\_\+\+CTRL\+\_\+\+REG3}~0x22
+\begin{DoxyCompactList}\small\item\em Register address for control 3. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_ad63047e173d840bdeed23a9bb56dd42d}\label{_adafruit___l_i_s3_m_d_l_8h_ad63047e173d840bdeed23a9bb56dd42d} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+REG\+\_\+\+CTRL\+\_\+\+REG4}~0x23
+\begin{DoxyCompactList}\small\item\em Register address for control 3. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a993660a74409e86c725eed0a2a0aecfb}\label{_adafruit___l_i_s3_m_d_l_8h_a993660a74409e86c725eed0a2a0aecfb} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+REG\+\_\+\+STATUS}~0x27
+\begin{DoxyCompactList}\small\item\em Register address for status. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_adb4fe4c10c4c94644ff726b66b6646cf}\label{_adafruit___l_i_s3_m_d_l_8h_adb4fe4c10c4c94644ff726b66b6646cf} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+REG\+\_\+\+OUT\+\_\+\+X\+\_\+L}~0x28
+\begin{DoxyCompactList}\small\item\em Register address for X axis lower byte. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_abb7157770c142b709426342db4c42f30}\label{_adafruit___l_i_s3_m_d_l_8h_abb7157770c142b709426342db4c42f30} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+REG\+\_\+\+INT\+\_\+\+CFG}~0x30
+\begin{DoxyCompactList}\small\item\em Interrupt configuration register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a71fb73d61c663830821c945ac39617d2}\label{_adafruit___l_i_s3_m_d_l_8h_a71fb73d61c663830821c945ac39617d2} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+REG\+\_\+\+INT\+\_\+\+THS\+\_\+L}~0x32
+\begin{DoxyCompactList}\small\item\em Low byte of the irq threshold. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a178f2484d2b5bcaef2673f1f7841cd1a}\label{_adafruit___l_i_s3_m_d_l_8h_a178f2484d2b5bcaef2673f1f7841cd1a} 
+\#define {\bfseries LIS3\+MDL\+\_\+\+OUT\+\_\+\+DATA\+\_\+\+LEN}~6
+\begin{DoxyCompactList}\small\item\em Length of the data output. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a97872c414391d37cc3456242f1985b01}\label{_adafruit___l_i_s3_m_d_l_8h_a97872c414391d37cc3456242f1985b01} 
+\#define {\bfseries EEPROM\+\_\+\+X\+\_\+\+OFFSET\+\_\+\+ADDR}~0
+\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a09c4c176d6dbb422c6d88c1ddcc18ddd}\label{_adafruit___l_i_s3_m_d_l_8h_a09c4c176d6dbb422c6d88c1ddcc18ddd} 
+\#define {\bfseries EEPROM\+\_\+\+Y\+\_\+\+OFFSET\+\_\+\+ADDR}~4
+\item 
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_afc0760292c482fee865189f97e427ff6}\label{_adafruit___l_i_s3_m_d_l_8h_afc0760292c482fee865189f97e427ff6} 
+\#define {\bfseries EEPROM\+\_\+\+Z\+\_\+\+OFFSET\+\_\+\+ADDR}~8
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\+\_\+range\+\_\+t}} \{ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a8ca0406fdb8e45c725c243c3e098fe47}{LIS3\+MDL\+\_\+\+RANGE\+\_\+4\+\_\+\+GAUSS}} = 0b00
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a199ff7db595917ecc71ea6ffa35e824f}{LIS3\+MDL\+\_\+\+RANGE\+\_\+8\+\_\+\+GAUSS}} = 0b01
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466ae290eeb5c8d65ef3934e81f6a79ccabc}{LIS3\+MDL\+\_\+\+RANGE\+\_\+12\+\_\+\+GAUSS}} = 0b10
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466adc7b3ff597618d7f12b8693416332f87}{LIS3\+MDL\+\_\+\+RANGE\+\_\+16\+\_\+\+GAUSS}} = 0b11
+ \}
+\item 
+enum \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\+\_\+data\+Rate\+\_\+t}} \{ \newline
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca11315dcc4fda4d072bb9bdb51b24601c}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+0\+\_\+625\+\_\+\+HZ}} = 0b0000
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca954a806cce58b02ca499e476e8d4f82f}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+1\+\_\+25\+\_\+\+HZ}} = 0b0010
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca16f20c08db6775a6db60e103af6c0267}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+2\+\_\+5\+\_\+\+HZ}} = 0b0100
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652cacc1dc695e6aa48d913f36161c7ee8b57}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+5\+\_\+\+HZ}} = 0b0110
+, \newline
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6ce212ff4334c1cb576c59b694b5ba8c}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+10\+\_\+\+HZ}} = 0b1000
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca513877e5a8e5f6a30533fae2ae75aaec}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+20\+\_\+\+HZ}} = 0b1010
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca2763fcdec5620f11629f49376434a589}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+40\+\_\+\+HZ}} = 0b1100
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652caa035cf6402281eb8fb92396bfc5ff6d6}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+80\+\_\+\+HZ}} = 0b1110
+, \newline
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652cadddbb4fc7b24b3a392d3128f04dd09ee}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+155\+\_\+\+HZ}} = 0b0001
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6588c2064e55ef4e81aad14a36fb3350}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+300\+\_\+\+HZ}} = 0b0011
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6b9148cb951d66709cca998f2e80ae91}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+560\+\_\+\+HZ}} = 0b0101
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca52c6d943edcaef877210be651428fe46}{LIS3\+MDL\+\_\+\+DATARATE\+\_\+1000\+\_\+\+HZ}} = 0b0111
+ \}
+\item 
+enum \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\+\_\+performancemode\+\_\+t}} \{ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa3470d82bab5b7bbe73a2419bfa071b1c}{LIS3\+MDL\+\_\+\+LOWPOWERMODE}} = 0b00
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa82ad9b80854532966dd39a09859a1300}{LIS3\+MDL\+\_\+\+MEDIUMMODE}} = 0b01
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa2c8f2500aeec8524414939e2e4efc8c9}{LIS3\+MDL\+\_\+\+HIGHMODE}} = 0b10
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aaf8c44414d5d74cee076f505e5701d46c}{LIS3\+MDL\+\_\+\+ULTRAHIGHMODE}} = 0b11
+ \}
+\item 
+enum \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\+\_\+operationmode\+\_\+t}} \{ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731da96b59bf746cf48da5a03f4c8acf34038}{LIS3\+MDL\+\_\+\+CONTINUOUSMODE}} = 0b00
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731daaca7bb01235877b9856a7e453df3c07b}{LIS3\+MDL\+\_\+\+SINGLEMODE}} = 0b01
+, \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731da949906f6184798711705c1c3ae986d91}{LIS3\+MDL\+\_\+\+POWERDOWNMODE}} = 0b11
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!lis3mdl\_dataRate\_t@{lis3mdl\_dataRate\_t}}
+\index{lis3mdl\_dataRate\_t@{lis3mdl\_dataRate\_t}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}
+\doxysubsubsection{\texorpdfstring{lis3mdl\_dataRate\_t}{lis3mdl\_dataRate\_t}}
+{\footnotesize\ttfamily \label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c} 
+enum \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\+\_\+data\+Rate\+\_\+t}}}
+
+The magnetometer data rate, includes FAST\+\_\+\+ODR bit \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_0\_625\_HZ@{LIS3MDL\_DATARATE\_0\_625\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_0\_625\_HZ@{LIS3MDL\_DATARATE\_0\_625\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca11315dcc4fda4d072bb9bdb51b24601c}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca11315dcc4fda4d072bb9bdb51b24601c} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+0\+\_\+625\+\_\+\+HZ&0.\+625 Hz \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_1\_25\_HZ@{LIS3MDL\_DATARATE\_1\_25\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_1\_25\_HZ@{LIS3MDL\_DATARATE\_1\_25\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca954a806cce58b02ca499e476e8d4f82f}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca954a806cce58b02ca499e476e8d4f82f} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+1\+\_\+25\+\_\+\+HZ&1.\+25 Hz \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_2\_5\_HZ@{LIS3MDL\_DATARATE\_2\_5\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_2\_5\_HZ@{LIS3MDL\_DATARATE\_2\_5\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca16f20c08db6775a6db60e103af6c0267}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca16f20c08db6775a6db60e103af6c0267} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+2\+\_\+5\+\_\+\+HZ&2.\+5 Hz \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_5\_HZ@{LIS3MDL\_DATARATE\_5\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_5\_HZ@{LIS3MDL\_DATARATE\_5\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652cacc1dc695e6aa48d913f36161c7ee8b57}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652cacc1dc695e6aa48d913f36161c7ee8b57} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+5\+\_\+\+HZ&5 Hz \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_10\_HZ@{LIS3MDL\_DATARATE\_10\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_10\_HZ@{LIS3MDL\_DATARATE\_10\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6ce212ff4334c1cb576c59b694b5ba8c}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6ce212ff4334c1cb576c59b694b5ba8c} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+10\+\_\+\+HZ&10 Hz \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_20\_HZ@{LIS3MDL\_DATARATE\_20\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_20\_HZ@{LIS3MDL\_DATARATE\_20\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca513877e5a8e5f6a30533fae2ae75aaec}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca513877e5a8e5f6a30533fae2ae75aaec} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+20\+\_\+\+HZ&20 Hz \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_40\_HZ@{LIS3MDL\_DATARATE\_40\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_40\_HZ@{LIS3MDL\_DATARATE\_40\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca2763fcdec5620f11629f49376434a589}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca2763fcdec5620f11629f49376434a589} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+40\+\_\+\+HZ&40 Hz \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_80\_HZ@{LIS3MDL\_DATARATE\_80\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_80\_HZ@{LIS3MDL\_DATARATE\_80\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652caa035cf6402281eb8fb92396bfc5ff6d6}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652caa035cf6402281eb8fb92396bfc5ff6d6} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+80\+\_\+\+HZ&80 Hz \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_155\_HZ@{LIS3MDL\_DATARATE\_155\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_155\_HZ@{LIS3MDL\_DATARATE\_155\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652cadddbb4fc7b24b3a392d3128f04dd09ee}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652cadddbb4fc7b24b3a392d3128f04dd09ee} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+155\+\_\+\+HZ&155 Hz (FAST\+\_\+\+ODR + UHP) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_300\_HZ@{LIS3MDL\_DATARATE\_300\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_300\_HZ@{LIS3MDL\_DATARATE\_300\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6588c2064e55ef4e81aad14a36fb3350}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6588c2064e55ef4e81aad14a36fb3350} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+300\+\_\+\+HZ&300 Hz (FAST\+\_\+\+ODR + HP) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_560\_HZ@{LIS3MDL\_DATARATE\_560\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_560\_HZ@{LIS3MDL\_DATARATE\_560\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6b9148cb951d66709cca998f2e80ae91}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca6b9148cb951d66709cca998f2e80ae91} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+560\+\_\+\+HZ&560 Hz (FAST\+\_\+\+ODR + MP) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_DATARATE\_1000\_HZ@{LIS3MDL\_DATARATE\_1000\_HZ}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_DATARATE\_1000\_HZ@{LIS3MDL\_DATARATE\_1000\_HZ}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca52c6d943edcaef877210be651428fe46}\label{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652ca52c6d943edcaef877210be651428fe46} 
+LIS3\+MDL\+\_\+\+DATARATE\+\_\+1000\+\_\+\+HZ&1000 Hz (FAST\+\_\+\+ODR + LP) \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!lis3mdl\_operationmode\_t@{lis3mdl\_operationmode\_t}}
+\index{lis3mdl\_operationmode\_t@{lis3mdl\_operationmode\_t}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}
+\doxysubsubsection{\texorpdfstring{lis3mdl\_operationmode\_t}{lis3mdl\_operationmode\_t}}
+{\footnotesize\ttfamily \label{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d} 
+enum \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\+\_\+operationmode\+\_\+t}}}
+
+The magnetometer operation mode \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_CONTINUOUSMODE@{LIS3MDL\_CONTINUOUSMODE}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_CONTINUOUSMODE@{LIS3MDL\_CONTINUOUSMODE}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731da96b59bf746cf48da5a03f4c8acf34038}\label{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731da96b59bf746cf48da5a03f4c8acf34038} 
+LIS3\+MDL\+\_\+\+CONTINUOUSMODE&Continuous conversion. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_SINGLEMODE@{LIS3MDL\_SINGLEMODE}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_SINGLEMODE@{LIS3MDL\_SINGLEMODE}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731daaca7bb01235877b9856a7e453df3c07b}\label{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731daaca7bb01235877b9856a7e453df3c07b} 
+LIS3\+MDL\+\_\+\+SINGLEMODE&Single-\/shot conversion. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_POWERDOWNMODE@{LIS3MDL\_POWERDOWNMODE}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_POWERDOWNMODE@{LIS3MDL\_POWERDOWNMODE}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731da949906f6184798711705c1c3ae986d91}\label{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731da949906f6184798711705c1c3ae986d91} 
+LIS3\+MDL\+\_\+\+POWERDOWNMODE&Powered-\/down mode. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!lis3mdl\_performancemode\_t@{lis3mdl\_performancemode\_t}}
+\index{lis3mdl\_performancemode\_t@{lis3mdl\_performancemode\_t}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}
+\doxysubsubsection{\texorpdfstring{lis3mdl\_performancemode\_t}{lis3mdl\_performancemode\_t}}
+{\footnotesize\ttfamily \label{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a} 
+enum \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\+\_\+performancemode\+\_\+t}}}
+
+The magnetometer performance mode \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_LOWPOWERMODE@{LIS3MDL\_LOWPOWERMODE}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_LOWPOWERMODE@{LIS3MDL\_LOWPOWERMODE}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa3470d82bab5b7bbe73a2419bfa071b1c}\label{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa3470d82bab5b7bbe73a2419bfa071b1c} 
+LIS3\+MDL\+\_\+\+LOWPOWERMODE&Low power mode. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_MEDIUMMODE@{LIS3MDL\_MEDIUMMODE}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_MEDIUMMODE@{LIS3MDL\_MEDIUMMODE}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa82ad9b80854532966dd39a09859a1300}\label{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa82ad9b80854532966dd39a09859a1300} 
+LIS3\+MDL\+\_\+\+MEDIUMMODE&Medium performance mode. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_HIGHMODE@{LIS3MDL\_HIGHMODE}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_HIGHMODE@{LIS3MDL\_HIGHMODE}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa2c8f2500aeec8524414939e2e4efc8c9}\label{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aa2c8f2500aeec8524414939e2e4efc8c9} 
+LIS3\+MDL\+\_\+\+HIGHMODE&High performance mode. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_ULTRAHIGHMODE@{LIS3MDL\_ULTRAHIGHMODE}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_ULTRAHIGHMODE@{LIS3MDL\_ULTRAHIGHMODE}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aaf8c44414d5d74cee076f505e5701d46c}\label{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425aaf8c44414d5d74cee076f505e5701d46c} 
+LIS3\+MDL\+\_\+\+ULTRAHIGHMODE&Ultra-\/high performance mode. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!lis3mdl\_range\_t@{lis3mdl\_range\_t}}
+\index{lis3mdl\_range\_t@{lis3mdl\_range\_t}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}
+\doxysubsubsection{\texorpdfstring{lis3mdl\_range\_t}{lis3mdl\_range\_t}}
+{\footnotesize\ttfamily \label{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466} 
+enum \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\+\_\+range\+\_\+t}}}
+
+The magnetometer ranges \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_RANGE\_4\_GAUSS@{LIS3MDL\_RANGE\_4\_GAUSS}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_RANGE\_4\_GAUSS@{LIS3MDL\_RANGE\_4\_GAUSS}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a8ca0406fdb8e45c725c243c3e098fe47}\label{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a8ca0406fdb8e45c725c243c3e098fe47} 
+LIS3\+MDL\+\_\+\+RANGE\+\_\+4\+\_\+\+GAUSS&+/-\/ 4g (default value) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_RANGE\_8\_GAUSS@{LIS3MDL\_RANGE\_8\_GAUSS}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_RANGE\_8\_GAUSS@{LIS3MDL\_RANGE\_8\_GAUSS}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a199ff7db595917ecc71ea6ffa35e824f}\label{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a199ff7db595917ecc71ea6ffa35e824f} 
+LIS3\+MDL\+\_\+\+RANGE\+\_\+8\+\_\+\+GAUSS&+/-\/ 8g \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_RANGE\_12\_GAUSS@{LIS3MDL\_RANGE\_12\_GAUSS}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_RANGE\_12\_GAUSS@{LIS3MDL\_RANGE\_12\_GAUSS}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466ae290eeb5c8d65ef3934e81f6a79ccabc}\label{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466ae290eeb5c8d65ef3934e81f6a79ccabc} 
+LIS3\+MDL\+\_\+\+RANGE\+\_\+12\+\_\+\+GAUSS&+/-\/ 12g \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIS3MDL\_RANGE\_16\_GAUSS@{LIS3MDL\_RANGE\_16\_GAUSS}!Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}}\index{Adafruit\_LIS3MDL.h@{Adafruit\_LIS3MDL.h}!LIS3MDL\_RANGE\_16\_GAUSS@{LIS3MDL\_RANGE\_16\_GAUSS}}}\Hypertarget{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466adc7b3ff597618d7f12b8693416332f87}\label{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466adc7b3ff597618d7f12b8693416332f87} 
+LIS3\+MDL\+\_\+\+RANGE\+\_\+16\+\_\+\+GAUSS&+/-\/ 16g \\
+\hline
+
+\end{DoxyEnumFields}

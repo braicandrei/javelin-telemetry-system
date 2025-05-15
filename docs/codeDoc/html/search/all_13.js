@@ -1,0 +1,14 @@
+var searchData=
+[
+  ['width_0',['width',['../class_adafruit___bus_i_o___register.html#a122f5d6a66a2cf7af8089a6491d202e2',1,'Adafruit_BusIO_Register']]],
+  ['with_20the_20following_20adafruit_20icm20x_20family_20breakout_20boards_3a_1',['Tested and works great with the following Adafruit ICM20X Family Breakout Boards:',['../C:/Users/Andrei/Documents/javelin-telemetry-system/software/embedded/javelin-embedded-system/lib/Adafruit ICM20X/README.md#autotoc_md9',1,'']]],
+  ['works_20great_20with_20the_20following_20adafruit_20icm20x_20family_20breakout_20boards_3a_2',['Tested and works great with the following Adafruit ICM20X Family Breakout Boards:',['../C:/Users/Andrei/Documents/javelin-telemetry-system/software/embedded/javelin-embedded-system/lib/Adafruit ICM20X/README.md#autotoc_md9',1,'']]],
+  ['write_3',['write',['../class_adafruit___bus_i_o___register.html#ab97b289f41d27715678b28fd3ccf7911',1,'Adafruit_BusIO_Register::write(uint8_t *buffer, uint8_t len)'],['../class_adafruit___bus_i_o___register.html#abe41fba377e0382301ad70ae0eabaef3',1,'Adafruit_BusIO_Register::write(uint32_t value, uint8_t numbytes=0)'],['../class_adafruit___bus_i_o___register_bits.html#a813f4ef469295b1771bebe1a954986b5',1,'Adafruit_BusIO_RegisterBits::write()'],['../class_adafruit___generic_device.html#acd00fd3fcfb0b4e432f82699a5f7ec60',1,'Adafruit_GenericDevice::write()'],['../class_adafruit___i2_c_device.html#a0014ca5ee0ac58df57aafe9fa739571a',1,'Adafruit_I2CDevice::write()'],['../class_adafruit___s_p_i_device.html#ae4b058df3af3218ada11b5b527c55c05',1,'Adafruit_SPIDevice::write(const uint8_t *buffer, size_t len, const uint8_t *prefix_buffer=nullptr, size_t prefix_len=0)']]],
+  ['write_5fand_5fread_4',['write_and_read',['../class_adafruit___s_p_i_device.html#a8c82c2d0011689c02aab24d96599254c',1,'Adafruit_SPIDevice']]],
+  ['write_5fthen_5fread_5',['write_then_read',['../class_adafruit___i2_c_device.html#a0d5bd9223ce05f6e090048ace0582cbb',1,'Adafruit_I2CDevice::write_then_read()'],['../class_adafruit___s_p_i_device.html#a42500cddfbda8a9b12d5b5e081dcb640',1,'Adafruit_SPIDevice::write_then_read()']]],
+  ['writeaccelrange_6',['writeAccelRange',['../class_adafruit___i_c_m20_x.html#a3087f355400a190cf3e15bee33072faf',1,'Adafruit_ICM20X']]],
+  ['writeexternalregister_7',['writeExternalRegister',['../class_adafruit___i_c_m20_x.html#a21f38775d2d7d1cdbaec60c29fd8c0b6',1,'Adafruit_ICM20X']]],
+  ['writegyrorange_8',['writeGyroRange',['../class_adafruit___i_c_m20_x.html#a98ed9acc3f4f35e61d7bb0511e88b113',1,'Adafruit_ICM20X']]],
+  ['writeoffsetxyz_9',['writeOffsetxyz',['../class_adafruit___l_i_s3_m_d_l.html#a1293de8875285a83cb754fbd3e1fec1f',1,'Adafruit_LIS3MDL']]],
+  ['writeregister_10',['writeRegister',['../class_adafruit___generic_device.html#ad724925b9816df642a00865f7fdaddf6',1,'Adafruit_GenericDevice']]]
+];

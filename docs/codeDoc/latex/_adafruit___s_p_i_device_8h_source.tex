@@ -1,0 +1,153 @@
+\doxysection{Adafruit\+\_\+\+SPIDevice.\+h}
+\hypertarget{_adafruit___s_p_i_device_8h_source}{}\label{_adafruit___s_p_i_device_8h_source}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit BusIO/Adafruit\_SPIDevice.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit BusIO/Adafruit\_SPIDevice.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ Adafruit\_SPIDevice\_h}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ Adafruit\_SPIDevice\_h}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#if\ !defined(SPI\_INTERFACES\_COUNT)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\ \ \ \ (defined(SPI\_INTERFACES\_COUNT)\ \&\&\ (SPI\_INTERFACES\_COUNT\ >\ 0))}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ HW\ SPI\ available}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <SPI.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ BUSIO\_HAS\_HW\_SPI}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ SW\ SPI\ ONLY}}
+\DoxyCodeLine{00013\ \textcolor{keyword}{enum}\ \{\ SPI\_MODE0,\ SPI\_MODE1,\ SPI\_MODE2,\ \_SPI\_MODE4\ \};}
+\DoxyCodeLine{00014\ \textcolor{keyword}{typedef}\ uint8\_t\ SPIClass;}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ some\ modern\ SPI\ definitions\ don't\ have\ BitOrder\ enum}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ (defined(\_\_AVR\_\_)\ \&\&\ !defined(ARDUINO\_ARCH\_MEGAAVR))\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ defined(ESP8266)\ ||\ defined(TEENSYDUINO)\ ||\ defined(SPARK)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ \ \ defined(ARDUINO\_ARCH\_SPRESENSE)\ ||\ defined(MEGATINYCORE)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ defined(DXCORE)\ ||\ defined(ARDUINO\_AVR\_ATmega4809)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ defined(ARDUINO\_AVR\_ATmega4808)\ ||\ defined(ARDUINO\_AVR\_ATmega3209)\ ||\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ defined(ARDUINO\_AVR\_ATmega3208)\ ||\ defined(ARDUINO\_AVR\_ATmega1609)\ ||\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ defined(ARDUINO\_AVR\_ATmega1608)\ ||\ defined(ARDUINO\_AVR\_ATmega809)\ ||\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ defined(ARDUINO\_AVR\_ATmega808)\ ||\ defined(ARDUINO\_ARCH\_ARC32)\ ||\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \ \ defined(ARDUINO\_ARCH\_XMC)}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \_BitOrder\ \{}
+\DoxyCodeLine{00029\ \ \ SPI\_BITORDER\_MSBFIRST\ =\ MSBFIRST,}
+\DoxyCodeLine{00030\ \ \ SPI\_BITORDER\_LSBFIRST\ =\ LSBFIRST,}
+\DoxyCodeLine{00031\ \}\ BusIOBitOrder;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#elif\ defined(ESP32)\ ||\ defined(\_\_ASR6501\_\_)\ ||\ defined(\_\_ASR6502\_\_)}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ some\ modern\ SPI\ definitions\ don't\ have\ BitOrder\ enum\ and\ have\ different\ SPI}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ mode\ defines}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \_BitOrder\ \{}
+\DoxyCodeLine{00038\ \ \ SPI\_BITORDER\_MSBFIRST\ =\ SPI\_MSBFIRST,}
+\DoxyCodeLine{00039\ \ \ SPI\_BITORDER\_LSBFIRST\ =\ SPI\_LSBFIRST,}
+\DoxyCodeLine{00040\ \}\ BusIOBitOrder;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ Some\ platforms\ have\ a\ BitOrder\ enum\ but\ its\ named\ MSBFIRST/LSBFIRST}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ SPI\_BITORDER\_MSBFIRST\ MSBFIRST}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ SPI\_BITORDER\_LSBFIRST\ LSBFIRST}}
+\DoxyCodeLine{00046\ \textcolor{keyword}{typedef}\ BitOrder\ BusIOBitOrder;}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#if\ defined(\_\_IMXRT1062\_\_)\ }\textcolor{comment}{//\ Teensy\ 4.x}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ *Warning*\ I\ disabled\ the\ usage\ of\ FAST\_PINIO\ as\ the\ set/clear\ operations}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ used\ in\ the\ cpp\ file\ are\ not\ atomic\ and\ can\ effect\ multiple\ IO\ pins}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ and\ if\ an\ interrupt\ happens\ in\ between\ the\ time\ the\ code\ reads\ the\ register}}
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ \ and\ writes\ out\ the\ updated\ value,\ that\ changes\ one\ or\ more\ other\ IO\ pins}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ on\ that\ same\ IO\ port,\ those\ change\ will\ be\ clobbered\ when\ the\ updated}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ values\ are\ written\ back.\ \ A\ fast\ version\ can\ be\ implemented\ that\ uses\ the}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ ports\ set\ and\ clear\ registers\ which\ are\ atomic.}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ typedef\ volatile\ uint32\_t\ BusIO\_PortReg;}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ typedef\ uint32\_t\ BusIO\_PortMask;}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\#define\ BUSIO\_USE\_FAST\_PINIO}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#elif\ defined(\_\_MBED\_\_)\ ||\ defined(\_\_ZEPHYR\_\_)}}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ Boards\ based\ on\ RTOS\ cores\ like\ mbed\ or\ Zephyr\ are\ not\ going\ to\ expose\ the}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ low\ level\ registers\ needed\ for\ fast\ pin\ manipulation}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#undef\ BUSIO\_USE\_FAST\_PINIO}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#elif\ defined(ARDUINO\_ARCH\_XMC)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#undef\ BUSIO\_USE\_FAST\_PINIO}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_\_)\ ||\ defined(TEENSYDUINO)}}
+\DoxyCodeLine{00070\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{volatile}\ uint8\_t\ BusIO\_PortReg;}
+\DoxyCodeLine{00071\ \textcolor{keyword}{typedef}\ uint8\_t\ BusIO\_PortMask;}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ BUSIO\_USE\_FAST\_PINIO}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#elif\ defined(ESP8266)\ ||\ defined(ESP32)\ ||\ defined(\_\_SAM3X8E\_\_)\ ||\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ \ \ defined(ARDUINO\_ARCH\_SAMD)}}
+\DoxyCodeLine{00076\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{volatile}\ uint32\_t\ BusIO\_PortReg;}
+\DoxyCodeLine{00077\ \textcolor{keyword}{typedef}\ uint32\_t\ BusIO\_PortMask;}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ BUSIO\_USE\_FAST\_PINIO}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#elif\ (defined(\_\_arm\_\_)\ ||\ defined(ARDUINO\_FEATHER52))\ \&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ !defined(ARDUINO\_ARCH\_RP2040)\ \&\&\ !defined(ARDUINO\_SILABS)\ \&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ !defined(ARDUINO\_UNOR4\_MINIMA)\ \&\&\ !defined(ARDUINO\_UNOR4\_WIFI)}}
+\DoxyCodeLine{00083\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{volatile}\ uint32\_t\ BusIO\_PortReg;}
+\DoxyCodeLine{00084\ \textcolor{keyword}{typedef}\ uint32\_t\ BusIO\_PortMask;}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#if\ !defined(\_\_ASR6501\_\_)\ \&\&\ !defined(\_\_ASR6502\_\_)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ BUSIO\_USE\_FAST\_PINIO}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#undef\ BUSIO\_USE\_FAST\_PINIO}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___s_p_i_device_af74b7f52c99efc6b5c384813e01aa3e3}{Adafruit\_SPIDevice}}\ \{}
+\DoxyCodeLine{00095\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#ifdef\ BUSIO\_HAS\_HW\_SPI}}
+\DoxyCodeLine{00097\ \ \ \mbox{\hyperlink{class_adafruit___s_p_i_device_af74b7f52c99efc6b5c384813e01aa3e3}{Adafruit\_SPIDevice}}(int8\_t\ cspin,\ uint32\_t\ freq\ =\ 1000000,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BusIOBitOrder\ dataOrder\ =\ SPI\_BITORDER\_MSBFIRST,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ dataMode\ =\ SPI\_MODE0,\ SPIClass\ *theSPI\ =\ \&SPI);}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{class_adafruit___s_p_i_device_af74b7f52c99efc6b5c384813e01aa3e3}{Adafruit\_SPIDevice}}(int8\_t\ cspin,\ uint32\_t\ freq\ =\ 1000000,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BusIOBitOrder\ dataOrder\ =\ SPI\_BITORDER\_MSBFIRST,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ dataMode\ =\ SPI\_MODE0,\ SPIClass\ *theSPI\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00105\ \ \ \mbox{\hyperlink{class_adafruit___s_p_i_device_af74b7f52c99efc6b5c384813e01aa3e3}{Adafruit\_SPIDevice}}(int8\_t\ cspin,\ int8\_t\ sck,\ int8\_t\ miso,\ int8\_t\ mosi,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ freq\ =\ 1000000,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BusIOBitOrder\ dataOrder\ =\ SPI\_BITORDER\_MSBFIRST,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ dataMode\ =\ SPI\_MODE0);}
+\DoxyCodeLine{00109\ \ \ \mbox{\hyperlink{class_adafruit___s_p_i_device_a238dd6447126a42e1e2a771babbcb080}{\string~Adafruit\_SPIDevice}}();}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___s_p_i_device_a30a103a2e8dc97eb5fda377ea163f6fb}{begin}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___s_p_i_device_a17c18f7845f0e198d5931a2ca9c7fc50}{read}}(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len,\ uint8\_t\ sendvalue\ =\ 0xFF);}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___s_p_i_device_ae4b058df3af3218ada11b5b527c55c05}{write}}(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *prefix\_buffer\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{size\_t}\ prefix\_len\ =\ 0);}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___s_p_i_device_a42500cddfbda8a9b12d5b5e081dcb640}{write\_then\_read}}(\textcolor{keyword}{const}\ uint8\_t\ *write\_buffer,\ \textcolor{keywordtype}{size\_t}\ write\_len,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *read\_buffer,\ \textcolor{keywordtype}{size\_t}\ read\_len,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ sendvalue\ =\ 0xFF);}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___s_p_i_device_a8c82c2d0011689c02aab24d96599254c}{write\_and\_read}}(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___s_p_i_device_ae7eb48cf5e4ea5c4ace1b68d472da22c}{transfer}}(uint8\_t\ send);}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___s_p_i_device_ae7eb48cf5e4ea5c4ace1b68d472da22c}{transfer}}(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___s_p_i_device_af1006deeea9972ea1dc6e7881cdcb3a6}{beginTransaction}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___s_p_i_device_a3a961d042b9cfcd0c0bc4f09a1c461f9}{endTransaction}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___s_p_i_device_ac3a116b561324c52392dd587f502bb0c}{beginTransactionWithAssertingCS}}();}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___s_p_i_device_ad4eb83ad5f8fda37c2f643a3deea1557}{endTransactionWithDeassertingCS}}();}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#ifdef\ BUSIO\_HAS\_HW\_SPI}}
+\DoxyCodeLine{00129\ \ \ SPIClass\ *\_spi\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00130\ \ \ SPISettings\ *\_spiSetting\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00132\ \ \ uint8\_t\ *\_spi\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00133\ \ \ uint8\_t\ *\_spiSetting\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00135\ \ \ uint32\_t\ \_freq;}
+\DoxyCodeLine{00136\ \ \ BusIOBitOrder\ \_dataOrder;}
+\DoxyCodeLine{00137\ \ \ uint8\_t\ \_dataMode;}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{void}\ setChipSelect(\textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ int8\_t\ \_cs,\ \_sck,\ \_mosi,\ \_miso;}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#ifdef\ BUSIO\_USE\_FAST\_PINIO}}
+\DoxyCodeLine{00142\ \ \ BusIO\_PortReg\ *mosiPort,\ *clkPort,\ *misoPort,\ *csPort;}
+\DoxyCodeLine{00143\ \ \ BusIO\_PortMask\ mosiPinMask,\ misoPinMask,\ clkPinMask,\ csPinMask;}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{bool}\ \_begun;}
+\DoxyCodeLine{00146\ \};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ Adafruit\_SPIDevice\_h}}
+
+\end{DoxyCode}

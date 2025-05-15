@@ -1,0 +1,93 @@
+\doxysection{User\+Interface.\+h}
+\hypertarget{_user_interface_8h_source}{}\label{_user_interface_8h_source}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/UserInterface/UserInterface.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/UserInterface/UserInterface.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ USER\_INTERFACE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ USER\_INTERFACE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <NonBlockingRtttl.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ BUZZER\_PIN\ 2}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ TOUCH\_PIN\ 1}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ TOUCH\_THRESHOLD\ 10000}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ MAX\_TOUCH\_INTERVAL\ 500}\textcolor{comment}{//ms}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ ISR\_DEBOUNCE\_DELAY\ \ \ \ \ 150\ \ \ }\textcolor{comment}{//\ ms:\ tu\ debounce\ original\ en\ la\ ISR}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ VALIDATE\_DELAY\ \ \ \ \ \ \ \ \ 50\ \ \ \ }\textcolor{comment}{//\ ms:\ tiempo\ para\ validar\ en\ loop}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{enum}\ DebounceState\ \{\ IDLE,\ VALIDATING\ \};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ NO\_INPUT,}
+\DoxyCodeLine{00021\ \ \ \ \ INPUT\_1,}
+\DoxyCodeLine{00022\ \ \ \ \ INPUT\_2,}
+\DoxyCodeLine{00023\ \ \ \ \ INPUT\_3}
+\DoxyCodeLine{00024\ \}\ UserAction\_t;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ INPUT\_1\_COUNT\ =\ 2,}
+\DoxyCodeLine{00028\ \ \ \ \ INPUT\_2\_COUNT\ =\ 4,}
+\DoxyCodeLine{00029\ \ \ \ \ INPUT\_3\_COUNT\ =\ 6}
+\DoxyCodeLine{00030\ \}\ InputCount\_t;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ NONE,}
+\DoxyCodeLine{00034\ \ \ \ \ POWER\_ON,}
+\DoxyCodeLine{00035\ \ \ \ \ SAMPLE\_BEGIN,}
+\DoxyCodeLine{00036\ \ \ \ \ SAMPLE\_END,}
+\DoxyCodeLine{00037\ \ \ \ \ SERVER\_MODE\_ON,}
+\DoxyCodeLine{00038\ \ \ \ \ SERVER\_MODE\_OFF\ \ \ }
+\DoxyCodeLine{00039\ \}\ SystemTransitions\_t;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_user_interface_ae73f72d76923bbf8847091c275e48c66}{UserInterface}}\ \{}
+\DoxyCodeLine{00043\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_user_interface_ae73f72d76923bbf8847091c275e48c66}{UserInterface}}();}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_user_interface_a1ae6c25e8fe9d690d5733d2de2931f90}{\string~UserInterface}}();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_user_interface_a84700206d05365301b51bdcb90f244f7}{beginUI}}();}
+\DoxyCodeLine{00048\ \ \ \ \ UserAction\_t\ \mbox{\hyperlink{class_user_interface_a6290fceb0170057f9656d28d957e95b8}{updateUI}}();}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_user_interface_aab78910675f1666ae66f01de223079b2}{setUserInputEnabled}}(\textcolor{keywordtype}{bool}\ enabled);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_user_interface_a8fee07365e00d85eb095e55017424dbd}{setSystemTransition}}(SystemTransitions\_t\ transition);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ IRAM\_ATTR\ gotTouchEvent();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ touchDetected;\ \textcolor{comment}{//\ Flag\ compartido\ con\ la\ ISR}}
+\DoxyCodeLine{00058\ \ \ \ \ DebounceState\ debounceState\ =\ IDLE;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ validationTime\ =\ 0;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ uint8\_t\ touchCount\ =\ 0;}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ lastTouchTime\ =\ 0;\ \textcolor{comment}{//\ Para\ medir\ intervalo\ entre\ toques}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{bool}\ threeTouchesDetected\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{bool}\ fiveTouchesDetected\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ userInputEnabled\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ threshold\ =\ TOUCH\_THRESHOLD;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ SystemTransitions\_t\ lastSystemTransition\ =\ NONE;}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ samplingTimeStamp,\ serverModeOnTimeStamp;}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ notificationTime\ =\ 1500;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ transitionTimeStamp;}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ transitionLockTime\ =\ 1000;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ touch\_tone\ =\ \textcolor{stringliteral}{"{}touch\_tone:d=4,o=6,b=250:16b6"{}};}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ power\_on\_tone\ =\ \textcolor{stringliteral}{"{}power\_on\_tone:d=4,o=6,b=225:4d\#4,4e4,4f4"{}};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ sample\_begin\_tone\ =\ \textcolor{stringliteral}{"{}sample\_begin\_tone:d=4,o=5,b=140:8g\#6,8a6,4a\#6"{}};}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ sample\_end\_tone\ =\ \textcolor{stringliteral}{"{}sample\_end\_tone:d=4,o=5,b=140:8a\#6,8a6,4g\#6"{}};}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ sample\_error\_tone\ =\ \textcolor{stringliteral}{"{}sample\_error\_tone:d=4,o=5,b=140:"{}};}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ server\_mode\_on\_tone\ =\ \textcolor{stringliteral}{"{}server\_on\_tone:d=4,o=6,b=140:16d\#5,16e5,16f5,16f\#5,16g5"{}};}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ server\_mode\_off\_tone\ =\ \textcolor{stringliteral}{"{}server\_off\_tone:d=4,o=6,b=140:16g5,16f\#5,16f5,16e5,16d\#5"{}};}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ notification\_tone\ =\ \textcolor{stringliteral}{"{}notification\_tone:d=4,o=5,b=140:16a\#6"{}};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

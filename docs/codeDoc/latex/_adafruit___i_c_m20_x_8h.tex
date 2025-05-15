@@ -1,0 +1,257 @@
+\doxysection{C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+Adafruit ICM20\+X/\+Adafruit\+\_\+\+ICM20X.h File Reference}
+\hypertarget{_adafruit___i_c_m20_x_8h}{}\label{_adafruit___i_c_m20_x_8h}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit ICM20X/Adafruit\_ICM20X.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit ICM20X/Adafruit\_ICM20X.h}}
+{\ttfamily \#include "{}Arduino.\+h"{}}\newline
+{\ttfamily \#include $<$Adafruit\+\_\+\+Bus\+IO\+\_\+\+Register.\+h$>$}\newline
+{\ttfamily \#include $<$Adafruit\+\_\+\+I2\+CDevice.\+h$>$}\newline
+{\ttfamily \#include $<$Adafruit\+\_\+\+Sensor.\+h$>$}\newline
+{\ttfamily \#include $<$Wire.\+h$>$}\newline
+{\ttfamily \#include $<$Adafruit\+\_\+\+LIS3\+MDL.\+h$>$}\newline
+Include dependency graph for Adafruit\+\_\+\+ICM20\+X.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_adafruit___i_c_m20_x_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_adafruit___i_c_m20_x_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structicm20x__raw__axes__t}{icm20x\+\_\+raw\+\_\+axes\+\_\+t}}
+\item 
+class \mbox{\hyperlink{class_adafruit___i_c_m20_x___accelerometer}{Adafruit\+\_\+\+ICM20\+X\+\_\+\+Accelerometer}}
+\item 
+class \mbox{\hyperlink{class_adafruit___i_c_m20_x___gyro}{Adafruit\+\_\+\+ICM20\+X\+\_\+\+Gyro}}
+\item 
+class \mbox{\hyperlink{class_adafruit___i_c_m20_x___magnetometer}{Adafruit\+\_\+\+ICM20\+X\+\_\+\+Magnetometer}}
+\item 
+class \mbox{\hyperlink{class_adafruit___i_c_m20_x___temp}{Adafruit\+\_\+\+ICM20\+X\+\_\+\+Temp}}
+\item 
+class \mbox{\hyperlink{class_adafruit___i_c_m20_x}{Adafruit\+\_\+\+ICM20X}}
+\begin{DoxyCompactList}\small\item\em Class that stores state and functions for interacting with the ST ICM20X 6-\/DoF Accelerometer and Gyro. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_a5e0e153f483eb068ed456f0c7c909461}{I2\+C\+\_\+\+MASTER\+\_\+\+RESETS\+\_\+\+BEFORE\+\_\+\+FAIL}}~  5
+\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_ac14a90b5a4b8373e05ed83a8464b98e4}\label{_adafruit___i_c_m20_x_8h_ac14a90b5a4b8373e05ed83a8464b98e4} 
+\#define {\bfseries NUM\+\_\+\+FINISHED\+\_\+\+CHECKS}~  100
+\begin{DoxyCompactList}\small\item\em How many times to poll I2\+C\+\_\+\+SLV4\+\_\+\+DONE before giving up and resetting. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_ac5176e273d765b589bba7edf5043fed9}\label{_adafruit___i_c_m20_x_8h_ac5176e273d765b589bba7edf5043fed9} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+WHOAMI}~0x00
+\begin{DoxyCompactList}\small\item\em Chip ID register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a03a302a7a813e3667f95093dfa7b9397}\label{_adafruit___i_c_m20_x_8h_a03a302a7a813e3667f95093dfa7b9397} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+USER\+\_\+\+CTRL}~0x03
+\begin{DoxyCompactList}\small\item\em User Control Reg. Includes I2C Master. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_af7ff5dc1b5efb031b6442c3b1e2e959c}\label{_adafruit___i_c_m20_x_8h_af7ff5dc1b5efb031b6442c3b1e2e959c} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+LP\+\_\+\+CONFIG}~0x05
+\begin{DoxyCompactList}\small\item\em Low Power config. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a0e8201a775824502a411d3a467203da7}\label{_adafruit___i_c_m20_x_8h_a0e8201a775824502a411d3a467203da7} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+REG\+\_\+\+INT\+\_\+\+PIN\+\_\+\+CFG}~0xF
+\begin{DoxyCompactList}\small\item\em Interrupt config register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_aa78cc440050a635fcc083f02274cffdf}\label{_adafruit___i_c_m20_x_8h_aa78cc440050a635fcc083f02274cffdf} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+REG\+\_\+\+INT\+\_\+\+ENABLE}~0x10
+\begin{DoxyCompactList}\small\item\em Interrupt enable register 0. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_af3e038e941e019fd11c4e24feb5fa7aa}\label{_adafruit___i_c_m20_x_8h_af3e038e941e019fd11c4e24feb5fa7aa} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+REG\+\_\+\+INT\+\_\+\+ENABLE\+\_\+1}~0x11
+\begin{DoxyCompactList}\small\item\em Interrupt enable register 1. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_ab6c60bfde772629c72d2925f2f110b27}\label{_adafruit___i_c_m20_x_8h_ab6c60bfde772629c72d2925f2f110b27} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+REG\+\_\+\+INT\+\_\+\+ENABLE\+\_\+3}~0x13
+\begin{DoxyCompactList}\small\item\em Interrupt enable register 1. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a0669a94cdb607ed296819aeb9591fe13}\label{_adafruit___i_c_m20_x_8h_a0669a94cdb607ed296819aeb9591fe13} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+INT\+\_\+\+STATUS\+\_\+3}~0x1C
+\begin{DoxyCompactList}\small\item\em Interrupt 3 status register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a672b15694216d2c6fd8ad53c0f1706a3}\label{_adafruit___i_c_m20_x_8h_a672b15694216d2c6fd8ad53c0f1706a3} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+FIFO\+\_\+\+EN\+\_\+1}~0x66
+\begin{DoxyCompactList}\small\item\em FIFO enable register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a98605d299741b49f8ebcd9ef93c6e2e6}\label{_adafruit___i_c_m20_x_8h_a98605d299741b49f8ebcd9ef93c6e2e6} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+FIFO\+\_\+\+EN\+\_\+2}~0x67
+\begin{DoxyCompactList}\small\item\em FIFO enable register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a0b6016f00915be60b4938dbca2b84163}\label{_adafruit___i_c_m20_x_8h_a0b6016f00915be60b4938dbca2b84163} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+FIFO\+\_\+\+RST}~0x68
+\begin{DoxyCompactList}\small\item\em FIFO reset register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_ac57865f0dcdbf068bbbfb588322d64fe}\label{_adafruit___i_c_m20_x_8h_ac57865f0dcdbf068bbbfb588322d64fe} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+FIFO\+\_\+\+COUNTH}~0x70
+\begin{DoxyCompactList}\small\item\em FIFO count H byte register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a465deedf6c9b6aae8a90b2bba19ec8b6}\label{_adafruit___i_c_m20_x_8h_a465deedf6c9b6aae8a90b2bba19ec8b6} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+FIFO\+\_\+\+COUNTL}~0x71
+\begin{DoxyCompactList}\small\item\em FIFO count L byte register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a270c839d87e94fe3665124da47d78499}\label{_adafruit___i_c_m20_x_8h_a270c839d87e94fe3665124da47d78499} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+FIFO\+\_\+\+R\+\_\+W}~0x72
+\begin{DoxyCompactList}\small\item\em FIFO read/write register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a04b15e0dc7e92a23ec0a4f49d0130baa}\label{_adafruit___i_c_m20_x_8h_a04b15e0dc7e92a23ec0a4f49d0130baa} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+I2\+C\+\_\+\+MST\+\_\+\+STATUS}~  0x17
+\begin{DoxyCompactList}\small\item\em Records if I2C master bus data is finished. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a3021ff6c174c89a4ac25f18aa9d67c1f}\label{_adafruit___i_c_m20_x_8h_a3021ff6c174c89a4ac25f18aa9d67c1f} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+REG\+\_\+\+BANK\+\_\+\+SEL}~0x7F
+\begin{DoxyCompactList}\small\item\em register bank selection register \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_ae41cf5c6d0fb527e88bf3fb760eadabd}\label{_adafruit___i_c_m20_x_8h_ae41cf5c6d0fb527e88bf3fb760eadabd} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+PWR\+\_\+\+MGMT\+\_\+1}~0x06
+\begin{DoxyCompactList}\small\item\em primary power management register \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a40bf360619b8018df3546f66b44b99c3}\label{_adafruit___i_c_m20_x_8h_a40bf360619b8018df3546f66b44b99c3} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+ACCEL\+\_\+\+XOUT\+\_\+H}~0x2D
+\begin{DoxyCompactList}\small\item\em first byte of accel data \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_ad91876e70af1afc63e0a7e0af898d76e}\label{_adafruit___i_c_m20_x_8h_ad91876e70af1afc63e0a7e0af898d76e} 
+\#define {\bfseries ICM20\+X\+\_\+\+B0\+\_\+\+GYRO\+\_\+\+XOUT\+\_\+H}~0x33
+\begin{DoxyCompactList}\small\item\em first byte of accel data \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a5c8f149f4acfc405fe3ac0141e4b9971}\label{_adafruit___i_c_m20_x_8h_a5c8f149f4acfc405fe3ac0141e4b9971} 
+\#define {\bfseries ICM20\+X\+\_\+\+B2\+\_\+\+GYRO\+\_\+\+SMPLRT\+\_\+\+DIV}~0x00
+\begin{DoxyCompactList}\small\item\em Gyroscope data rate divisor. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a1ef8338da3c2438a5eec9286f3cc5f93}\label{_adafruit___i_c_m20_x_8h_a1ef8338da3c2438a5eec9286f3cc5f93} 
+\#define {\bfseries ICM20\+X\+\_\+\+B2\+\_\+\+GYRO\+\_\+\+CONFIG\+\_\+1}~0x01
+\begin{DoxyCompactList}\small\item\em Gyro config for range setting. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a6c6a770822cf11e1aba8f4c93796b10e}\label{_adafruit___i_c_m20_x_8h_a6c6a770822cf11e1aba8f4c93796b10e} 
+\#define {\bfseries ICM20\+X\+\_\+\+B2\+\_\+\+ODR\+\_\+\+ALIGN\+\_\+\+EN}~0x09
+\begin{DoxyCompactList}\small\item\em ODR alignment enable register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a144a6543ec6338f93b1423f91f8ad98e}\label{_adafruit___i_c_m20_x_8h_a144a6543ec6338f93b1423f91f8ad98e} 
+\#define {\bfseries ICM20\+X\+\_\+\+B2\+\_\+\+ACCEL\+\_\+\+SMPLRT\+\_\+\+DIV\+\_\+1}~0x10
+\begin{DoxyCompactList}\small\item\em Accel data rate divisor MSByte. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a7f92a645ea3fd4dd227e96656182d874}\label{_adafruit___i_c_m20_x_8h_a7f92a645ea3fd4dd227e96656182d874} 
+\#define {\bfseries ICM20\+X\+\_\+\+B2\+\_\+\+ACCEL\+\_\+\+SMPLRT\+\_\+\+DIV\+\_\+2}~0x11
+\begin{DoxyCompactList}\small\item\em Accel data rate divisor LSByte. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a9e44fd5dce68fe3e623fb1f99e570610}\label{_adafruit___i_c_m20_x_8h_a9e44fd5dce68fe3e623fb1f99e570610} 
+\#define {\bfseries ICM20\+X\+\_\+\+B2\+\_\+\+ACCEL\+\_\+\+CONFIG\+\_\+1}~0x14
+\begin{DoxyCompactList}\small\item\em Accel config for setting range. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a723d5d7d1c5dda552f210cc1167f9836}\label{_adafruit___i_c_m20_x_8h_a723d5d7d1c5dda552f210cc1167f9836} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+MST\+\_\+\+ODR\+\_\+\+CONFIG}~0x0
+\begin{DoxyCompactList}\small\item\em Sets ODR for I2C master bus. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_ac9ff5cb907dc948fcb30ed233b07a5fa}\label{_adafruit___i_c_m20_x_8h_ac9ff5cb907dc948fcb30ed233b07a5fa} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+MST\+\_\+\+CTRL}~0x1
+\begin{DoxyCompactList}\small\item\em I2C master bus config. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a89d1aff60044f5389d55c4f0b8dd0c53}\label{_adafruit___i_c_m20_x_8h_a89d1aff60044f5389d55c4f0b8dd0c53} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+MST\+\_\+\+DELAY\+\_\+\+CTRL}~0x2
+\begin{DoxyCompactList}\small\item\em I2C master bus config. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_ab67726d7519f8fc09fa3ede6e8576dec}\label{_adafruit___i_c_m20_x_8h_ab67726d7519f8fc09fa3ede6e8576dec} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+SLV0\+\_\+\+ADDR}~  0x3
+\begin{DoxyCompactList}\small\item\em Sets I2C address for I2C master bus slave 0. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a13d28e168f6681ff42ba1953efb650c4}\label{_adafruit___i_c_m20_x_8h_a13d28e168f6681ff42ba1953efb650c4} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+SLV0\+\_\+\+REG}~  0x4
+\begin{DoxyCompactList}\small\item\em Sets register address for I2C master bus slave 0. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_ad0135be6f9474c56ec39c8a3cbc443b9}\label{_adafruit___i_c_m20_x_8h_ad0135be6f9474c56ec39c8a3cbc443b9} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+SLV0\+\_\+\+CTRL}~0x5
+\begin{DoxyCompactList}\small\item\em Controls for I2C master bus slave 0. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_ad164a5c09071eea2d6ac9747835b395c}\label{_adafruit___i_c_m20_x_8h_ad164a5c09071eea2d6ac9747835b395c} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+SLV0\+\_\+\+DO}~0x6
+\begin{DoxyCompactList}\small\item\em Sets I2C master bus slave 0 data out. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a4b99d730da21ee46631cf93526cec842}\label{_adafruit___i_c_m20_x_8h_a4b99d730da21ee46631cf93526cec842} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+SLV4\+\_\+\+ADDR}~  0x13
+\begin{DoxyCompactList}\small\item\em Sets I2C address for I2C master bus slave 4. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a4c17a7c4b62c72a89010776bde65b230}\label{_adafruit___i_c_m20_x_8h_a4c17a7c4b62c72a89010776bde65b230} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+SLV4\+\_\+\+REG}~  0x14
+\begin{DoxyCompactList}\small\item\em Sets register address for I2C master bus slave 4. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a67b104f54a4999319fb7e3c4f7f52803}\label{_adafruit___i_c_m20_x_8h_a67b104f54a4999319fb7e3c4f7f52803} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+SLV4\+\_\+\+CTRL}~0x15
+\begin{DoxyCompactList}\small\item\em Controls for I2C master bus slave 4. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_aa3439fba54eab90ee8adfdaef60191e3}\label{_adafruit___i_c_m20_x_8h_aa3439fba54eab90ee8adfdaef60191e3} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+SLV4\+\_\+\+DO}~0x16
+\begin{DoxyCompactList}\small\item\em Sets I2C master bus slave 4 data out. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a88edd463a206ac723af8d102b3493bfa}\label{_adafruit___i_c_m20_x_8h_a88edd463a206ac723af8d102b3493bfa} 
+\#define {\bfseries ICM20\+X\+\_\+\+B3\+\_\+\+I2\+C\+\_\+\+SLV4\+\_\+\+DI}~0x17
+\begin{DoxyCompactList}\small\item\em Sets I2C master bus slave 4 data in. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a7fbff378c5e926ec6391a30de0ba9ce8}\label{_adafruit___i_c_m20_x_8h_a7fbff378c5e926ec6391a30de0ba9ce8} 
+\#define {\bfseries ICM20948\+\_\+\+CHIP\+\_\+\+ID}~0x\+EA
+\begin{DoxyCompactList}\small\item\em ICM20948 default device id from WHOAMI. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a653126f1287e5f38b4c281ef3bca60b7}\label{_adafruit___i_c_m20_x_8h_a653126f1287e5f38b4c281ef3bca60b7} 
+\#define {\bfseries ICM20649\+\_\+\+CHIP\+\_\+\+ID}~0x\+E1
+\begin{DoxyCompactList}\small\item\em ICM20649 default device id from WHOAMI. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_addb09eb8c9b689cc43912c8e264a6312}\label{_adafruit___i_c_m20_x_8h_addb09eb8c9b689cc43912c8e264a6312} 
+\#define {\bfseries ICM20\+X\+\_\+\+FIFO\+\_\+\+SIZE}~4096
+\begin{DoxyCompactList}\small\item\em FIFO size in bytes. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a4f922f9803b616d5792853a6e70438cb}\label{_adafruit___i_c_m20_x_8h_a4f922f9803b616d5792853a6e70438cb} 
+\#define {\bfseries MMC5603\+\_\+\+I2\+C\+\_\+\+ADDR}~0x30
+\begin{DoxyCompactList}\small\item\em MMC5603 magentoemter I2C address. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a7dd6cc3ce613646829956907f65abf6e}\label{_adafruit___i_c_m20_x_8h_a7dd6cc3ce613646829956907f65abf6e} 
+\#define {\bfseries MMC5603\+\_\+\+ODR}~0x1A
+\begin{DoxyCompactList}\small\item\em MMC5603 output data rate register. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a1905fdb565389f05c77e4b8de119a3a6}\label{_adafruit___i_c_m20_x_8h_a1905fdb565389f05c77e4b8de119a3a6} 
+\#define {\bfseries MMC5603\+\_\+\+CTRL0}~0x1B
+\begin{DoxyCompactList}\small\item\em MMC5603 control register 0. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a5b4be2818e2ae782bcae1000be3644c1}\label{_adafruit___i_c_m20_x_8h_a5b4be2818e2ae782bcae1000be3644c1} 
+\#define {\bfseries MMC5603\+\_\+\+CTRL1}~0x1C
+\begin{DoxyCompactList}\small\item\em MMC5603 control register 1. \end{DoxyCompactList}\item 
+\Hypertarget{_adafruit___i_c_m20_x_8h_a479a3c74d68384d4a0911c3b893c19cb}\label{_adafruit___i_c_m20_x_8h_a479a3c74d68384d4a0911c3b893c19cb} 
+\#define {\bfseries MMC5603\+\_\+\+CTRL2}~0x1D
+\begin{DoxyCompactList}\small\item\em MMC5603 control register 2. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_abe70000e68e2c0e96dcb487debded478}{icm20x\+\_\+accel\+\_\+cutoff\+\_\+t}} \{ \newline
+{\bfseries ICM20\+X\+\_\+\+ACCEL\+\_\+\+FREQ\+\_\+246\+\_\+0\+\_\+\+HZ} = 0x1
+, {\bfseries ICM20\+X\+\_\+\+ACCEL\+\_\+\+FREQ\+\_\+111\+\_\+4\+\_\+\+HZ} = 0x2
+, {\bfseries ICM20\+X\+\_\+\+ACCEL\+\_\+\+FREQ\+\_\+50\+\_\+4\+\_\+\+HZ} = 0x3
+, {\bfseries ICM20\+X\+\_\+\+ACCEL\+\_\+\+FREQ\+\_\+23\+\_\+9\+\_\+\+HZ} = 0x4
+, \newline
+{\bfseries ICM20\+X\+\_\+\+ACCEL\+\_\+\+FREQ\+\_\+11\+\_\+5\+\_\+\+HZ} = 0x5
+, {\bfseries ICM20\+X\+\_\+\+ACCEL\+\_\+\+FREQ\+\_\+5\+\_\+7\+\_\+\+HZ} = 0x6
+, {\bfseries ICM20\+X\+\_\+\+ACCEL\+\_\+\+FREQ\+\_\+473\+\_\+\+HZ} = 0x7
+ \}
+\item 
+enum \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_ad4e8d6c90935e4cf645f08f002e0af09}{icm20x\+\_\+gyro\+\_\+cutoff\+\_\+t}} \{ \newline
+{\bfseries ICM20\+X\+\_\+\+GYRO\+\_\+\+FREQ\+\_\+196\+\_\+6\+\_\+\+HZ} = 0x0
+, {\bfseries ICM20\+X\+\_\+\+GYRO\+\_\+\+FREQ\+\_\+151\+\_\+8\+\_\+\+HZ} = 0x1
+, {\bfseries ICM20\+X\+\_\+\+GYRO\+\_\+\+FREQ\+\_\+119\+\_\+5\+\_\+\+HZ} = 0x2
+, {\bfseries ICM20\+X\+\_\+\+GYRO\+\_\+\+FREQ\+\_\+51\+\_\+2\+\_\+\+HZ} = 0x3
+, \newline
+{\bfseries ICM20\+X\+\_\+\+GYRO\+\_\+\+FREQ\+\_\+23\+\_\+9\+\_\+\+HZ} = 0x4
+, {\bfseries ICM20\+X\+\_\+\+GYRO\+\_\+\+FREQ\+\_\+11\+\_\+6\+\_\+\+HZ} = 0x5
+, {\bfseries ICM20\+X\+\_\+\+GYRO\+\_\+\+FREQ\+\_\+5\+\_\+7\+\_\+\+HZ} = 0x6
+, {\bfseries ICM20\+X\+\_\+\+GYRO\+\_\+\+FREQ\+\_\+361\+\_\+4\+\_\+\+HZ} = 0x7
+ \}
+\item 
+enum \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_a3eab3fdc9cbbad3bca961712c582ccc7}{icm20\+\_\+fifo\+\_\+data\+\_\+select\+\_\+t}} \{ {\bfseries FIFO\+\_\+\+DATA\+\_\+\+ACCEL} = 0x10
+, {\bfseries FIFO\+\_\+\+DATA\+\_\+\+ACCEL\+\_\+\+GYRO} = 0x1E
+, {\bfseries FIFO\+\_\+\+DATA\+\_\+\+ACCEL\+\_\+\+GYRO\+\_\+\+S0} = 0x3E
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+I2C Driver for the Adafruit ICM20X 6-\/DoF Wide-\/\+Range Accelerometer and Gyro library \begin{DoxyVerb}This is a library for the Adafruit ICM20X breakouts:
+https://www.adafruit.com/product/4464
+https://www.adafruit.com/product/4554
+
+Adafruit invests time and resources providing this open source code,
+\end{DoxyVerb}
+ please support Adafruit and open-\/source hardware by purchasing products from Adafruit!
+
+\begin{DoxyVerb}BSD license (see license.txt)
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_adafruit___i_c_m20_x_8h_a5e0e153f483eb068ed456f0c7c909461}\index{Adafruit\_ICM20X.h@{Adafruit\_ICM20X.h}!I2C\_MASTER\_RESETS\_BEFORE\_FAIL@{I2C\_MASTER\_RESETS\_BEFORE\_FAIL}}
+\index{I2C\_MASTER\_RESETS\_BEFORE\_FAIL@{I2C\_MASTER\_RESETS\_BEFORE\_FAIL}!Adafruit\_ICM20X.h@{Adafruit\_ICM20X.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_MASTER\_RESETS\_BEFORE\_FAIL}{I2C\_MASTER\_RESETS\_BEFORE\_FAIL}}
+{\footnotesize\ttfamily \label{_adafruit___i_c_m20_x_8h_a5e0e153f483eb068ed456f0c7c909461} 
+\#define I2\+C\+\_\+\+MASTER\+\_\+\+RESETS\+\_\+\+BEFORE\+\_\+\+FAIL~  5}
+
+The number of times to try resetting a stuck I2C master before giving up 
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_adafruit___i_c_m20_x_8h_a3eab3fdc9cbbad3bca961712c582ccc7}\index{Adafruit\_ICM20X.h@{Adafruit\_ICM20X.h}!icm20\_fifo\_data\_select\_t@{icm20\_fifo\_data\_select\_t}}
+\index{icm20\_fifo\_data\_select\_t@{icm20\_fifo\_data\_select\_t}!Adafruit\_ICM20X.h@{Adafruit\_ICM20X.h}}
+\doxysubsubsection{\texorpdfstring{icm20\_fifo\_data\_select\_t}{icm20\_fifo\_data\_select\_t}}
+{\footnotesize\ttfamily \label{_adafruit___i_c_m20_x_8h_a3eab3fdc9cbbad3bca961712c582ccc7} 
+enum \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_a3eab3fdc9cbbad3bca961712c582ccc7}{icm20\+\_\+fifo\+\_\+data\+\_\+select\+\_\+t}}}
+
+Options for {\ttfamily set\+FIFO} -- FIFO data selection \Hypertarget{_adafruit___i_c_m20_x_8h_abe70000e68e2c0e96dcb487debded478}\index{Adafruit\_ICM20X.h@{Adafruit\_ICM20X.h}!icm20x\_accel\_cutoff\_t@{icm20x\_accel\_cutoff\_t}}
+\index{icm20x\_accel\_cutoff\_t@{icm20x\_accel\_cutoff\_t}!Adafruit\_ICM20X.h@{Adafruit\_ICM20X.h}}
+\doxysubsubsection{\texorpdfstring{icm20x\_accel\_cutoff\_t}{icm20x\_accel\_cutoff\_t}}
+{\footnotesize\ttfamily \label{_adafruit___i_c_m20_x_8h_abe70000e68e2c0e96dcb487debded478} 
+enum \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_abe70000e68e2c0e96dcb487debded478}{icm20x\+\_\+accel\+\_\+cutoff\+\_\+t}}}
+
+Options for {\ttfamily enable\+Accel\+DLPF} \Hypertarget{_adafruit___i_c_m20_x_8h_ad4e8d6c90935e4cf645f08f002e0af09}\index{Adafruit\_ICM20X.h@{Adafruit\_ICM20X.h}!icm20x\_gyro\_cutoff\_t@{icm20x\_gyro\_cutoff\_t}}
+\index{icm20x\_gyro\_cutoff\_t@{icm20x\_gyro\_cutoff\_t}!Adafruit\_ICM20X.h@{Adafruit\_ICM20X.h}}
+\doxysubsubsection{\texorpdfstring{icm20x\_gyro\_cutoff\_t}{icm20x\_gyro\_cutoff\_t}}
+{\footnotesize\ttfamily \label{_adafruit___i_c_m20_x_8h_ad4e8d6c90935e4cf645f08f002e0af09} 
+enum \mbox{\hyperlink{_adafruit___i_c_m20_x_8h_ad4e8d6c90935e4cf645f08f002e0af09}{icm20x\+\_\+gyro\+\_\+cutoff\+\_\+t}}}
+
+Options for {\ttfamily enable\+Gyro\+DLPF} 

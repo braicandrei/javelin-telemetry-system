@@ -1,0 +1,7 @@
+<map id="getPerformanceMode" name="getPerformanceMode">
+<area shape="rect" id="Node000001" title="Get the performance mode." alt="" coords="5,13,151,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register_bits.html#af62b1bc77a3a952c021ca6876bc6a080" title="Read 4 bytes of data from the register." alt="" coords="199,5,388,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,24,183,24,183,29,151,29"/>
+<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register.html#a84ed92b3d107e8895bdbc7e55991342e" title="Read a number of bytes from a register into a buffer." alt="" coords="436,5,602,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="389,24,420,24,420,29,389,29"/>
+</map>

@@ -1,0 +1,86 @@
+\doxysection{Data\+Logger.\+h}
+\hypertarget{_data_logger_8h_source}{}\label{_data_logger_8h_source}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/DataLogger/DataLogger.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/DataLogger/DataLogger.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DATA\_LOGGER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DATA\_LOGGER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_a_h_r_s_8h}{AHRS.h}}>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <SD.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <FS.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <RTClib.h>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ AHRS\_ITERRUPT\_PIN\ 4\ }\textcolor{comment}{//\ Pin\ for\ AHRS\ interrupt}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ SD\_CS\_PIN\ 3\ }\textcolor{comment}{//\ Chip\ select\ pin\ for\ SD\ card}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ SD\_MISO\_PIN\ 8}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ SD\_MOSI\_PIN\ 9}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ SD\_CLK\_PIN\ 7}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ FRAME\_BUFFER\_LENGTH\ 4}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ SAMPLE\_RATE\ 100\ }\textcolor{comment}{//\ Sampling\ rate\ in\ Hz}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ LOGGER\_OK,}
+\DoxyCodeLine{00022\ \ \ \ \ AHRS\_FAILED,}
+\DoxyCodeLine{00023\ \ \ \ \ SD\_FAILED,}
+\DoxyCodeLine{00024\ \ \ \ \ RTC\_FAILED,}
+\DoxyCodeLine{00025\ \ \ \ \ SHOCK\_DETECTED}
+\DoxyCodeLine{00026\ \}\ LoggerStatus\_t;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ LOGGER\_WAITING,}
+\DoxyCodeLine{00030\ \ \ \ \ LOGGER\_PREP,}
+\DoxyCodeLine{00031\ \ \ \ \ LOGGER\_SAMPLING,}
+\DoxyCodeLine{00032\ \ \ \ \ LOGGER\_END,}
+\DoxyCodeLine{00033\ \}\ LoggerState\_t;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_data_logger_ab71019a5463ea88ecfb266e2218c1ded}{DataLogger}}}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_data_logger_ab71019a5463ea88ecfb266e2218c1ded}{DataLogger}}();}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_data_logger_abea0bb585f09f86f6acd6d966d824938}{\string~DataLogger}}();}
+\DoxyCodeLine{00040\ \ \ \ \ LoggerStatus\_t\ \mbox{\hyperlink{class_data_logger_ab4b2c3f60e7a05f260131c91925467e7}{begin}}();\ \textcolor{comment}{//\ Initialize\ the\ data\ logger}}
+\DoxyCodeLine{00041\ \ \ \ \ LoggerStatus\_t\ \mbox{\hyperlink{class_data_logger_aa7abba545626378b60d526eeb24d6299}{updateLogger}}();\ \textcolor{comment}{//\ Update\ the\ data\ logger}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_data_logger_adbdb74a748bbe5e05ee73f0ee89ab5aa}{startSamplig}}();\ \textcolor{comment}{//\ Start\ data\ sampling}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_data_logger_a915f7259277c93560ebddab8bae4ef6c}{stopSamplig}}();\ \textcolor{comment}{//\ End\ data\ sampling}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_data_logger_a563f775eb6d1422f1d9f233e5ec446c3}{setCalibration}}();\ \textcolor{comment}{//\ Set\ calibration\ flag}}
+\DoxyCodeLine{00045\ \ \ \ \ LoggerState\_t\ \mbox{\hyperlink{class_data_logger_ab605e0a19cad4860584485d59a488f3f}{getLoggerState}}();}
+\DoxyCodeLine{00046\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_a_h_r_s}{AHRS}}\ ahrs;\ \textcolor{comment}{//\ AHRS\ object\ for\ sensor\ data}}
+\DoxyCodeLine{00048\ \ \ \ \ uint16\_t\ frameCounter\ =\ 0;}
+\DoxyCodeLine{00049\ \ \ \ \ QueueHandle\_t\ queue\ =\ NULL;}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ inputDataAvailable;\ \textcolor{comment}{//\ Flag\ for\ interrupt\ handling}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ IRAM\_ATTR\ inputDataInterrupt();\ \textcolor{comment}{//\ Interrupt\ handler\ function}}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{structicm20x__raw__axes__t}{icm20x\_raw\_axes\_t}}\ raw\_axesD[\mbox{\hyperlink{_adafruit___i_c_m20_x_8h_addb09eb8c9b689cc43912c8e264a6312}{ICM20X\_FIFO\_SIZE}}/6];\ \textcolor{comment}{//\ Buffer\ for\ raw\ sensor\ data}}
+\DoxyCodeLine{00053\ \ \ \ \ RTC\_DS3231\ rtc;\ \textcolor{comment}{//\ RTC\ object\ for\ real-\/time\ clock}}
+\DoxyCodeLine{00054\ \ \ \ \ String\ getFileName();\ \textcolor{comment}{//\ Generate\ a\ file\ name\ for\ data\ logging}}
+\DoxyCodeLine{00055\ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ File\ dataFile;\ \textcolor{comment}{//\ File\ object\ for\ SD\ card\ data\ logging}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{const}\ String\ logsDirectory\ =\ \textcolor{stringliteral}{"{}/logs"{}};\ \textcolor{comment}{//\ Directory\ for\ logs\ }}
+\DoxyCodeLine{00058\ \ \ \ \ String\ logPath;\ \textcolor{comment}{//\ File\ name\ for\ data\ logging}}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ dataFrame;\ \textcolor{comment}{//\ Data\ frame\ for\ sensor\ data}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ writeMetaDataToSD();\ \textcolor{comment}{//\ Write\ metadata\ to\ SD\ card}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ writeDataFrameToSD(\mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ dataFrame);\ \textcolor{comment}{//\ Write\ data\ frame\ to\ SD\ card}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ writeDataFrameToSD(\mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ dataFrame,\ \mbox{\hyperlink{structahrs__orientation__t}{ahrs\_orientation\_t}}\ orientation);}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ writeDataFrameToSD(\mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ dataFrame,\ \mbox{\hyperlink{structahrs__angles__t}{ahrs\_angles\_t}}\ angles);}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ packetCounter\ =\ 0;}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ dataFrameBuffer[FRAME\_BUFFER\_LENGTH];}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{bool}\ shockCheck(\mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ dataFrame);}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ shockThreshold\ =\ 15.0;}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ shockDetected\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ getShockDetected();}
+\DoxyCodeLine{00070\ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ LoggerState\_t\ loggerState\ =\ LOGGER\_WAITING;\ \textcolor{comment}{//\ State\ of\ the\ data\ logger}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startTime\ =\ 0;\ \textcolor{comment}{//\ Start\ time\ for\ data\ logging}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{bool}\ startSampling\_flag\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Flag\ to\ indicate\ logger\ start}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ stopSampling\_flag\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Flag\ to\ indicate\ logger\ stop}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{bool}\ calibration\_flag\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Flag\ to\ indicate\ calibration}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

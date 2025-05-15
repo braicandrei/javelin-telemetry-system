@@ -1,0 +1,782 @@
+\doxysection{Adafruit\+\_\+\+LIS3\+MDL Class Reference}
+\hypertarget{class_adafruit___l_i_s3_m_d_l}{}\label{class_adafruit___l_i_s3_m_d_l}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+
+
+{\ttfamily \#include $<$Adafruit\+\_\+\+LIS3\+MDL.\+h$>$}
+
+
+
+Inheritance diagram for Adafruit\+\_\+\+LIS3\+MDL\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{class_adafruit___l_i_s3_m_d_l__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Adafruit\+\_\+\+LIS3\+MDL\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{class_adafruit___l_i_s3_m_d_l__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a5e5870dce8a149292658fb1ef1023657}\label{class_adafruit___l_i_s3_m_d_l_a5e5870dce8a149292658fb1ef1023657} 
+{\bfseries Adafruit\+\_\+\+LIS3\+MDL} (void)
+\begin{DoxyCompactList}\small\item\em Instantiates a new LIS3\+MDL class. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a583a6664ae4af4bdedb3d1ae0452a258}{begin\+\_\+\+I2C}} (uint8\+\_\+t i2c\+\_\+addr=\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a51fd2dc234b55a85808541dcf3a17218}{LIS3\+MDL\+\_\+\+I2\+CADDR\+\_\+\+DEFAULT}}, Two\+Wire \texorpdfstring{$\ast$}{*}wire=\&Wire)
+\begin{DoxyCompactList}\small\item\em Sets up the hardware and initializes I2C. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a4eb61b1afbd9a3fe6f4e1874f76d0c56}{begin\+\_\+\+SPI}} (uint8\+\_\+t cs\+\_\+pin, SPIClass \texorpdfstring{$\ast$}{*}the\+SPI=\&SPI, uint32\+\_\+t frequency=1000000)
+\begin{DoxyCompactList}\small\item\em Sets up the hardware and initializes hardware SPI. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ab60417e437a745900b2cf56ddfd946f7}{begin\+\_\+\+SPI}} (int8\+\_\+t cs\+\_\+pin, int8\+\_\+t sck\+\_\+pin, int8\+\_\+t miso\+\_\+pin, int8\+\_\+t mosi\+\_\+pin, uint32\+\_\+t frequency=1000000)
+\begin{DoxyCompactList}\small\item\em Sets up the hardware and initializes software SPI. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a3aea9deb2a0bfea9ff05a898f4822e31}\label{class_adafruit___l_i_s3_m_d_l_a3aea9deb2a0bfea9ff05a898f4822e31} 
+void {\bfseries reset} (void)
+\begin{DoxyCompactList}\small\item\em Performs a software reset. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a7797c2848e051a248735fbf16fe76524}{set\+Performance\+Mode}} (\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\+\_\+performancemode\+\_\+t}} mode)
+\begin{DoxyCompactList}\small\item\em Set the performance mode, LIS3\+MDL\+\_\+\+LOWPOWERMODE, LIS3\+MDL\+\_\+\+MEDIUMMODE, LIS3\+MDL\+\_\+\+HIGHMODE or LIS3\+MDL\+\_\+\+ULTRAHIGHMODE. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\+\_\+performancemode\+\_\+t}} \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a81d7b152e2d3e5ea6f4a26dfeef3b720}{get\+Performance\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Get the performance mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a522ac675edbe0d006d9221042311db9e}{set\+Operation\+Mode}} (\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\+\_\+operationmode\+\_\+t}} mode)
+\begin{DoxyCompactList}\small\item\em Set the operation mode, LIS3\+MDL\+\_\+\+CONTINUOUSMODE, LIS3\+MDL\+\_\+\+SINGLEMODE or LIS3\+MDL\+\_\+\+POWERDOWNMODE. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\+\_\+operationmode\+\_\+t}} \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ab414ec7778caa654d7def6d088bb891a}{get\+Operation\+Mode}} (void)
+\begin{DoxyCompactList}\small\item\em Get the operation mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a497979b74e6303a0b0e4a41d3e5bb8c1}{set\+Data\+Rate}} (\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\+\_\+data\+Rate\+\_\+t}} data\+Rate)
+\begin{DoxyCompactList}\small\item\em Sets the data rate for the LIS3\+MDL (controls power consumption) from 0.\+625 Hz to 80Hz. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\+\_\+data\+Rate\+\_\+t}} \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af71c1007d6dad8a3b182f6179da6ddd9}{get\+Data\+Rate}} (void)
+\begin{DoxyCompactList}\small\item\em Gets the data rate for the LIS3\+MDL (controls power consumption) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a40803a301762e56a94fe0bf92ce24605}{set\+Range}} (\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\+\_\+range\+\_\+t}} range)
+\begin{DoxyCompactList}\small\item\em Set the resolution range\+: +-\/4 gauss, 8 gauss, 12 gauss, or 16 gauss. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\+\_\+range\+\_\+t}} \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a0fa1ae1965b1e22ef8e00e781a6a06f2}{get\+Range}} (void)
+\begin{DoxyCompactList}\small\item\em Read the resolution range\+: +-\/4 gauss, 8 gauss, 12 gauss, or 16 gauss. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a8d9de2059591e825291b8f48ec258cc8}{set\+Int\+Threshold}} (uint16\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Set the interrupt threshold value. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a2301c878a5d76f8ed98cc15209720293}{get\+Int\+Threshold}} (void)
+\begin{DoxyCompactList}\small\item\em Get the interrupt threshold value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abe6636911400b48a18ce3a4b13d0d258}{config\+Interrupt}} (bool enableX, bool enableY, bool enableZ, bool polarity, bool latch, bool enable\+Int)
+\begin{DoxyCompactList}\small\item\em Configure INT\+\_\+\+CFG. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a051586baa8c73bd45dfd7b213f8c3e75}{self\+Test}} (bool flag)
+\begin{DoxyCompactList}\small\item\em Enable or disable self-\/test. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_aaa936da334e29618ece019bd8a9aa06f}\label{class_adafruit___l_i_s3_m_d_l_aaa936da334e29618ece019bd8a9aa06f} 
+void {\bfseries read} ()
+\begin{DoxyCompactList}\small\item\em Read the XYZ data from the magnetometer and store in the internal x, y and z (and x\+\_\+g, y\+\_\+g, z\+\_\+g) member variables. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a3579ab819efb2ebd045b27e45529a533}{get\+Event}} (sensors\+\_\+event\+\_\+t \texorpdfstring{$\ast$}{*}event)
+\begin{DoxyCompactList}\small\item\em Gets the most recent sensor event, Adafruit Unified Sensor format. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ac30038292830ac3e38a75a07682cc958}{get\+Sensor}} (sensor\+\_\+t \texorpdfstring{$\ast$}{*}sensor)
+\begin{DoxyCompactList}\small\item\em Gets the sensor\+\_\+t device data, Adafruit Unified Sensor format. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_aa57cc19978464aa582ace2dbc59831c4}{read\+Magnetic\+Field}} (float \&\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}}, float \&\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}}, float \&\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}})
+\begin{DoxyCompactList}\small\item\em Read magnetic data. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a190b65288a58eb32301d8aa7a20501f4}{magnetic\+Field\+Sample\+Rate}} (void)
+\begin{DoxyCompactList}\small\item\em Get the magnetic data rate. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_add1cc7f688602700413791d2772703ef}{magnetic\+Field\+Available}} (void)
+\begin{DoxyCompactList}\small\item\em Check for available data from magnetic. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a628c42b0cc114c8082d18020ba03face}{reset\+Registers}} ()
+\begin{DoxyCompactList}\small\item\em Reset all registers to default values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a3d4f666f49ac927f58dae9180cef96fb}{hard\+Iron\+Calc}} (float \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}}, float \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}}, float \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}})
+\begin{DoxyCompactList}\small\item\em Compute the hard iron offsets based on the provided x, y, and z values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_add94c2e76a0e26d66cb73cb5ae3b863b}{get\+Calibration\+Offsets}} (float \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}}, float \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}}, float \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}})
+\begin{DoxyCompactList}\small\item\em Get the calibration offsets for x, y, and z axes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_add86a75e264cd97f18cbff151e53f0ba}{set\+Calibration\+Offsets}} (float \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}}, float \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}}, float \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}})
+\begin{DoxyCompactList}\small\item\em Set the calibration offsets for x, y, and z axes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a14526134c788f50ea82e06c9ef4ce475}{read\+Calibration\+Offsets}} (float \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}{x}}, float \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}{y}}, float \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}{z}})
+\begin{DoxyCompactList}\small\item\em Read the calibration offsets from the device. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a1293de8875285a83cb754fbd3e1fec1f}{write\+Offsetxyz}} ()
+\begin{DoxyCompactList}\small\item\em Write the hard iron offsets to the device. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a88948623bf5c7296a02f03f3cf1ed658}\label{class_adafruit___l_i_s3_m_d_l_a88948623bf5c7296a02f03f3cf1ed658} 
+void {\bfseries load\+Offsets\+From\+EEPROM} ()
+\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_af6a8c615273be3d6e991f9242141cb52}\label{class_adafruit___l_i_s3_m_d_l_af6a8c615273be3d6e991f9242141cb52} 
+void {\bfseries save\+Offsets\+To\+EEPROM} ()
+\item 
+void \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l_a86b91bb77e636a8c22cf843303caa096}{low\+Power\+Mode}} (bool mode)
+\begin{DoxyCompactList}\small\item\em Set the low power mode for the device. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375}\label{class_adafruit___l_i_s3_m_d_l_ae1c2d516777e6b42af0d281c9ecc7375} 
+int16\+\_\+t {\bfseries x}
+\begin{DoxyCompactList}\small\item\em The last read X mag in raw units. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd}\label{class_adafruit___l_i_s3_m_d_l_af77b1a54442f2443cf64a4766f916bcd} 
+int16\+\_\+t {\bfseries y}
+\begin{DoxyCompactList}\small\item\em The last read Y mag in raw units. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222}\label{class_adafruit___l_i_s3_m_d_l_abd938edbea27ed4f351dc19d69039222} 
+int16\+\_\+t {\bfseries z}
+\begin{DoxyCompactList}\small\item\em The last read Z mag in raw units. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a13b0d7e7a6f83c9d0459ed753fcca852}\label{class_adafruit___l_i_s3_m_d_l_a13b0d7e7a6f83c9d0459ed753fcca852} 
+float {\bfseries x\+\_\+gauss}
+\begin{DoxyCompactList}\small\item\em The last read X mag in \textquotesingle{}gauss\textquotesingle{}. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_af8a316b60d8cf119450385a8c3f963b7}\label{class_adafruit___l_i_s3_m_d_l_af8a316b60d8cf119450385a8c3f963b7} 
+float {\bfseries y\+\_\+gauss}
+\begin{DoxyCompactList}\small\item\em The last read Y mag in \textquotesingle{}gauss\textquotesingle{}. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a9653bda0a4642c94b1de45495dfb7820}\label{class_adafruit___l_i_s3_m_d_l_a9653bda0a4642c94b1de45495dfb7820} 
+float {\bfseries z\+\_\+gauss}
+\begin{DoxyCompactList}\small\item\em The last read Z mag in \textquotesingle{}gauss\textquotesingle{}. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a6ff10403a76d3bd3142be673c41eb574}\label{class_adafruit___l_i_s3_m_d_l_a6ff10403a76d3bd3142be673c41eb574} 
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\+\_\+range\+\_\+t}} {\bfseries range\+Buffered} = \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a8ca0406fdb8e45c725c243c3e098fe47}{LIS3\+MDL\+\_\+\+RANGE\+\_\+4\+\_\+\+GAUSS}}
+\begin{DoxyCompactList}\small\item\em buffer for the magnetometer range \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for hardware interfacing with an LIS3\+MDL magnetometer 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a583a6664ae4af4bdedb3d1ae0452a258}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!begin\_I2C@{begin\_I2C}}
+\index{begin\_I2C@{begin\_I2C}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{begin\_I2C()}{begin\_I2C()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a583a6664ae4af4bdedb3d1ae0452a258} 
+bool begin\+\_\+\+I2C (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{i2c\+\_\+address}{ = {\ttfamily \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a51fd2dc234b55a85808541dcf3a17218}{LIS3\+MDL\+\_\+\+I2\+CADDR\+\_\+\+DEFAULT}}}, }\item[{Two\+Wire \texorpdfstring{$\ast$}{*}}]{wire}{ = {\ttfamily \&Wire}}\end{DoxyParamCaption})}
+
+
+
+Sets up the hardware and initializes I2C. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i2c\+\_\+address} & The I2C address to be used. \\
+\hline
+{\em wire} & The Wire object to be used for I2C connections. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if initialization was successful, otherwise false. 
+\end{DoxyReturn}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_ab60417e437a745900b2cf56ddfd946f7}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!begin\_SPI@{begin\_SPI}}
+\index{begin\_SPI@{begin\_SPI}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{begin\_SPI()}{begin\_SPI()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_ab60417e437a745900b2cf56ddfd946f7} 
+bool begin\+\_\+\+SPI (\begin{DoxyParamCaption}\item[{int8\+\_\+t}]{cs\+\_\+pin}{, }\item[{int8\+\_\+t}]{sck\+\_\+pin}{, }\item[{int8\+\_\+t}]{miso\+\_\+pin}{, }\item[{int8\+\_\+t}]{mosi\+\_\+pin}{, }\item[{uint32\+\_\+t}]{frequency}{ = {\ttfamily 1000000}}\end{DoxyParamCaption})}
+
+
+
+Sets up the hardware and initializes software SPI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cs\+\_\+pin} & The arduino pin \# connected to chip select \\
+\hline
+{\em sck\+\_\+pin} & The arduino pin \# connected to SPI clock \\
+\hline
+{\em miso\+\_\+pin} & The arduino pin \# connected to SPI MISO \\
+\hline
+{\em mosi\+\_\+pin} & The arduino pin \# connected to SPI MOSI \\
+\hline
+{\em frequency} & The SPI bus frequency \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if initialization was successful, otherwise false. 
+\end{DoxyReturn}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a4eb61b1afbd9a3fe6f4e1874f76d0c56}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!begin\_SPI@{begin\_SPI}}
+\index{begin\_SPI@{begin\_SPI}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{begin\_SPI()}{begin\_SPI()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a4eb61b1afbd9a3fe6f4e1874f76d0c56} 
+boolean begin\+\_\+\+SPI (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{cs\+\_\+pin}{, }\item[{SPIClass \texorpdfstring{$\ast$}{*}}]{the\+SPI}{ = {\ttfamily \&SPI}, }\item[{uint32\+\_\+t}]{frequency}{ = {\ttfamily 1000000}}\end{DoxyParamCaption})}
+
+
+
+Sets up the hardware and initializes hardware SPI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cs\+\_\+pin} & The arduino pin \# connected to chip select \\
+\hline
+{\em the\+SPI} & The SPI object to be used for SPI connections. \\
+\hline
+{\em frequency} & The SPI bus frequency \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if initialization was successful, otherwise false. 
+\end{DoxyReturn}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_abe6636911400b48a18ce3a4b13d0d258}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!configInterrupt@{configInterrupt}}
+\index{configInterrupt@{configInterrupt}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{configInterrupt()}{configInterrupt()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_abe6636911400b48a18ce3a4b13d0d258} 
+void config\+Interrupt (\begin{DoxyParamCaption}\item[{bool}]{enableX}{, }\item[{bool}]{enableY}{, }\item[{bool}]{enableZ}{, }\item[{bool}]{polarity}{, }\item[{bool}]{latch}{, }\item[{bool}]{enable\+Int}{}\end{DoxyParamCaption})}
+
+
+
+Configure INT\+\_\+\+CFG. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em enableX} & Enable interrupt generation on X-\/axis \\
+\hline
+{\em enableY} & Enable interrupt generation on Y-\/axis \\
+\hline
+{\em enableZ} & Enable interrupt generation on Z-\/axis \\
+\hline
+{\em polarity} & Sets the polarity of the INT output logic \\
+\hline
+{\em latch} & If true (latched) the INT pin remains in the same state until INT\+\_\+\+SRC is read. \\
+\hline
+{\em enable\+Int} & Interrupt enable on INT pin \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{class_adafruit___l_i_s3_m_d_l_abe6636911400b48a18ce3a4b13d0d258_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_add94c2e76a0e26d66cb73cb5ae3b863b}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!getCalibrationOffsets@{getCalibrationOffsets}}
+\index{getCalibrationOffsets@{getCalibrationOffsets}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{getCalibrationOffsets()}{getCalibrationOffsets()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_add94c2e76a0e26d66cb73cb5ae3b863b} 
+void get\+Calibration\+Offsets (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{y}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{z}{}\end{DoxyParamCaption})}
+
+
+
+Get the calibration offsets for x, y, and z axes. 
+
+This function returns the calibration offsets for the x, y, and z axes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Pointer to store the x offset. \\
+\hline
+{\em y} & Pointer to store the y offset. \\
+\hline
+{\em z} & Pointer to store the z offset. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_af71c1007d6dad8a3b182f6179da6ddd9}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!getDataRate@{getDataRate}}
+\index{getDataRate@{getDataRate}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{getDataRate()}{getDataRate()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_af71c1007d6dad8a3b182f6179da6ddd9} 
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\+\_\+data\+Rate\+\_\+t}} get\+Data\+Rate (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the data rate for the LIS3\+MDL (controls power consumption) 
+
+\begin{DoxyReturn}{Returns}
+Enumerated \doxylink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\+\_\+data\+Rate\+\_\+t} from 0.\+625 Hz to 80Hz 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_af71c1007d6dad8a3b182f6179da6ddd9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{class_adafruit___l_i_s3_m_d_l_af71c1007d6dad8a3b182f6179da6ddd9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a3579ab819efb2ebd045b27e45529a533}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!getEvent@{getEvent}}
+\index{getEvent@{getEvent}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{getEvent()}{getEvent()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a3579ab819efb2ebd045b27e45529a533} 
+bool get\+Event (\begin{DoxyParamCaption}\item[{sensors\+\_\+event\+\_\+t \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})}
+
+
+
+Gets the most recent sensor event, Adafruit Unified Sensor format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to an Adafruit Unified sensor\+\_\+event\+\_\+t object that we\textquotesingle{}ll fill in \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True on successful read 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_a3579ab819efb2ebd045b27e45529a533_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a2301c878a5d76f8ed98cc15209720293}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!getIntThreshold@{getIntThreshold}}
+\index{getIntThreshold@{getIntThreshold}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{getIntThreshold()}{getIntThreshold()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a2301c878a5d76f8ed98cc15209720293} 
+uint16\+\_\+t get\+Int\+Threshold (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get the interrupt threshold value. 
+
+\begin{DoxyReturn}{Returns}
+16-\/bit unsigned raw value 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{class_adafruit___l_i_s3_m_d_l_a2301c878a5d76f8ed98cc15209720293_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_ab414ec7778caa654d7def6d088bb891a}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!getOperationMode@{getOperationMode}}
+\index{getOperationMode@{getOperationMode}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{getOperationMode()}{getOperationMode()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_ab414ec7778caa654d7def6d088bb891a} 
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\+\_\+operationmode\+\_\+t}} get\+Operation\+Mode (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get the operation mode. 
+
+\begin{DoxyReturn}{Returns}
+Enumerated \doxylink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\+\_\+operationmode\+\_\+t}, LIS3\+MDL\+\_\+\+CONTINUOUSMODE, LIS3\+MDL\+\_\+\+SINGLEMODE or LIS3\+MDL\+\_\+\+POWERDOWNMODE 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_ab414ec7778caa654d7def6d088bb891a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a81d7b152e2d3e5ea6f4a26dfeef3b720}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!getPerformanceMode@{getPerformanceMode}}
+\index{getPerformanceMode@{getPerformanceMode}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{getPerformanceMode()}{getPerformanceMode()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a81d7b152e2d3e5ea6f4a26dfeef3b720} 
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\+\_\+performancemode\+\_\+t}} get\+Performance\+Mode (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get the performance mode. 
+
+\begin{DoxyReturn}{Returns}
+Enumerated \doxylink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\+\_\+performancemode\+\_\+t}, LIS3\+MDL\+\_\+\+LOWPOWERMODE, LIS3\+MDL\+\_\+\+MEDIUMMODE, LIS3\+MDL\+\_\+\+HIGHMODE or LIS3\+MDL\+\_\+\+ULTRAHIGHMODE 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_a81d7b152e2d3e5ea6f4a26dfeef3b720_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a0fa1ae1965b1e22ef8e00e781a6a06f2}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!getRange@{getRange}}
+\index{getRange@{getRange}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{getRange()}{getRange()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a0fa1ae1965b1e22ef8e00e781a6a06f2} 
+\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\+\_\+range\+\_\+t}} get\+Range (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Read the resolution range\+: +-\/4 gauss, 8 gauss, 12 gauss, or 16 gauss. 
+
+\begin{DoxyReturn}{Returns}
+Enumerated \doxylink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\+\_\+range\+\_\+t} 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_a0fa1ae1965b1e22ef8e00e781a6a06f2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{class_adafruit___l_i_s3_m_d_l_a0fa1ae1965b1e22ef8e00e781a6a06f2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_ac30038292830ac3e38a75a07682cc958}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!getSensor@{getSensor}}
+\index{getSensor@{getSensor}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{getSensor()}{getSensor()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_ac30038292830ac3e38a75a07682cc958} 
+void get\+Sensor (\begin{DoxyParamCaption}\item[{sensor\+\_\+t \texorpdfstring{$\ast$}{*}}]{sensor}{}\end{DoxyParamCaption})}
+
+
+
+Gets the sensor\+\_\+t device data, Adafruit Unified Sensor format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor} & Pointer to an Adafruit Unified sensor\+\_\+t object that we\textquotesingle{}ll fill in \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a3d4f666f49ac927f58dae9180cef96fb}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!hardIronCalc@{hardIronCalc}}
+\index{hardIronCalc@{hardIronCalc}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{hardIronCalc()}{hardIronCalc()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a3d4f666f49ac927f58dae9180cef96fb} 
+void hard\+Iron\+Calc (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{z}{}\end{DoxyParamCaption})}
+
+
+
+Compute the hard iron offsets based on the provided x, y, and z values. 
+
+This function computes the hard iron offsets based on the provided x, y, and z values on each call. It keeps track of the maximum and minimum values for each axis and calculates the offsets.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x value to be used for offset calculation. \\
+\hline
+{\em y} & The y value to be used for offset calculation. \\
+\hline
+{\em z} & The z value to be used for offset calculation. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a86b91bb77e636a8c22cf843303caa096}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!lowPowerMode@{lowPowerMode}}
+\index{lowPowerMode@{lowPowerMode}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{lowPowerMode()}{lowPowerMode()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a86b91bb77e636a8c22cf843303caa096} 
+void low\+Power\+Mode (\begin{DoxyParamCaption}\item[{bool}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Set the low power mode for the device. 
+
+This function sets the low power mode for the device.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & The low power mode to set (true for low power mode, false for normal mode). \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{class_adafruit___l_i_s3_m_d_l_a86b91bb77e636a8c22cf843303caa096_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_add1cc7f688602700413791d2772703ef}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!magneticFieldAvailable@{magneticFieldAvailable}}
+\index{magneticFieldAvailable@{magneticFieldAvailable}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{magneticFieldAvailable()}{magneticFieldAvailable()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_add1cc7f688602700413791d2772703ef} 
+int magnetic\+Field\+Available (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Check for available data from magnetic. 
+
+\begin{DoxyReturn}{Returns}
+1 if available, 0 if not 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_add1cc7f688602700413791d2772703ef_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a190b65288a58eb32301d8aa7a20501f4}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!magneticFieldSampleRate@{magneticFieldSampleRate}}
+\index{magneticFieldSampleRate@{magneticFieldSampleRate}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{magneticFieldSampleRate()}{magneticFieldSampleRate()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a190b65288a58eb32301d8aa7a20501f4} 
+float magnetic\+Field\+Sample\+Rate (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get the magnetic data rate. 
+
+\begin{DoxyReturn}{Returns}
+The data rate in float 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_a190b65288a58eb32301d8aa7a20501f4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a14526134c788f50ea82e06c9ef4ce475}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!readCalibrationOffsets@{readCalibrationOffsets}}
+\index{readCalibrationOffsets@{readCalibrationOffsets}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{readCalibrationOffsets()}{readCalibrationOffsets()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a14526134c788f50ea82e06c9ef4ce475} 
+void read\+Calibration\+Offsets (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{y}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{z}{}\end{DoxyParamCaption})}
+
+
+
+Read the calibration offsets from the device. 
+
+This function reads the calibration offsets from the device and converts them based on the scale.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Pointer to store the x offset. \\
+\hline
+{\em y} & Pointer to store the y offset. \\
+\hline
+{\em z} & Pointer to store the z offset. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_a14526134c788f50ea82e06c9ef4ce475_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{class_adafruit___l_i_s3_m_d_l_a14526134c788f50ea82e06c9ef4ce475_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_aa57cc19978464aa582ace2dbc59831c4}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!readMagneticField@{readMagneticField}}
+\index{readMagneticField@{readMagneticField}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{readMagneticField()}{readMagneticField()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_aa57cc19978464aa582ace2dbc59831c4} 
+int read\+Magnetic\+Field (\begin{DoxyParamCaption}\item[{float \&}]{x}{, }\item[{float \&}]{y}{, }\item[{float \&}]{z}{}\end{DoxyParamCaption})}
+
+
+
+Read magnetic data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & reference to x axis \\
+\hline
+{\em y} & reference to y axis \\
+\hline
+{\em z} & reference to z axis \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if success, 0 if not 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{class_adafruit___l_i_s3_m_d_l_aa57cc19978464aa582ace2dbc59831c4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a628c42b0cc114c8082d18020ba03face}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!resetRegisters@{resetRegisters}}
+\index{resetRegisters@{resetRegisters}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{resetRegisters()}{resetRegisters()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a628c42b0cc114c8082d18020ba03face} 
+bool reset\+Registers (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Reset all registers to default values. 
+
+\begin{DoxyReturn}{Returns}
+true if successful, false otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_a628c42b0cc114c8082d18020ba03face_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a051586baa8c73bd45dfd7b213f8c3e75}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!selfTest@{selfTest}}
+\index{selfTest@{selfTest}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{selfTest()}{selfTest()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a051586baa8c73bd45dfd7b213f8c3e75} 
+void self\+Test (\begin{DoxyParamCaption}\item[{bool}]{flag}{}\end{DoxyParamCaption})}
+
+
+
+Enable or disable self-\/test. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flag} & If true, enable self-\/test \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{class_adafruit___l_i_s3_m_d_l_a051586baa8c73bd45dfd7b213f8c3e75_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_add86a75e264cd97f18cbff151e53f0ba}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!setCalibrationOffsets@{setCalibrationOffsets}}
+\index{setCalibrationOffsets@{setCalibrationOffsets}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{setCalibrationOffsets()}{setCalibrationOffsets()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_add86a75e264cd97f18cbff151e53f0ba} 
+void set\+Calibration\+Offsets (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{z}{}\end{DoxyParamCaption})}
+
+
+
+Set the calibration offsets for x, y, and z axes. 
+
+This function sets the calibration offsets for the x, y, and z axes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x offset to be set. \\
+\hline
+{\em y} & The y offset to be set. \\
+\hline
+{\em z} & The z offset to be set. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a497979b74e6303a0b0e4a41d3e5bb8c1}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!setDataRate@{setDataRate}}
+\index{setDataRate@{setDataRate}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{setDataRate()}{setDataRate()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a497979b74e6303a0b0e4a41d3e5bb8c1} 
+void set\+Data\+Rate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\+\_\+data\+Rate\+\_\+t}}}]{data\+Rate}{}\end{DoxyParamCaption})}
+
+
+
+Sets the data rate for the LIS3\+MDL (controls power consumption) from 0.\+625 Hz to 80Hz. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data\+Rate} & Enumerated \doxylink{_adafruit___l_i_s3_m_d_l_8h_a4ad0ef48066cb2034775e47c4331652c}{lis3mdl\+\_\+data\+Rate\+\_\+t} \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_a497979b74e6303a0b0e4a41d3e5bb8c1_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a8d9de2059591e825291b8f48ec258cc8}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!setIntThreshold@{setIntThreshold}}
+\index{setIntThreshold@{setIntThreshold}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{setIntThreshold()}{setIntThreshold()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a8d9de2059591e825291b8f48ec258cc8} 
+void set\+Int\+Threshold (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Set the interrupt threshold value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & 16-\/bit unsigned raw value \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{class_adafruit___l_i_s3_m_d_l_a8d9de2059591e825291b8f48ec258cc8_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a522ac675edbe0d006d9221042311db9e}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!setOperationMode@{setOperationMode}}
+\index{setOperationMode@{setOperationMode}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{setOperationMode()}{setOperationMode()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a522ac675edbe0d006d9221042311db9e} 
+void set\+Operation\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\+\_\+operationmode\+\_\+t}}}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Set the operation mode, LIS3\+MDL\+\_\+\+CONTINUOUSMODE, LIS3\+MDL\+\_\+\+SINGLEMODE or LIS3\+MDL\+\_\+\+POWERDOWNMODE. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & Enumerated \doxylink{_adafruit___l_i_s3_m_d_l_8h_a861cd0b7b8f6514e05b3dee9e22b731d}{lis3mdl\+\_\+operationmode\+\_\+t} \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_a522ac675edbe0d006d9221042311db9e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a7797c2848e051a248735fbf16fe76524}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!setPerformanceMode@{setPerformanceMode}}
+\index{setPerformanceMode@{setPerformanceMode}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{setPerformanceMode()}{setPerformanceMode()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a7797c2848e051a248735fbf16fe76524} 
+void set\+Performance\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\+\_\+performancemode\+\_\+t}}}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Set the performance mode, LIS3\+MDL\+\_\+\+LOWPOWERMODE, LIS3\+MDL\+\_\+\+MEDIUMMODE, LIS3\+MDL\+\_\+\+HIGHMODE or LIS3\+MDL\+\_\+\+ULTRAHIGHMODE. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & Enumerated \doxylink{_adafruit___l_i_s3_m_d_l_8h_a715200c0b447c54981c86af08aff425a}{lis3mdl\+\_\+performancemode\+\_\+t} \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_a7797c2848e051a248735fbf16fe76524_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{class_adafruit___l_i_s3_m_d_l_a7797c2848e051a248735fbf16fe76524_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a40803a301762e56a94fe0bf92ce24605}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!setRange@{setRange}}
+\index{setRange@{setRange}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{setRange()}{setRange()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a40803a301762e56a94fe0bf92ce24605} 
+void set\+Range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\+\_\+range\+\_\+t}}}]{range}{}\end{DoxyParamCaption})}
+
+
+
+Set the resolution range\+: +-\/4 gauss, 8 gauss, 12 gauss, or 16 gauss. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em range} & Enumerated \doxylink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\+\_\+range\+\_\+t} \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{class_adafruit___l_i_s3_m_d_l_a40803a301762e56a94fe0bf92ce24605_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___l_i_s3_m_d_l_a1293de8875285a83cb754fbd3e1fec1f}\index{Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}!writeOffsetxyz@{writeOffsetxyz}}
+\index{writeOffsetxyz@{writeOffsetxyz}!Adafruit\_LIS3MDL@{Adafruit\_LIS3MDL}}
+\doxysubsubsection{\texorpdfstring{writeOffsetxyz()}{writeOffsetxyz()}}
+{\footnotesize\ttfamily \label{class_adafruit___l_i_s3_m_d_l_a1293de8875285a83cb754fbd3e1fec1f} 
+bool write\+Offsetxyz (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Write the hard iron offsets to the device. 
+
+This function writes the hard iron offsets from the class variables to the device. It first reads the current offsets from the device, then subtracts the current offsets from the device offsets, and finally writes the new offsets to the device. \begin{DoxyReturn}{Returns}
+true if successful, false otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___l_i_s3_m_d_l_a1293de8875285a83cb754fbd3e1fec1f_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+Adafruit LIS3\+MDL/\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h}{Adafruit\+\_\+\+LIS3\+MDL.\+h}}\item 
+C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+Adafruit LIS3\+MDL/\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8cpp}{Adafruit\+\_\+\+LIS3\+MDL.\+cpp}}\end{DoxyCompactItemize}

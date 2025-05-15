@@ -1,0 +1,8 @@
+<map id="setDataRate" name="setDataRate">
+<area shape="rect" id="Node000001" title="Sets the data rate for the LIS3MDL (controls power consumption) from 0.625 Hz to 80Hz." alt="" coords="5,31,101,57"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___l_i_s3_m_d_l.html#a7797c2848e051a248735fbf16fe76524" title="Set the performance mode, LIS3MDL_LOWPOWERMODE, LIS3MDL_MEDIUMMODE, LIS3MDL_HIGHMODE or LIS3MDL_ULTRA..." alt="" coords="149,5,294,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,34,133,29,134,35,101,40"/>
+<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register_bits.html#a813f4ef469295b1771bebe1a954986b5" title="Write 4 bytes of data to the register." alt="" coords="342,23,531,65"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="101,41,326,41,326,47,101,47"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="295,25,327,28,326,34,294,30"/>
+</map>

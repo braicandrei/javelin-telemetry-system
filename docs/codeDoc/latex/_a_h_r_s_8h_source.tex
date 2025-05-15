@@ -1,0 +1,120 @@
+\doxysection{AHRS.\+h}
+\hypertarget{_a_h_r_s_8h_source}{}\label{_a_h_r_s_8h_source}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/AHRS/AHRS.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/AHRS/AHRS.h}}
+\mbox{\hyperlink{_a_h_r_s_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ AHRS\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ AHRS\_H\ \ }}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_adafruit___i_c_m20649_8h}{Adafruit\_ICM20649.h}}>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h}{Adafruit\_LIS3MDL.h}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <MadgwickAHRS.h>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ EEPROM\_SIZE\ 1024\ }}
+\DoxyCodeLine{00014\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_a_h_r_s_8h_a3f959c80fcf1873c6ea11173c47606f7}{EEPROM\_ADDR}}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{_a_h_r_s_8h_a3f959c80fcf1873c6ea11173c47606f7ab9dcea2beae50686785481f3f432180d}{MAG\_X\_OFFSET}},\ }
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{_a_h_r_s_8h_a3f959c80fcf1873c6ea11173c47606f7a630783f160bcabf0b4fabda62be8d47a}{MAG\_Y\_OFFSET}},\ }
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{_a_h_r_s_8h_a3f959c80fcf1873c6ea11173c47606f7a562935caf62eeae5291749ecb30cc983}{MAG\_Z\_OFFSET}},\ }
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{float}\ xoffset,}
+\DoxyCodeLine{00023\ \ \ \ \ yoffset,}
+\DoxyCodeLine{00024\ \ \ \ \ zoffset;}
+\DoxyCodeLine{00025\ \}\ \mbox{\hyperlink{structoffsets__t}{offsets\_t}};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structahrs__axes__t_a47554816068d5d859fd1d7971d5da628}{accX}},\ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t_a7f86285d224e09b936fb97cda5a97f62}{accY}},\ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t_ab76e62144bc5c94a7d5c985049fb72cf}{accZ}},\ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t_a962106e17ae4758836727a307b089f2c}{gyroX}},\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t_af48596e04270f285f36dca851eb8b137}{gyroY}},\ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t_ad5c2a29caa9f5927e6325ce95cca417a}{gyroZ}},\ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t_a10a4438fd536c497dd7870b8d0b421a3}{magX}},\ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t_a76f23d66020047d43bc9d7d53d436ef1}{magY}},\ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t_aa6d3b5f9a4f5bf6997bf328d3e6cee11}{magZ}};\ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \}\ \mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{float}\ roll,\ pitch,\ yaw;\ }
+\DoxyCodeLine{00043\ \}\ \mbox{\hyperlink{structahrs__orientation__t}{ahrs\_orientation\_t}};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{float}\ direction,\ inclination;}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{structahrs__orientation__t}{ahrs\_orientation\_t}}\ orientation;}
+\DoxyCodeLine{00048\ \}\ \mbox{\hyperlink{structahrs__angles__t}{ahrs\_angles\_t}};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ AHRS\_WAITING,}
+\DoxyCodeLine{00053\ \ \ \ \ AHRS\_PREP,}
+\DoxyCodeLine{00054\ \ \ \ \ AHRS\_SAMPLING,}
+\DoxyCodeLine{00055\ \ \ \ \ AHRS\_END}
+\DoxyCodeLine{00056\ \}state\_t;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00059\ \{\ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ AHRS\_15HZ,}
+\DoxyCodeLine{00061\ \ \ \ \ AHRS\_25HZ,}
+\DoxyCodeLine{00062\ \ \ \ \ AHRS\_45HZ,}
+\DoxyCodeLine{00063\ \ \ \ \ AHRS\_125HZ,}
+\DoxyCodeLine{00064\ \ \ \ \ AHRS\_225HZ,}
+\DoxyCodeLine{00065\ \ \ \ \ AHRS\_375HZ,}
+\DoxyCodeLine{00066\ \ \ \ \ AHRS\_1125HZ}
+\DoxyCodeLine{00067\ \}\ ahrs\_sample\_rate\_t;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_h_r_s_a2e17b9fb819cb82cf598e662680aea2c}{AHRS}}\ \{\ \ \ \ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{class_a_h_r_s_a2e17b9fb819cb82cf598e662680aea2c}{AHRS}}();}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{class_a_h_r_s_a3bd62f6f3a4c22dca1923c457fdeb22a}{\string~AHRS}}();}
+\DoxyCodeLine{00073\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_a_h_r_s_a78675a6984299621d9a63d1ea200d374}{beginAHRSi2c}}();}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_a_h_r_s_ab59331766ab1b4f7122e150cf070a3c7}{configAHRS}}();}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_a_h_r_s_a35d2d1c91d38f85278085ef05ab4aec1}{lowPowerMode}}(\textcolor{keywordtype}{bool}\ mode);}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_a_h_r_s_a70f0d30d098a03e431d38185efdb112f}{setAHRSRange}}(}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_adafruit___i_c_m20649_8h_a93d991eeadd579f5afb2e9f96a677d5e}{icm20649\_accel\_range\_t}}\ \mbox{\hyperlink{class_a_h_r_s_a6189124fecdceb5496f46e6a81bb98f3}{accelRange}},\ \mbox{\hyperlink{_adafruit___i_c_m20649_8h_a2dea2164611112a806884f8400ccb6bb}{icm20649\_gyro\_range\_t}}\ \mbox{\hyperlink{class_a_h_r_s_a3fa60729fdc2c087bd40955328e3e46b}{gyroRange}},\ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\_range\_t}}\ \mbox{\hyperlink{class_a_h_r_s_a71095da5c2ef4973c6c04e6742e4bddd}{magRange}});}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ \mbox{\hyperlink{class_a_h_r_s_abe2b7587705ffbf6d78af0e53fd1e351}{scaleAxes}}(\mbox{\hyperlink{structicm20x__raw__axes__t}{icm20x\_raw\_axes\_t}}\ \mbox{\hyperlink{class_a_h_r_s_ad56459f87128c370518b72ea11207519}{raw\_axes}});}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ \mbox{\hyperlink{class_a_h_r_s_abb1a2682cefcf908caaac48cc75f482f}{correctAxex}}\ (\mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ scaled\_axes);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_h_r_s_a91c1c11f1270c509696883b47a0a045a}{magHardIronCalc}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z);}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_h_r_s_a8173e2dace2631fafa67a14866d00604}{hardIronCalib}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z);}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_h_r_s_a13edb0ec3aa623d9ef1c0d3b1fd3a54d}{setHardIronOffsets}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z);}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_h_r_s_aa1eaee4a700dbbedda3c51ed30811144}{endHardIronCalib}}();}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_h_r_s_a291f16b410334985a45acaf34319025d}{magCalibWrite}}();}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_h_r_s_a50d4ca5704ed1013ee0651111a772368}{saveMagCalibToEEPROM}}();}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_a_h_r_s_a8ca8ddfc99d8e3a961e6c15580919a1c}{loadMagCalibFromEEPROM}}();}
+\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{structahrs__orientation__t}{ahrs\_orientation\_t}}\ \mbox{\hyperlink{class_a_h_r_s_a452382eeebf99f365e3655910804066a}{computeAHRSOrientation}}(\mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ scaled\_axes);}
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{structahrs__angles__t}{ahrs\_angles\_t}}\ \mbox{\hyperlink{class_a_h_r_s_a73543c1ec949ac93d1c80c1a0e65ef9f}{computeAHRSInclination}}(\mbox{\hyperlink{structahrs__axes__t}{ahrs\_axes\_t}}\ scaled\_axes);}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{structahrs__orientation__t}{ahrs\_orientation\_t}}\ relativeOrientation\ =\ \{0,\ 0,\ 0\};}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{class_adafruit___i_c_m20649}{Adafruit\_ICM20649}}\ icm20649;}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{class_adafruit___l_i_s3_m_d_l}{Adafruit\_LIS3MDL}}\ lis3mdl;}
+\DoxyCodeLine{00093\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{class_a_h_r_s_a8a30e0cb8872dffa929f9bea1e465a14}{getAHRSSampleRate}}();}
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{structoffsets__t}{offsets\_t}}\ \mbox{\hyperlink{class_a_h_r_s_ab388be0599bf1966da7288c6f3405216}{getMagOffsets}}();}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{structoffsets__t}{offsets\_t}}\ \mbox{\hyperlink{class_a_h_r_s_a9b784e18cf4bbc2830f3a1e6b4efdbc2}{getGyroOffsets}}();}
+\DoxyCodeLine{00096\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{bool}\ magCalibrationFlag\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{structoffsets__t}{offsets\_t}}\ magOffsetsTemp\ =\ \{0,\ 0,\ 0\};}
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{structoffsets__t}{offsets\_t}}\ magOffsets\ =\ \{-\/0.04,\ 0.08,\ -\/0.47\};}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{structoffsets__t}{offsets\_t}}\ gyroOffsets\ =\ \{0.5,\ -\/2.0,\ 0.5\};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00103\ \mbox{\hyperlink{structicm20x__raw__axes__t}{icm20x\_raw\_axes\_t}}\ \mbox{\hyperlink{class_a_h_r_s_ad56459f87128c370518b72ea11207519}{raw\_axes}}[\mbox{\hyperlink{_adafruit___i_c_m20_x_8h_addb09eb8c9b689cc43912c8e264a6312}{ICM20X\_FIFO\_SIZE}}/6];\ \ }
+\DoxyCodeLine{00104\ \mbox{\hyperlink{_adafruit___i_c_m20649_8h_a93d991eeadd579f5afb2e9f96a677d5e}{icm20649\_accel\_range\_t}}\ \mbox{\hyperlink{class_a_h_r_s_a6189124fecdceb5496f46e6a81bb98f3}{accelRange}}\ =\ ICM20649\_ACCEL\_RANGE\_30\_G;\ }
+\DoxyCodeLine{00105\ \mbox{\hyperlink{_adafruit___i_c_m20649_8h_a2dea2164611112a806884f8400ccb6bb}{icm20649\_gyro\_range\_t}}\ \mbox{\hyperlink{class_a_h_r_s_a3fa60729fdc2c087bd40955328e3e46b}{gyroRange}}\ =\ ICM20649\_GYRO\_RANGE\_4000\_DPS;\ }
+\DoxyCodeLine{00106\ \mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466}{lis3mdl\_range\_t}}\ \mbox{\hyperlink{class_a_h_r_s_a71095da5c2ef4973c6c04e6742e4bddd}{magRange}}\ =\mbox{\hyperlink{_adafruit___l_i_s3_m_d_l_8h_aa98cbf2d4d06f57f0439102a3f74e466a199ff7db595917ecc71ea6ffa35e824f}{LIS3MDL\_RANGE\_8\_GAUSS}};\ }
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ ahrs\_sample\_rate\_t\ \mbox{\hyperlink{class_a_h_r_s_aceeac63d534a7a2f1f5706530d7a46e1}{sampleRate}}\ =\ AHRS\_225HZ;\ }
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ uint8\_t\ \mbox{\hyperlink{class_a_h_r_s_a4dd54d35307d0ab93297ccfe6042173e}{getAHRSSampleRateDivisor}}();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \mbox{\hyperlink{class_madgwick}{Madgwick}}\ fusionFilter;}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

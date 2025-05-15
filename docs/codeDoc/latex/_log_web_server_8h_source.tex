@@ -1,0 +1,36 @@
+\doxysection{Log\+Web\+Server.\+h}
+\hypertarget{_log_web_server_8h_source}{}\label{_log_web_server_8h_source}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/LogWebServer/LogWebServer.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/LogWebServer/LogWebServer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LOGWEBSERVER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LOGWEBSERVER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <WiFi.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <ESPAsyncWebServer.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <ESPmDNS.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <SPI.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <SD.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <LittleFS.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }LogWebServer\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ LogWebServer(uint8\_t\ sdCsPin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ ssid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ password,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ mdnsName);}
+\DoxyCodeLine{00015\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_log_web_server_ab0bdf5cca484fb2ba637c39384b27fb2}{begin}}();}
+\DoxyCodeLine{00016\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_log_web_server_aaf81d3fdaf258088d7692fa70cece087}{end}}();}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00019\ \ \ uint8\_t\ \_sdCsPin;}
+\DoxyCodeLine{00020\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \_ssid;}
+\DoxyCodeLine{00021\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \_password;}
+\DoxyCodeLine{00022\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \_mdnsName;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ AsyncWebServer\ \_server;}
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordtype}{bool}\ \_running;}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ isProcessingRequest\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{void}\ initRoutes();}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

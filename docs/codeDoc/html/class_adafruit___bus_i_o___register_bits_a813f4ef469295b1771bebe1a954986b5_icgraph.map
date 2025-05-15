@@ -1,0 +1,65 @@
+<map id="write" name="write">
+<area shape="rect" id="Node000001" title="Write 4 bytes of data to the register." alt="" coords="824,668,874,695"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20_x.html#ad2f2f11e0a66db1ca328be19d9b4e549" title="Initilizes the sensor." alt="" coords="271,72,424,99"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="844,653,837,516,824,328,803,153,789,93,782,73,774,62,752,45,728,32,676,16,620,12,563,17,508,28,457,43,379,74,377,69,455,38,507,23,562,12,620,7,677,11,730,27,755,41,778,58,787,71,795,91,808,153,829,327,843,516,849,652"/>
+<area shape="rect" id="Node000006" href="$class_adafruit___i_c_m20_x.html#a23c7eeed0b0183a1263817864205d087" title="Configure I2C slave 0." alt="" coords="551,256,726,299"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="843,653,837,573,824,471,804,375,790,338,774,312,752,296,726,286,728,281,755,291,778,309,795,335,809,373,830,470,842,573,849,652"/>
+<area shape="rect" id="Node000007" href="$class_adafruit___i_c_m20_x.html#a4040b74298372f597d72b30143b51eff" title="Enable or disable the accelerometer&#39;s Digital Low Pass Filter." alt="" coords="522,323,756,349"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="843,653,835,583,821,496,801,415,789,384,774,363,755,349,758,345,778,359,793,381,806,413,827,495,840,582,848,652"/>
+<area shape="rect" id="Node000008" href="$class_adafruit___i_c_m20_x.html#a3d7f0a863b32a0d873dd3efd0224fd76" title="NEW IMPLEMENTATION." alt="" coords="540,373,737,400"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="841,653,818,522,798,456,787,431,774,414,757,402,737,393,739,388,760,397,778,410,791,428,803,454,823,521,847,652"/>
+<area shape="rect" id="Node000009" href="$class_adafruit___i_c_m20_x.html#a0d73d1dc2c6b1df223cc1607ecba24bf" title="Enable/disable fifo watermark interrupt." alt="" coords="501,424,776,451"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="844,653,840,610,829,559,808,508,793,485,775,465,758,453,761,449,778,461,797,481,813,505,834,557,845,609,850,652"/>
+<area shape="rect" id="Node000010" href="$class_adafruit___i_c_m20_x.html#ade64da127099fbfc0146ecf4795e43c7" title="Enable or disable the gyro&#39;s Digital Low Pass Filter." alt="" coords="522,475,755,501"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="841,653,834,620,821,583,802,546,775,515,754,503,757,498,778,511,806,543,826,581,839,619,846,652"/>
+<area shape="rect" id="Node000011" href="$class_adafruit___i_c_m20_x.html#ac7a7226e9e149a76f635e290c24a378c" title="Enable or disable the I2C mastercontroller." alt="" coords="550,525,728,568"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="833,655,809,617,793,598,775,582,752,570,727,561,729,556,754,565,778,578,797,594,814,614,838,652"/>
+<area shape="rect" id="Node000012" href="$class_adafruit___l_i_s3_m_d_l.html#a86b91bb77e636a8c22cf843303caa096" title="Set the low power mode for the device." alt="" coords="526,592,751,619"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="819,660,775,633,741,622,743,617,777,628,822,656"/>
+<area shape="rect" id="Node000013" href="$class_adafruit___i_c_m20_x.html#a3aea9deb2a0bfea9ff05a898f4822e31" title="Reset the internal registers and restores the default settings." alt="" coords="560,72,718,99"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="846,652,846,535,838,372,830,290,817,215,798,153,787,130,774,113,749,95,717,86,719,81,751,90,778,109,792,127,803,151,822,213,835,289,844,372,851,535,851,652"/>
+<area shape="rect" id="Node000014" href="$class_adafruit___l_i_s3_m_d_l.html#a3aea9deb2a0bfea9ff05a898f4822e31" title="Performs a software reset." alt="" coords="556,643,721,669"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="808,679,721,669,722,663,809,674"/>
+<area shape="rect" id="Node000015" href="$class_adafruit___i_c_m20_x.html#a0da9b182c188eb322a7e08aa15b2f006" title="Reset FIFO data." alt="" coords="544,693,733,720"/>
+<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="809,689,733,698,733,693,808,683"/>
+<area shape="rect" id="Node000016" href="$class_adafruit___i_c_m20_x.html#a184ecac5305a389314d5abbde7435899" title="Reset the I2C master." alt="" coords="554,744,723,787"/>
+<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="821,707,777,734,725,753,723,748,775,730,818,703"/>
+<area shape="rect" id="Node000017" href="$class_adafruit___l_i_s3_m_d_l.html#a628c42b0cc114c8082d18020ba03face" title="Reset all registers to default values." alt="" coords="528,811,749,837"/>
+<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="841,711,817,758,800,781,778,801,751,815,749,810,775,796,796,778,813,755,836,708"/>
+<area shape="rect" id="Node000018" href="$class_adafruit___i_c_m20_x.html#a505ac40b32317d76df72732599dc4222" title="Select FIFO input data." alt="" coords="528,861,750,888"/>
+<area shape="poly" id="edge18_Node000001_Node000018" title=" " alt="" coords="846,711,839,744,826,782,806,820,778,851,752,867,749,862,775,847,802,817,821,780,834,742,841,710"/>
+<area shape="rect" id="Node000019" href="$class_adafruit___l_i_s3_m_d_l.html#a051586baa8c73bd45dfd7b213f8c3e75" title="Enable or disable self&#45;test." alt="" coords="548,912,730,939"/>
+<area shape="poly" id="edge19_Node000001_Node000019" title=" " alt="" coords="850,711,845,753,834,805,813,858,797,881,778,902,756,916,731,925,729,920,754,912,775,898,793,878,808,855,829,804,840,753,844,710"/>
+<area shape="rect" id="Node000020" href="$class_adafruit___l_i_s3_m_d_l.html#a497979b74e6303a0b0e4a41d3e5bb8c1" title="Sets the data rate for the LIS3MDL (controls power consumption) from 0.625 Hz to 80Hz." alt="" coords="243,988,453,1015"/>
+<area shape="poly" id="edge20_Node000001_Node000020" title=" " alt="" coords="847,710,838,770,823,843,804,909,792,935,778,953,755,967,722,978,639,994,544,1002,454,1005,453,999,544,996,639,988,721,973,752,962,775,949,787,932,799,908,818,841,833,769,841,710"/>
+<area shape="rect" id="Node000021" href="$class_adafruit___i_c_m20_x.html#ae4609a1774e10294533229c0e7e935e4" title="Sets the bypass status of the I2C master bus support." alt="" coords="532,1064,745,1091"/>
+<area shape="poly" id="edge21_Node000001_Node000021" title=" " alt="" coords="849,710,843,790,830,893,810,990,795,1028,778,1054,763,1066,746,1074,744,1069,760,1061,774,1050,791,1026,804,989,825,892,837,790,844,710"/>
+<area shape="rect" id="Node000022" href="$class_adafruit___i_c_m20_x.html#ac272085c2c4c1d709db9e103fe597b71" title="Sets the polarity of the int1 pin." alt="" coords="554,1115,723,1157"/>
+<area shape="poly" id="edge22_Node000001_Node000022" title=" " alt="" coords="849,711,845,800,833,918,824,977,812,1030,797,1074,778,1104,754,1123,725,1134,723,1129,751,1118,774,1101,792,1072,807,1029,819,976,828,917,839,800,844,710"/>
+<area shape="rect" id="Node000023" href="$class_adafruit___i_c_m20_x.html#a6242da29c26dea7fcb82afc707c30d7a" title="Sets the polarity of the INT2 pin." alt="" coords="554,1181,723,1224"/>
+<area shape="poly" id="edge23_Node000001_Node000023" title=" " alt="" coords="850,710,847,812,837,950,828,1019,816,1083,800,1135,778,1171,754,1190,725,1201,723,1196,751,1185,774,1168,795,1133,811,1081,823,1019,832,949,842,812,845,710"/>
+<area shape="rect" id="Node000024" href="$class_adafruit___l_i_s3_m_d_l.html#a522ac675edbe0d006d9221042311db9e" title="Set the operation mode, LIS3MDL_CONTINUOUSMODE, LIS3MDL_SINGLEMODE or LIS3MDL_POWERDOWNMODE." alt="" coords="518,1248,760,1275"/>
+<area shape="poly" id="edge24_Node000001_Node000024" title=" " alt="" coords="851,710,850,825,843,983,834,1063,821,1137,803,1197,791,1220,778,1238,762,1251,759,1247,774,1234,787,1217,798,1195,816,1135,829,1063,837,983,845,825,846,710"/>
+<area shape="rect" id="Node000025" href="$class_adafruit___l_i_s3_m_d_l.html#a7797c2848e051a248735fbf16fe76524" title="Set the performance mode, LIS3MDL_LOWPOWERMODE, LIS3MDL_MEDIUMMODE, LIS3MDL_HIGHMODE or LIS3MDL_ULTRA..." alt="" coords="508,1013,769,1040"/>
+<area shape="poly" id="edge25_Node000001_Node000025" title=" " alt="" coords="848,710,840,779,826,864,805,944,793,975,778,997,752,1015,749,1011,774,993,788,972,800,942,820,863,834,778,842,710"/>
+<area shape="rect" id="Node000026" href="$class_adafruit___l_i_s3_m_d_l.html#a40803a301762e56a94fe0bf92ce24605" title="Set the resolution range: +&#45;4 gauss, 8 gauss, 12 gauss, or 16 gauss." alt="" coords="542,1299,735,1325"/>
+<area shape="poly" id="edge27_Node000001_Node000026" title=" " alt="" coords="849,710,841,843,827,1026,806,1195,793,1255,778,1288,759,1304,736,1313,734,1308,756,1299,774,1285,788,1254,801,1194,821,1025,836,843,844,710"/>
+<area shape="rect" id="Node000027" href="$class_adafruit___i_c_m20_x.html#a3087f355400a190cf3e15bee33072faf" title="Sets the accelerometer&#39;s measurement range." alt="" coords="544,123,734,165"/>
+<area shape="poly" id="edge28_Node000001_Node000027" title=" " alt="" coords="845,653,843,548,833,406,824,334,812,269,795,215,774,179,756,164,733,154,735,149,758,160,778,176,800,213,817,267,829,333,838,405,848,548,850,653"/>
+<area shape="rect" id="Node000029" href="$class_adafruit___i_c_m20_x.html#a98ed9acc3f4f35e61d7bb0511e88b113" title="Sets the gyro&#39;s measurement range." alt="" coords="546,189,731,232"/>
+<area shape="poly" id="edge31_Node000001_Node000029" title=" " alt="" coords="844,652,840,560,829,438,820,377,808,321,793,276,774,246,755,230,731,220,733,215,757,226,778,242,798,274,813,320,825,376,834,437,845,560,850,652"/>
+<area shape="rect" id="Node000003" href="$class_adafruit___i_c_m20649.html#ab74e48aa483ed6eaf7a1c23853540266" title="Sets up the hardware and initializes I2C." alt="" coords="29,5,171,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="273,70,171,46,172,41,274,65"/>
+<area shape="rect" id="Node000004" href="$class_adafruit___i_c_m20_x.html#ad0bf94a1085d9a65d473f12c91faa25a" title="Sets up the hardware and initializes software SPI." alt="" coords="5,72,195,99"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="256,88,195,88,195,83,256,83"/>
+<area shape="rect" id="Node000005" href="$class_adafruit___i_c_m20_x.html#a411de89d543ef3d5f41b19a33e3a0b94" title="Sets up the hardware and initializes hardware SPI." alt="" coords="5,123,195,149"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="265,105,169,125,168,119,263,100"/>
+<area shape="poly" id="edge13_Node000013_Node000002" title=" " alt="" coords="544,88,425,88,425,83,544,83"/>
+<area shape="poly" id="edge26_Node000025_Node000020" title=" " alt="" coords="493,1017,453,1013,454,1008,493,1011"/>
+<area shape="poly" id="edge29_Node000027_Node000002" title=" " alt="" coords="528,124,417,102,418,97,529,119"/>
+<area shape="rect" id="Node000028" href="$class_adafruit___i_c_m20649.html#ae2280a575ee9bb6be9578873023e08d4" title="Sets the accelerometer&#39;s measurement range." alt="" coords="277,123,418,165"/>
+<area shape="poly" id="edge30_Node000027_Node000028" title=" " alt="" coords="528,147,419,147,419,141,528,141"/>
+<area shape="poly" id="edge32_Node000029_Node000002" title=" " alt="" coords="530,195,499,179,483,163,475,145,467,128,451,113,424,100,426,95,455,108,471,125,479,143,487,160,503,175,533,190"/>
+<area shape="rect" id="Node000030" href="$class_adafruit___i_c_m20649.html#a73c96e63ff901086c5f025ea2d4c105c" title="Sets the gyro&#39;s measurement range." alt="" coords="277,189,418,232"/>
+<area shape="poly" id="edge33_Node000029_Node000030" title=" " alt="" coords="530,213,419,213,419,208,530,208"/>
+</map>

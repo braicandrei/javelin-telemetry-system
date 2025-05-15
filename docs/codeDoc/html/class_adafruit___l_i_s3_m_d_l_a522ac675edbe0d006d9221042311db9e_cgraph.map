@@ -1,0 +1,5 @@
+<map id="setOperationMode" name="setOperationMode">
+<area shape="rect" id="Node000001" title="Set the operation mode, LIS3MDL_CONTINUOUSMODE, LIS3MDL_SINGLEMODE or LIS3MDL_POWERDOWNMODE." alt="" coords="5,13,133,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register_bits.html#a813f4ef469295b1771bebe1a954986b5" title="Write 4 bytes of data to the register." alt="" coords="181,5,370,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,24,165,24,165,29,133,29"/>
+</map>

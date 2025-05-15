@@ -1,0 +1,5 @@
+<map id="readGyroRange" name="readGyroRange">
+<area shape="rect" id="Node000001" title="Get the gyro&#39;s measurement range." alt="" coords="195,13,307,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20649.html#a0415b3dfbde1470c78bfe646952c7c7a" title="Get the gyro&#39;s measurement range." alt="" coords="5,5,147,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,29,147,29,147,24,179,24"/>
+</map>

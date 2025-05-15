@@ -1,0 +1,320 @@
+\doxysection{Adafruit\+\_\+\+SPIDevice Class Reference}
+\hypertarget{class_adafruit___s_p_i_device}{}\label{class_adafruit___s_p_i_device}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+
+
+{\ttfamily \#include $<$Adafruit\+\_\+\+SPIDevice.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_adafruit___s_p_i_device_af74b7f52c99efc6b5c384813e01aa3e3}{Adafruit\+\_\+\+SPIDevice}} (int8\+\_\+t cspin, uint32\+\_\+t freq=1000000, Bus\+IOBit\+Order data\+Order=SPI\+\_\+\+BITORDER\+\_\+\+MSBFIRST, uint8\+\_\+t data\+Mode=SPI\+\_\+\+MODE0, SPIClass \texorpdfstring{$\ast$}{*}the\+SPI=\&SPI)
+\begin{DoxyCompactList}\small\item\em Create an SPI device with the given CS pin and settings. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_adafruit___s_p_i_device_a91af983682c35d7cd101ed9df7ecdaf3}{Adafruit\+\_\+\+SPIDevice}} (int8\+\_\+t cspin, int8\+\_\+t sck, int8\+\_\+t miso, int8\+\_\+t mosi, uint32\+\_\+t freq=1000000, Bus\+IOBit\+Order data\+Order=SPI\+\_\+\+BITORDER\+\_\+\+MSBFIRST, uint8\+\_\+t data\+Mode=SPI\+\_\+\+MODE0)
+\begin{DoxyCompactList}\small\item\em Create an SPI device with the given CS pin and settings. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___s_p_i_device_a238dd6447126a42e1e2a771babbcb080}\label{class_adafruit___s_p_i_device_a238dd6447126a42e1e2a771babbcb080} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Adafruit\+\_\+\+SPIDevice} ()
+\begin{DoxyCompactList}\small\item\em Release memory allocated in constructors. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___s_p_i_device_a30a103a2e8dc97eb5fda377ea163f6fb}{begin}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes SPI bus and sets CS pin high. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___s_p_i_device_a17c18f7845f0e198d5931a2ca9c7fc50}{read}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t len, uint8\+\_\+t sendvalue=0x\+FF)
+\begin{DoxyCompactList}\small\item\em Read from SPI into a buffer from the SPI device, with transaction management. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___s_p_i_device_ae4b058df3af3218ada11b5b527c55c05}{write}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t len, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}prefix\+\_\+buffer=nullptr, size\+\_\+t prefix\+\_\+len=0)
+\begin{DoxyCompactList}\small\item\em Write a buffer or two to the SPI device, with transaction management. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___s_p_i_device_a42500cddfbda8a9b12d5b5e081dcb640}{write\+\_\+then\+\_\+read}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}write\+\_\+buffer, size\+\_\+t write\+\_\+len, uint8\+\_\+t \texorpdfstring{$\ast$}{*}read\+\_\+buffer, size\+\_\+t read\+\_\+len, uint8\+\_\+t sendvalue=0x\+FF)
+\begin{DoxyCompactList}\small\item\em Write some data, then read some data from SPI into another buffer, with transaction management. The buffers can point to same/overlapping locations. This does not transmit-\/receive at the same time! \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_adafruit___s_p_i_device_a8c82c2d0011689c02aab24d96599254c}{write\+\_\+and\+\_\+read}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Write some data and read some data at the same time from SPI into the same buffer, with transaction management. This is basicaly a wrapper for \doxylink{class_adafruit___s_p_i_device_ae7eb48cf5e4ea5c4ace1b68d472da22c}{transfer()} with CS-\/pin and transaction management. This /does/ transmit-\/receive at the same time! \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_adafruit___s_p_i_device_ae7eb48cf5e4ea5c4ace1b68d472da22c}{transfer}} (uint8\+\_\+t send)
+\begin{DoxyCompactList}\small\item\em Transfer (send/receive) one byte over hard/soft SPI, without transaction management. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___s_p_i_device_a37f3545858b863d9ee8354292b2e7e3e}{transfer}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Transfer (send/receive) a buffer over hard/soft SPI, without transaction management. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___s_p_i_device_af1006deeea9972ea1dc6e7881cdcb3a6}\label{class_adafruit___s_p_i_device_af1006deeea9972ea1dc6e7881cdcb3a6} 
+void {\bfseries begin\+Transaction} (void)
+\begin{DoxyCompactList}\small\item\em Manually begin a transaction (calls begin\+Transaction if hardware SPI) \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___s_p_i_device_a3a961d042b9cfcd0c0bc4f09a1c461f9}\label{class_adafruit___s_p_i_device_a3a961d042b9cfcd0c0bc4f09a1c461f9} 
+void {\bfseries end\+Transaction} (void)
+\begin{DoxyCompactList}\small\item\em Manually end a transaction (calls end\+Transaction if hardware SPI) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_adafruit___s_p_i_device_ac3a116b561324c52392dd587f502bb0c}{begin\+Transaction\+With\+Asserting\+CS}} ()
+\begin{DoxyCompactList}\small\item\em Write a buffer or two to the SPI device, with transaction management. \end{DoxyCompactList}\item 
+\Hypertarget{class_adafruit___s_p_i_device_ad4eb83ad5f8fda37c2f643a3deea1557}\label{class_adafruit___s_p_i_device_ad4eb83ad5f8fda37c2f643a3deea1557} 
+void {\bfseries end\+Transaction\+With\+Deasserting\+CS} ()
+\begin{DoxyCompactList}\small\item\em Manually end a transaction (calls end\+Transaction if hardware SPI) with deasserting the CS pin. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+! The class which defines how we will talk to this device over SPI 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_adafruit___s_p_i_device_af74b7f52c99efc6b5c384813e01aa3e3}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\doxysubsubsection{\texorpdfstring{Adafruit\_SPIDevice()}{Adafruit\_SPIDevice()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_adafruit___s_p_i_device_af74b7f52c99efc6b5c384813e01aa3e3} 
+\mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\+\_\+\+SPIDevice}} (\begin{DoxyParamCaption}\item[{int8\+\_\+t}]{cspin}{, }\item[{uint32\+\_\+t}]{freq}{ = {\ttfamily 1000000}, }\item[{Bus\+IOBit\+Order}]{data\+Order}{ = {\ttfamily SPI\+\_\+BITORDER\+\_\+MSBFIRST}, }\item[{uint8\+\_\+t}]{data\+Mode}{ = {\ttfamily SPI\+\_\+MODE0}, }\item[{SPIClass \texorpdfstring{$\ast$}{*}}]{the\+SPI}{ = {\ttfamily \&SPI}}\end{DoxyParamCaption})}
+
+
+
+Create an SPI device with the given CS pin and settings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cspin} & The arduino pin number to use for chip select \\
+\hline
+{\em freq} & The SPI clock frequency to use, defaults to 1MHz \\
+\hline
+{\em data\+Order} & The SPI data order to use for bits within each byte, defaults to SPI\+\_\+\+BITORDER\+\_\+\+MSBFIRST \\
+\hline
+{\em data\+Mode} & The SPI mode to use, defaults to SPI\+\_\+\+MODE0 \\
+\hline
+{\em the\+SPI} & The SPI bus to use, defaults to \&the\+SPI \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_adafruit___s_p_i_device_a91af983682c35d7cd101ed9df7ecdaf3}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\doxysubsubsection{\texorpdfstring{Adafruit\_SPIDevice()}{Adafruit\_SPIDevice()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_adafruit___s_p_i_device_a91af983682c35d7cd101ed9df7ecdaf3} 
+\mbox{\hyperlink{class_adafruit___s_p_i_device}{Adafruit\+\_\+\+SPIDevice}} (\begin{DoxyParamCaption}\item[{int8\+\_\+t}]{cspin}{, }\item[{int8\+\_\+t}]{sckpin}{, }\item[{int8\+\_\+t}]{misopin}{, }\item[{int8\+\_\+t}]{mosipin}{, }\item[{uint32\+\_\+t}]{freq}{ = {\ttfamily 1000000}, }\item[{Bus\+IOBit\+Order}]{data\+Order}{ = {\ttfamily SPI\+\_\+BITORDER\+\_\+MSBFIRST}, }\item[{uint8\+\_\+t}]{data\+Mode}{ = {\ttfamily SPI\+\_\+MODE0}}\end{DoxyParamCaption})}
+
+
+
+Create an SPI device with the given CS pin and settings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cspin} & The arduino pin number to use for chip select \\
+\hline
+{\em sckpin} & The arduino pin number to use for SCK \\
+\hline
+{\em misopin} & The arduino pin number to use for MISO, set to -\/1 if not used \\
+\hline
+{\em mosipin} & The arduino pin number to use for MOSI, set to -\/1 if not used \\
+\hline
+{\em freq} & The SPI clock frequency to use, defaults to 1MHz \\
+\hline
+{\em data\+Order} & The SPI data order to use for bits within each byte, defaults to SPI\+\_\+\+BITORDER\+\_\+\+MSBFIRST \\
+\hline
+{\em data\+Mode} & The SPI mode to use, defaults to SPI\+\_\+\+MODE0 \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_adafruit___s_p_i_device_a30a103a2e8dc97eb5fda377ea163f6fb}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!begin@{begin}}
+\index{begin@{begin}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \label{class_adafruit___s_p_i_device_a30a103a2e8dc97eb5fda377ea163f6fb} 
+bool begin (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes SPI bus and sets CS pin high. 
+
+\begin{DoxyReturn}{Returns}
+Always returns true because there\textquotesingle{}s no way to test success of SPI init 
+\end{DoxyReturn}
+\Hypertarget{class_adafruit___s_p_i_device_ac3a116b561324c52392dd587f502bb0c}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!beginTransactionWithAssertingCS@{beginTransactionWithAssertingCS}}
+\index{beginTransactionWithAssertingCS@{beginTransactionWithAssertingCS}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\doxysubsubsection{\texorpdfstring{beginTransactionWithAssertingCS()}{beginTransactionWithAssertingCS()}}
+{\footnotesize\ttfamily \label{class_adafruit___s_p_i_device_ac3a116b561324c52392dd587f502bb0c} 
+void begin\+Transaction\+With\+Asserting\+CS (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Write a buffer or two to the SPI device, with transaction management. 
+
+Manually begin a transaction (calls begin\+Transaction if hardware SPI) with asserting the CS pin Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___s_p_i_device_ac3a116b561324c52392dd587f502bb0c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___s_p_i_device_ac3a116b561324c52392dd587f502bb0c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___s_p_i_device_a17c18f7845f0e198d5931a2ca9c7fc50}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!read@{read}}
+\index{read@{read}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily \label{class_adafruit___s_p_i_device_a17c18f7845f0e198d5931a2ca9c7fc50} 
+bool read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{len}{, }\item[{uint8\+\_\+t}]{sendvalue}{ = {\ttfamily 0xFF}}\end{DoxyParamCaption})}
+
+
+
+Read from SPI into a buffer from the SPI device, with transaction management. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & Pointer to buffer of data to read into \\
+\hline
+{\em len} & Number of bytes from buffer to read. \\
+\hline
+{\em sendvalue} & The 8-\/bits of data to write when doing the data read, defaults to 0x\+FF \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Always returns true because there\textquotesingle{}s no way to test success of SPI writes 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___s_p_i_device_a17c18f7845f0e198d5931a2ca9c7fc50_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___s_p_i_device_a37f3545858b863d9ee8354292b2e7e3e}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!transfer@{transfer}}
+\index{transfer@{transfer}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\doxysubsubsection{\texorpdfstring{transfer()}{transfer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_adafruit___s_p_i_device_a37f3545858b863d9ee8354292b2e7e3e} 
+void transfer (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Transfer (send/receive) a buffer over hard/soft SPI, without transaction management. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The buffer to send and receive at the same time \\
+\hline
+{\em len} & The number of bytes to transfer \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_adafruit___s_p_i_device_ae7eb48cf5e4ea5c4ace1b68d472da22c}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!transfer@{transfer}}
+\index{transfer@{transfer}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\doxysubsubsection{\texorpdfstring{transfer()}{transfer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_adafruit___s_p_i_device_ae7eb48cf5e4ea5c4ace1b68d472da22c} 
+uint8\+\_\+t transfer (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{send}{}\end{DoxyParamCaption})}
+
+
+
+Transfer (send/receive) one byte over hard/soft SPI, without transaction management. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em send} & The byte to send \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The byte received while transmitting 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=129pt]{class_adafruit___s_p_i_device_ae7eb48cf5e4ea5c4ace1b68d472da22c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{class_adafruit___s_p_i_device_ae7eb48cf5e4ea5c4ace1b68d472da22c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___s_p_i_device_ae4b058df3af3218ada11b5b527c55c05}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!write@{write}}
+\index{write@{write}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily \label{class_adafruit___s_p_i_device_ae4b058df3af3218ada11b5b527c55c05} 
+bool write (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{len}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{prefix\+\_\+buffer}{ = {\ttfamily nullptr}, }\item[{size\+\_\+t}]{prefix\+\_\+len}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+Write a buffer or two to the SPI device, with transaction management. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & Pointer to buffer of data to write \\
+\hline
+{\em len} & Number of bytes from buffer to write \\
+\hline
+{\em prefix\+\_\+buffer} & Pointer to optional array of data to write before buffer. \\
+\hline
+{\em prefix\+\_\+len} & Number of bytes from prefix buffer to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Always returns true because there\textquotesingle{}s no way to test success of SPI writes 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___s_p_i_device_ae4b058df3af3218ada11b5b527c55c05_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___s_p_i_device_a8c82c2d0011689c02aab24d96599254c}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!write\_and\_read@{write\_and\_read}}
+\index{write\_and\_read@{write\_and\_read}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\doxysubsubsection{\texorpdfstring{write\_and\_read()}{write\_and\_read()}}
+{\footnotesize\ttfamily \label{class_adafruit___s_p_i_device_a8c82c2d0011689c02aab24d96599254c} 
+bool write\+\_\+and\+\_\+read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Write some data and read some data at the same time from SPI into the same buffer, with transaction management. This is basicaly a wrapper for \doxylink{class_adafruit___s_p_i_device_ae7eb48cf5e4ea5c4ace1b68d472da22c}{transfer()} with CS-\/pin and transaction management. This /does/ transmit-\/receive at the same time! 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & Pointer to buffer of data to write/read to/from \\
+\hline
+{\em len} & Number of bytes from buffer to write/read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Always returns true because there\textquotesingle{}s no way to test success of SPI writes 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___s_p_i_device_a8c82c2d0011689c02aab24d96599254c_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_adafruit___s_p_i_device_a42500cddfbda8a9b12d5b5e081dcb640}\index{Adafruit\_SPIDevice@{Adafruit\_SPIDevice}!write\_then\_read@{write\_then\_read}}
+\index{write\_then\_read@{write\_then\_read}!Adafruit\_SPIDevice@{Adafruit\_SPIDevice}}
+\doxysubsubsection{\texorpdfstring{write\_then\_read()}{write\_then\_read()}}
+{\footnotesize\ttfamily \label{class_adafruit___s_p_i_device_a42500cddfbda8a9b12d5b5e081dcb640} 
+bool write\+\_\+then\+\_\+read (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{write\+\_\+buffer}{, }\item[{size\+\_\+t}]{write\+\_\+len}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{read\+\_\+buffer}{, }\item[{size\+\_\+t}]{read\+\_\+len}{, }\item[{uint8\+\_\+t}]{sendvalue}{ = {\ttfamily 0xFF}}\end{DoxyParamCaption})}
+
+
+
+Write some data, then read some data from SPI into another buffer, with transaction management. The buffers can point to same/overlapping locations. This does not transmit-\/receive at the same time! 
+
+
+\begin{DoxyParams}{Parameters}
+{\em write\+\_\+buffer} & Pointer to buffer of data to write from \\
+\hline
+{\em write\+\_\+len} & Number of bytes from buffer to write. \\
+\hline
+{\em read\+\_\+buffer} & Pointer to buffer of data to read into. \\
+\hline
+{\em read\+\_\+len} & Number of bytes from buffer to read. \\
+\hline
+{\em sendvalue} & The 8-\/bits of data to write when doing the data read, defaults to 0x\+FF \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Always returns true because there\textquotesingle{}s no way to test success of SPI writes 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_adafruit___s_p_i_device_a42500cddfbda8a9b12d5b5e081dcb640_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+Adafruit Bus\+IO/Adafruit\+\_\+\+SPIDevice.\+h\item 
+C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+Adafruit Bus\+IO/Adafruit\+\_\+\+SPIDevice.\+cpp\end{DoxyCompactItemize}

@@ -40,6 +40,10 @@ bool Adafruit_ICM20649::begin_I2C(uint8_t i2c_address, TwoWire *wire,
   return _init(sensor_id);
 }
 
+/*!
+  @brief Scale the raw values to real world units
+*/
+
 void Adafruit_ICM20649::scaleValues(void) {
 
   icm20649_gyro_range_t gyro_range = (icm20649_gyro_range_t)current_gyro_range;

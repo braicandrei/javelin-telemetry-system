@@ -4,6 +4,14 @@
 LogWebServer::LogWebServer(uint8_t sdCsPin, const char* ssid, const char* password, const char* mdnsName)
   : _sdCsPin(sdCsPin), _ssid(ssid), _password(password), _mdnsName(mdnsName), _server(80), _running(false) {}
 
+
+/*!
+  * @brief Inicia el servidor web y el punto de acceso
+  * 
+  * @note Se debe llamar a este método para iniciar el servidor web.
+  * 
+  * @return void
+*/
 void LogWebServer::begin() {
   #if (DEBUG_WEBSERVER)
     Serial.println("[WebServer] Iniciando servidor web...");
@@ -38,6 +46,13 @@ void LogWebServer::begin() {
   #endif
 }
 
+/*!
+  * @brief Detiene el servidor web y el punto de acceso
+  * 
+  * @note Se debe llamar a este método para detener el servidor web.
+  * 
+  * @return void
+*/
 void LogWebServer::end() {
   if (_running) {
     _server.end();
@@ -52,6 +67,14 @@ void LogWebServer::end() {
   }
 }
 
+
+/*!
+  * @brief Inicializa las rutas del servidor web
+  * 
+  * @note Se debe llamar a este método para inicializar las rutas del servidor web.
+  * 
+  * @return void
+*/
 void LogWebServer::initRoutes() {
   // 0) Bloquear cualquier .map en /libs (evita VFS errors)
   _server.on("/libs/*.map", HTTP_GET, [](AsyncWebServerRequest *req){
@@ -61,7 +84,7 @@ void LogWebServer::initRoutes() {
     req->send(204, "text/plain", "");  // 204 No Content
   });
 
-  // 1) Listar CSV desde la SD
+  // Listar CSV desde la SD
   _server.on("/list", HTTP_GET, [](AsyncWebServerRequest *request){
     File dir = SD.open("/logs");
     String json = "[";
@@ -80,7 +103,7 @@ void LogWebServer::initRoutes() {
     request->send(200, "application/json", json);
   });
 
-  // 2) Servir CSV desde la SD
+  // Servir CSV desde la SD
   _server.on("/logs/*", HTTP_GET, [this](AsyncWebServerRequest *request) {
     if (isProcessingRequest) {
         request->send(503, "text/plain", "Servidor ocupado, intente más tarde.");
@@ -114,13 +137,13 @@ void LogWebServer::initRoutes() {
     }
 });
 
-  // 3) Librerías JS/CSS desde LittleFS
+  //  Librerías JS/CSS desde LittleFS
   _server.serveStatic("/libs", LittleFS, "/libs");
 
-  // 4) Página y recursos estáticos desde LittleFS
+  //  Página y recursos estáticos desde LittleFS
   _server.serveStatic("/", LittleFS, "/").setDefaultFile("index.html");
 
-  // 5) Resto: 404 con log
+  //  Resto: 404 con log
   _server.onNotFound([](AsyncWebServerRequest *request) {
     #if (DEBUG_WEBSERVER)
       Serial.printf("404 Ruta no encontrada: %s\n", request->url().c_str());

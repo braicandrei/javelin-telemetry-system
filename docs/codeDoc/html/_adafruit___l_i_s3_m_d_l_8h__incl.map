@@ -1,0 +1,27 @@
+<map id="C:/Users/Andrei/Documents/javelin&#45;telemetry&#45;system/software/embedded/javelin&#45;embedded&#45;system/lib/Adafruit LIS3MDL/Adafruit_LIS3MDL.h" name="C:/Users/Andrei/Documents/javelin&#45;telemetry&#45;system/software/embedded/javelin&#45;embedded&#45;system/lib/Adafruit LIS3MDL/Adafruit_LIS3MDL.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="435,5,637,96"/>
+<area shape="rect" id="Node000002" href="$_adafruit___bus_i_o___register_8h_source.html" title=" " alt="" coords="205,144,382,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="435,98,337,140,335,135,433,93"/>
+<area shape="rect" id="Node000005" href="$_adafruit___i2_c_device_8h_source.html" title=" " alt="" coords="391,219,537,245"/>
+<area shape="poly" id="edge11_Node000001_Node000005" title=" " alt="" coords="520,98,477,205,472,203,515,96"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="489,293,548,320"/>
+<area shape="poly" id="edge14_Node000001_Node000006" title=" " alt="" coords="549,96,558,167,558,207,552,246,537,281,533,279,547,245,552,206,553,167,544,97"/>
+<area shape="rect" id="Node000007" href="$_adafruit___s_p_i_device_8h_source.html" title=" " alt="" coords="220,219,367,245"/>
+<area shape="poly" id="edge12_Node000001_Node000007" title=" " alt="" coords="489,98,396,173,332,213,329,208,393,168,485,94"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="612,144,737,171"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="597,94,648,133,645,137,593,99"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="761,144,852,171"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="638,89,761,136,759,141,636,94"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="119,293,195,320"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="204,168,147,176,91,187,44,202,27,210,15,220,9,233,10,244,17,254,29,263,64,280,104,292,103,297,62,285,26,268,13,257,5,245,4,232,11,217,24,206,42,197,90,182,146,171,204,163"/>
+<area shape="rect" id="Node000004" href="$_adafruit___generic_device_8h_source.html" title=" " alt="" coords="25,219,196,245"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="262,174,158,215,156,210,260,169"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="324,169,421,210,419,215,322,174"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="296,171,296,203,291,203,291,171"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="121,244,143,279,139,282,116,247"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="411,249,211,295,210,290,409,243"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="476,244,502,279,498,282,471,247"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="271,248,196,288,193,283,268,244"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="266,293,320,320"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="296,246,296,278,291,278,291,246"/>
+</map>

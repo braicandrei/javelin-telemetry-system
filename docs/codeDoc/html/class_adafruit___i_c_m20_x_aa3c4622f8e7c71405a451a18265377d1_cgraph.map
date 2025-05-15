@@ -1,0 +1,5 @@
+<map id="sleepMode" name="sleepMode">
+<area shape="rect" id="Node000001" title="Set the sleep mode of the ICM20X." alt="" coords="5,13,90,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register.html#ab97b289f41d27715678b28fd3ccf7911" title="Write a buffer of data to the register location." alt="" coords="138,5,304,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,24,122,24,122,29,90,29"/>
+</map>

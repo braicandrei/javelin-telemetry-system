@@ -1,0 +1,39 @@
+\doxysection{Adafruit\+\_\+\+I2\+CDevice.\+h}
+\hypertarget{_adafruit___i2_c_device_8h_source}{}\label{_adafruit___i2_c_device_8h_source}\index{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit BusIO/Adafruit\_I2CDevice.h@{C:/Users/Andrei/Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/Adafruit BusIO/Adafruit\_I2CDevice.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ Adafruit\_I2CDevice\_h}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ Adafruit\_I2CDevice\_h}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Wire.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_adafruit___i2_c_device_adf4fc0a450f853213cb1a8c90a7470a3}{Adafruit\_I2CDevice}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \mbox{\hyperlink{class_adafruit___i2_c_device_adf4fc0a450f853213cb1a8c90a7470a3}{Adafruit\_I2CDevice}}(uint8\_t\ addr,\ TwoWire\ *theWire\ =\ \&Wire);}
+\DoxyCodeLine{00011\ \ \ uint8\_t\ \mbox{\hyperlink{class_adafruit___i2_c_device_a2994a3ad6bafdae23aa61ee6ea8d303e}{address}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00012\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i2_c_device_af319df9179f087667fb9481339d8fd9a}{begin}}(\textcolor{keywordtype}{bool}\ addr\_detect\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00013\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_adafruit___i2_c_device_a081b5c662ecee58405a543518f699d31}{end}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00014\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i2_c_device_ad885a1f4885b4e92c0ed16bf3baa61a5}{detected}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i2_c_device_ae85ca4244fd36c6861ee30f08fb21f39}{read}}(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{bool}\ stop\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00017\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i2_c_device_a0014ca5ee0ac58df57aafe9fa739571a}{write}}(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{bool}\ stop\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *prefix\_buffer\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keywordtype}{size\_t}\ prefix\_len\ =\ 0);}
+\DoxyCodeLine{00019\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i2_c_device_a0d5bd9223ce05f6e090048ace0582cbb}{write\_then\_read}}(\textcolor{keyword}{const}\ uint8\_t\ *write\_buffer,\ \textcolor{keywordtype}{size\_t}\ write\_len,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *read\_buffer,\ \textcolor{keywordtype}{size\_t}\ read\_len,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ stop\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_adafruit___i2_c_device_a837afba2e89c0835741f8bad8ce16f52}{setSpeed}}(uint32\_t\ desiredclk);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_adafruit___i2_c_device_a71cc6d7445c26a5a3215cdc2d3e26a6c}{maxBufferSize}}()\ \{\ \textcolor{keywordflow}{return}\ \_maxBufferSize;\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \ \ uint8\_t\ \_addr;}
+\DoxyCodeLine{00030\ \ \ TwoWire\ *\_wire;}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{bool}\ \_begun;}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{size\_t}\ \_maxBufferSize;}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{bool}\ \_read(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{bool}\ stop);}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ Adafruit\_I2CDevice\_h}}
+
+\end{DoxyCode}

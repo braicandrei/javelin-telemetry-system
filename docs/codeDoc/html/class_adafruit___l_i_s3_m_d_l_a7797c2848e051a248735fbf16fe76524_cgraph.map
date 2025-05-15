@@ -1,0 +1,5 @@
+<map id="setPerformanceMode" name="setPerformanceMode">
+<area shape="rect" id="Node000001" title="Set the performance mode, LIS3MDL_LOWPOWERMODE, LIS3MDL_MEDIUMMODE, LIS3MDL_HIGHMODE or LIS3MDL_ULTRA..." alt="" coords="5,13,151,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register_bits.html#a813f4ef469295b1771bebe1a954986b5" title="Write 4 bytes of data to the register." alt="" coords="199,5,388,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,24,183,24,183,29,151,29"/>
+</map>

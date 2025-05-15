@@ -1,0 +1,5 @@
+<map id="configInterrupt" name="configInterrupt">
+<area shape="rect" id="Node000001" title="Configure INT_CFG." alt="" coords="5,13,110,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register.html#ab97b289f41d27715678b28fd3ccf7911" title="Write a buffer of data to the register location." alt="" coords="158,5,324,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,24,142,24,142,29,110,29"/>
+</map>

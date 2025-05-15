@@ -1,0 +1,6 @@
+<map id="begin" name="begin">
+<area shape="rect" id="Node000001" title="Initializes and does basic address detection." alt="" coords="125,5,177,32"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___i2_c_device.html#ad885a1f4885b4e92c0ed16bf3baa61a5" title="Scans I2C for the address &#45; note will give a false&#45;positive if there&#39;s no pullups on I2C." alt="" coords="5,5,77,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,30,77,30,77,24,109,25"/>
+<area shape="poly" id="edge2_Node000002_Node000001" title=" " alt="" coords="93,7,124,8,124,14,92,12"/>
+</map>

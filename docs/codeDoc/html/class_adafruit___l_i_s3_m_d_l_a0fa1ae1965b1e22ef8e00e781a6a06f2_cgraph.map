@@ -1,0 +1,7 @@
+<map id="getRange" name="getRange">
+<area shape="rect" id="Node000001" title="Read the resolution range: +&#45;4 gauss, 8 gauss, 12 gauss, or 16 gauss." alt="" coords="5,13,83,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register_bits.html#af62b1bc77a3a952c021ca6876bc6a080" title="Read 4 bytes of data from the register." alt="" coords="131,5,320,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,24,115,24,115,29,83,29"/>
+<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register.html#a84ed92b3d107e8895bdbc7e55991342e" title="Read a number of bytes from a register into a buffer." alt="" coords="368,5,534,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="321,24,352,24,352,29,321,29"/>
+</map>

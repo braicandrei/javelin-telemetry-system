@@ -1,0 +1,5 @@
+<map id="getRange" name="getRange">
+<area shape="rect" id="Node000001" title="Read the resolution range: +&#45;4 gauss, 8 gauss, 12 gauss, or 16 gauss." alt="" coords="104,5,181,32"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___l_i_s3_m_d_l.html#a3aea9deb2a0bfea9ff05a898f4822e31" title="Performs a software reset." alt="" coords="5,5,56,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,21,56,21,56,16,88,16"/>
+</map>

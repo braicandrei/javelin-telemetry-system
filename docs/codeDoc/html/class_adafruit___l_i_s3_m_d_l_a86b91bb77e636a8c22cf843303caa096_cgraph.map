@@ -1,0 +1,5 @@
+<map id="lowPowerMode" name="lowPowerMode">
+<area shape="rect" id="Node000001" title="Set the low power mode for the device." alt="" coords="5,13,116,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register_bits.html#a813f4ef469295b1771bebe1a954986b5" title="Write 4 bytes of data to the register." alt="" coords="164,5,353,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,24,148,24,148,29,116,29"/>
+</map>

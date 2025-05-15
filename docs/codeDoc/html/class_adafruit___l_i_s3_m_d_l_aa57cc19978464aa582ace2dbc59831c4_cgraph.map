@@ -1,0 +1,5 @@
+<map id="readMagneticField" name="readMagneticField">
+<area shape="rect" id="Node000001" title="Read magnetic data." alt="" coords="5,13,133,40"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register.html#a84ed92b3d107e8895bdbc7e55991342e" title="Read a number of bytes from a register into a buffer." alt="" coords="181,5,347,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,24,165,24,165,29,133,29"/>
+</map>

@@ -329,14 +329,9 @@ void Adafruit_ICM20X::_read(void) {
   rawMagY = ((buffer[18] << 8) | (buffer[17] & 0xFF));
   rawMagZ = ((buffer[20] << 8) | (buffer[19] & 0xFF));
 
-  scaleValues();
   _setBank(0);
 }
-/*!
- * @brief Scales the raw variables based on the current measurement range
- *
- */
-void Adafruit_ICM20X::scaleValues(void) {}
+
 
 /*!
     @brief  Gets an Adafruit Unified Sensor object for the accelerometer

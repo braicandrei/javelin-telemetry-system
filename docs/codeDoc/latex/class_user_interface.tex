@@ -1,0 +1,108 @@
+\doxysection{User\+Interface Class Reference}
+\hypertarget{class_user_interface}{}\label{class_user_interface}\index{UserInterface@{UserInterface}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_user_interface_ae73f72d76923bbf8847091c275e48c66}{User\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{class_user_interface}{User\+Interface} constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_user_interface_a1ae6c25e8fe9d690d5733d2de2931f90}{\texorpdfstring{$\sim$}{\string~}\+User\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{class_user_interface}{User\+Interface} destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_user_interface_a84700206d05365301b51bdcb90f244f7}{begin\+UI}} ()
+\begin{DoxyCompactList}\small\item\em Initialize the user interface. \end{DoxyCompactList}\item 
+User\+Action\+\_\+t \mbox{\hyperlink{class_user_interface_a6290fceb0170057f9656d28d957e95b8}{update\+UI}} ()
+\begin{DoxyCompactList}\small\item\em Update the user interface. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_user_interface_aab78910675f1666ae66f01de223079b2}{set\+User\+Input\+Enabled}} (bool enabled)
+\begin{DoxyCompactList}\small\item\em Set the user input enabled flag. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_user_interface_a8fee07365e00d85eb095e55017424dbd}{set\+System\+Transition}} (System\+Transitions\+\_\+t transition)
+\begin{DoxyCompactList}\small\item\em Set the system transition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_user_interface_ae73f72d76923bbf8847091c275e48c66}\index{UserInterface@{UserInterface}!UserInterface@{UserInterface}}
+\index{UserInterface@{UserInterface}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{UserInterface()}{UserInterface()}}
+{\footnotesize\ttfamily \label{class_user_interface_ae73f72d76923bbf8847091c275e48c66} 
+\mbox{\hyperlink{class_user_interface}{User\+Interface}} (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxylink{class_user_interface}{User\+Interface} constructor. 
+
+The constructor initializes the user interface object \Hypertarget{class_user_interface_a1ae6c25e8fe9d690d5733d2de2931f90}\index{UserInterface@{UserInterface}!````~UserInterface@{\texorpdfstring{$\sim$}{\string~}UserInterface}}
+\index{````~UserInterface@{\texorpdfstring{$\sim$}{\string~}UserInterface}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}UserInterface()}{\string~UserInterface()}}
+{\footnotesize\ttfamily \label{class_user_interface_a1ae6c25e8fe9d690d5733d2de2931f90} 
+\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_user_interface}{User\+Interface}} (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxylink{class_user_interface}{User\+Interface} destructor. 
+
+The destructor cleans up the user interface object 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_user_interface_a84700206d05365301b51bdcb90f244f7}\index{UserInterface@{UserInterface}!beginUI@{beginUI}}
+\index{beginUI@{beginUI}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{beginUI()}{beginUI()}}
+{\footnotesize\ttfamily \label{class_user_interface_a84700206d05365301b51bdcb90f244f7} 
+void begin\+UI (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the user interface. 
+
+This function initializes the user interface by setting up the touch interrupt and initializing the RTTTL player. \Hypertarget{class_user_interface_a8fee07365e00d85eb095e55017424dbd}\index{UserInterface@{UserInterface}!setSystemTransition@{setSystemTransition}}
+\index{setSystemTransition@{setSystemTransition}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{setSystemTransition()}{setSystemTransition()}}
+{\footnotesize\ttfamily \label{class_user_interface_a8fee07365e00d85eb095e55017424dbd} 
+void set\+System\+Transition (\begin{DoxyParamCaption}\item[{System\+Transitions\+\_\+t}]{transition}{}\end{DoxyParamCaption})}
+
+
+
+Set the system transition. 
+
+This function sets the system transition based on the provided transition type.
+
+
+\begin{DoxyParams}{Parameters}
+{\em transition} & The system transition type \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_user_interface_aab78910675f1666ae66f01de223079b2}\index{UserInterface@{UserInterface}!setUserInputEnabled@{setUserInputEnabled}}
+\index{setUserInputEnabled@{setUserInputEnabled}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{setUserInputEnabled()}{setUserInputEnabled()}}
+{\footnotesize\ttfamily \label{class_user_interface_aab78910675f1666ae66f01de223079b2} 
+void set\+User\+Input\+Enabled (\begin{DoxyParamCaption}\item[{bool}]{enabled}{}\end{DoxyParamCaption})}
+
+
+
+Set the user input enabled flag. 
+
+This function sets the user input enabled flag to the provided value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em enabled} & The user input enabled flag value \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_user_interface_a6290fceb0170057f9656d28d957e95b8}\index{UserInterface@{UserInterface}!updateUI@{updateUI}}
+\index{updateUI@{updateUI}!UserInterface@{UserInterface}}
+\doxysubsubsection{\texorpdfstring{updateUI()}{updateUI()}}
+{\footnotesize\ttfamily \label{class_user_interface_a6290fceb0170057f9656d28d957e95b8} 
+User\+Action\+\_\+t update\+UI (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Update the user interface. 
+
+This function updates the user interface by checking for touch events and updating the RTTTL player.
+
+\begin{DoxyReturn}{Returns}
+User\+Action\+\_\+t The user action detected by the user interface 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+User\+Interface/User\+Interface.\+h\item 
+C\+:/\+Users/\+Andrei/\+Documents/javelin-\/telemetry-\/system/software/embedded/javelin-\/embedded-\/system/lib/\+User\+Interface/User\+Interface.\+cpp\end{DoxyCompactItemize}

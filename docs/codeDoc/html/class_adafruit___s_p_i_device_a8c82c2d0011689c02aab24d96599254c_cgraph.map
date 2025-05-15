@@ -1,0 +1,14 @@
+<map id="write_and_read" name="write_and_read">
+<area shape="rect" id="Node000001" title="Write some data and read some data at the same time from SPI into the same buffer,..." alt="" coords="5,56,115,83"/>
+<area shape="rect" id="Node000002" href="$class_adafruit___s_p_i_device.html#ac3a116b561324c52392dd587f502bb0c" title="Write a buffer or two to the SPI device, with transaction management." alt="" coords="165,5,386,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,53,162,41,196,33,197,39,163,47,116,58"/>
+<area shape="rect" id="Node000004" href="$class_adafruit___s_p_i_device.html#ad4eb83ad5f8fda37c2f643a3deea1557" title="Manually end a transaction (calls endTransaction if hardware SPI) with deasserting the CS pin." alt="" coords="163,56,389,83"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="115,67,147,67,147,72,115,72"/>
+<area shape="rect" id="Node000006" href="$class_adafruit___s_p_i_device.html#ae7eb48cf5e4ea5c4ace1b68d472da22c" title="Transfer (send/receive) one byte over hard/soft SPI, without transaction management." alt="" coords="243,131,308,157"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="102,81,229,125,228,130,100,86"/>
+<area shape="rect" id="Node000003" href="$class_adafruit___s_p_i_device.html#af1006deeea9972ea1dc6e7881cdcb3a6" title="Manually begin a transaction (calls beginTransaction if hardware SPI)" alt="" coords="437,5,557,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="387,16,421,16,421,21,387,21"/>
+<area shape="rect" id="Node000005" href="$class_adafruit___s_p_i_device.html#a3a961d042b9cfcd0c0bc4f09a1c461f9" title="Manually end a transaction (calls endTransaction if hardware SPI)" alt="" coords="442,56,552,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="389,67,426,67,426,72,389,72"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="240,133,233,123,237,113,252,106,276,104,304,107,317,115,314,119,302,112,276,109,253,111,241,116,238,122,245,129"/>
+</map>
