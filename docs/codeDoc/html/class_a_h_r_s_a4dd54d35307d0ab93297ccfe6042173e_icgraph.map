@@ -1,5 +1,0 @@
-<map id="getAHRSSampleRateDivisor" name="getAHRSSampleRateDivisor">
-<area shape="rect" id="Node000001" title="Getter for the AHRS sample rate divisor for ICM 20649 configuration." alt="" coords="148,5,338,32"/>
-<area shape="rect" id="Node000002" href="$class_a_h_r_s.html#ab59331766ab1b4f7122e150cf070a3c7" title="Configure the AHRS sensors." alt="" coords="5,5,100,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,21,100,21,100,16,132,16"/>
-</map>

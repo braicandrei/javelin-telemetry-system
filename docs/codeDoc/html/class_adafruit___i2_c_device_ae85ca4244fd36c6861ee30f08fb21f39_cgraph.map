@@ -1,5 +1,0 @@
-<map id="read" name="read">
-<area shape="rect" id="Node000001" title="Read from I2C into a buffer from the I2C device. Cannot be more than maxBufferSize() bytes." alt="" coords="5,5,52,32"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___i2_c_device.html#a71cc6d7445c26a5a3215cdc2d3e26a6c" title="How many bytes we can read in a transaction." alt="" coords="100,5,206,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="52,16,84,16,84,21,52,21"/>
-</map>

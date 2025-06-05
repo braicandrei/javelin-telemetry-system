@@ -1,5 +1,0 @@
-<map id="Adafruit_ICM20X" name="Adafruit_ICM20X">
-<area shape="rect" id="Node000001" title="Class that stores state and functions for interacting with the ST ICM20X 6&#45;DoF Accelerometer and Gyro..." alt="" coords="11,5,133,32"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20649.html" title="Class that stores state and functions for interacting with the ST ICM20649 6&#45;DoF Accelerometer and Gy..." alt="" coords="5,80,139,107"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,48,75,80,69,80,69,48"/>
-</map>

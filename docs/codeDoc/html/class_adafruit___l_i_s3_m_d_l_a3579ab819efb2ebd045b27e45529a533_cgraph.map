@@ -1,7 +1,0 @@
-<map id="getEvent" name="getEvent">
-<area shape="rect" id="Node000001" title="Gets the most recent sensor event, Adafruit Unified Sensor format." alt="" coords="5,13,79,40"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___l_i_s3_m_d_l.html#aaa936da334e29618ece019bd8a9aa06f" title="Read the XYZ data from the magnetometer and store in the internal x, y and z (and x_g,..." alt="" coords="127,13,173,40"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,24,111,24,111,29,79,29"/>
-<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register.html#a84ed92b3d107e8895bdbc7e55991342e" title="Read a number of bytes from a register into a buffer." alt="" coords="221,5,387,48"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="174,24,205,24,205,29,174,29"/>
-</map>

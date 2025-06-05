@@ -1,9 +1,0 @@
-<map id="enableFIFO" name="enableFIFO">
-<area shape="rect" id="Node000001" title="NEW IMPLEMENTATION." alt="" coords="5,43,95,69"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20_x.html#ac593fb583251fd207872779fd941011a" title="Sets register bank." alt="" coords="199,13,276,40"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,46,184,32,184,38,96,52"/>
-<area shape="rect" id="Node000004" href="$class_adafruit___bus_i_o___register_bits.html#a813f4ef469295b1771bebe1a954986b5" title="Write 4 bytes of data to the register." alt="" coords="143,64,332,107"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="96,60,128,65,127,71,95,66"/>
-<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register.html#ab97b289f41d27715678b28fd3ccf7911" title="Write a buffer of data to the register location." alt="" coords="380,5,546,48"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="276,24,364,24,364,29,276,29"/>
-</map>

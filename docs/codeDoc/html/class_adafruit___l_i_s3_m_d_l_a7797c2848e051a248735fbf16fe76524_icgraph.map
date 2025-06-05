@@ -1,5 +1,0 @@
-<map id="setPerformanceMode" name="setPerformanceMode">
-<area shape="rect" id="Node000001" title="Set the performance mode, LIS3MDL_LOWPOWERMODE, LIS3MDL_MEDIUMMODE, LIS3MDL_HIGHMODE or LIS3MDL_ULTRA..." alt="" coords="149,5,294,32"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___l_i_s3_m_d_l.html#a497979b74e6303a0b0e4a41d3e5bb8c1" title="Sets the data rate for the LIS3MDL (controls power consumption) from 0.625 Hz to 80Hz." alt="" coords="5,5,101,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,21,101,21,101,16,133,16"/>
-</map>

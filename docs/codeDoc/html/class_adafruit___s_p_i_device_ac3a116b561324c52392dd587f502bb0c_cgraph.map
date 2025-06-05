@@ -1,5 +1,0 @@
-<map id="beginTransactionWithAssertingCS" name="beginTransactionWithAssertingCS">
-<area shape="rect" id="Node000001" title="Write a buffer or two to the SPI device, with transaction management." alt="" coords="5,5,227,32"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___s_p_i_device.html#af1006deeea9972ea1dc6e7881cdcb3a6" title="Manually begin a transaction (calls beginTransaction if hardware SPI)" alt="" coords="275,5,395,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,16,259,16,259,21,227,21"/>
-</map>

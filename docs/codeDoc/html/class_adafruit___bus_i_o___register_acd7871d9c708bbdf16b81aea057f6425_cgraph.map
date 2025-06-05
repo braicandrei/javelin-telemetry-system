@@ -1,8 +1,0 @@
-<map id="println" name="println">
-<area shape="rect" id="Node000001" title="Pretty printer for this register." alt="" coords="5,29,62,56"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register.html#a84a8005a8767e16a886a908674ba1e7e" title="Pretty printer for this register." alt="" coords="110,29,156,56"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="62,40,94,40,94,45,62,45"/>
-<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register.html#af62b1bc77a3a952c021ca6876bc6a080" title="Read data from the register location. This does not do any error checking!" alt="" coords="204,29,250,56"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="156,40,189,40,189,45,156,45"/>
-<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="210,30,207,20,209,11,216,5,227,3,239,5,246,12,242,15,237,10,227,8,218,10,213,14,212,20,215,28"/>
-</map>

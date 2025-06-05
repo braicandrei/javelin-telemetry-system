@@ -1,5 +1,0 @@
-<map id="ahrs_angles_t" name="ahrs_angles_t">
-<area shape="rect" id="Node000001" title=" " alt="" coords="16,96,119,123"/>
-<area shape="rect" id="Node000002" href="$structahrs__orientation__t.html" title=" " alt="" coords="5,5,130,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,48,70,95,65,95,65,48"/>
-</map>

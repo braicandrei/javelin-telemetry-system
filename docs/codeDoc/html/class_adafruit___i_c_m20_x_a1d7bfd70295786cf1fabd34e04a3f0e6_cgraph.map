@@ -1,8 +1,0 @@
-<map id="odrAlign" name="odrAlign">
-<area shape="rect" id="Node000001" title="Enable/disable odr align." alt="" coords="5,31,74,57"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20_x.html#ac593fb583251fd207872779fd941011a" title="Sets register bank." alt="" coords="122,5,198,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,34,106,27,107,32,75,39"/>
-<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register.html#ab97b289f41d27715678b28fd3ccf7911" title="Write a buffer of data to the register location." alt="" coords="246,23,412,65"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="74,41,230,41,230,47,74,47"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="199,22,231,27,230,32,198,27"/>
-</map>

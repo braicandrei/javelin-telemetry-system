@@ -1,5 +1,0 @@
-<map id="magneticFieldAvailable" name="magneticFieldAvailable">
-<area shape="rect" id="Node000001" title="Check for available data from magnetic." alt="" coords="5,13,161,40"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___bus_i_o___register.html#a84ed92b3d107e8895bdbc7e55991342e" title="Read a number of bytes from a register into a buffer." alt="" coords="209,5,375,48"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,24,193,24,193,29,161,29"/>
-</map>

@@ -1,0 +1,26 @@
+var annotated_dup =
+[
+    [ "Adafruit_BusIO_Register", "class_adafruit___bus_i_o___register.html", "class_adafruit___bus_i_o___register" ],
+    [ "Adafruit_BusIO_RegisterBits", "class_adafruit___bus_i_o___register_bits.html", "class_adafruit___bus_i_o___register_bits" ],
+    [ "Adafruit_GenericDevice", "class_adafruit___generic_device.html", "class_adafruit___generic_device" ],
+    [ "Adafruit_I2CDevice", "class_adafruit___i2_c_device.html", "class_adafruit___i2_c_device" ],
+    [ "Adafruit_ICM20649", "class_adafruit___i_c_m20649.html", "class_adafruit___i_c_m20649" ],
+    [ "Adafruit_ICM20X", "class_adafruit___i_c_m20_x.html", "class_adafruit___i_c_m20_x" ],
+    [ "Adafruit_ICM20X_Accelerometer", "class_adafruit___i_c_m20_x___accelerometer.html", "class_adafruit___i_c_m20_x___accelerometer" ],
+    [ "Adafruit_ICM20X_Gyro", "class_adafruit___i_c_m20_x___gyro.html", "class_adafruit___i_c_m20_x___gyro" ],
+    [ "Adafruit_ICM20X_Magnetometer", "class_adafruit___i_c_m20_x___magnetometer.html", "class_adafruit___i_c_m20_x___magnetometer" ],
+    [ "Adafruit_ICM20X_Temp", "class_adafruit___i_c_m20_x___temp.html", "class_adafruit___i_c_m20_x___temp" ],
+    [ "Adafruit_LIS3MDL", "class_adafruit___l_i_s3_m_d_l.html", "class_adafruit___l_i_s3_m_d_l" ],
+    [ "Adafruit_SPIDevice", "class_adafruit___s_p_i_device.html", "class_adafruit___s_p_i_device" ],
+    [ "AHRS", "class_a_h_r_s.html", "class_a_h_r_s" ],
+    [ "ahrs_angles_t", "structahrs__angles__t.html", null ],
+    [ "ahrs_axes_t", "structahrs__axes__t.html", "structahrs__axes__t" ],
+    [ "ahrs_orientation_t", "structahrs__orientation__t.html", null ],
+    [ "DataLogger", "class_data_logger.html", "class_data_logger" ],
+    [ "icm20x_raw_axes_t", "structicm20x__raw__axes__t.html", null ],
+    [ "LogWebServer", "class_log_web_server.html", "class_log_web_server" ],
+    [ "Madgwick", "class_madgwick.html", null ],
+    [ "offsets_t", "structoffsets__t.html", null ],
+    [ "systemManager", "classsystem_manager.html", "classsystem_manager" ],
+    [ "UserInterface", "class_user_interface.html", "class_user_interface" ]
+];

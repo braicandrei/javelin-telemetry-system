@@ -1,9 +1,0 @@
-<map id="enableAccelDLPF" name="enableAccelDLPF">
-<area shape="rect" id="Node000001" title="Enable or disable the accelerometer&#39;s Digital Low Pass Filter." alt="" coords="5,43,132,69"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20_x.html#ac593fb583251fd207872779fd941011a" title="Sets register bank." alt="" coords="236,13,312,40"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,44,220,32,221,37,132,50"/>
-<area shape="rect" id="Node000004" href="$class_adafruit___bus_i_o___register_bits.html#a813f4ef469295b1771bebe1a954986b5" title="Write 4 bytes of data to the register." alt="" coords="180,64,369,107"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="132,62,164,67,164,72,132,68"/>
-<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register.html#ab97b289f41d27715678b28fd3ccf7911" title="Write a buffer of data to the register location." alt="" coords="417,5,583,48"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="313,24,401,24,401,29,313,29"/>
-</map>

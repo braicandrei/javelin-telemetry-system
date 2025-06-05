@@ -1,8 +1,0 @@
-<map id="setGyroRateDivisor" name="setGyroRateDivisor">
-<area shape="rect" id="Node000001" title="Sets the gyro&#39;s data rate divisor." alt="" coords="5,31,142,57"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20_x.html#ac593fb583251fd207872779fd941011a" title="Sets register bank." alt="" coords="190,5,266,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,30,174,25,175,30,143,35"/>
-<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register.html#ab97b289f41d27715678b28fd3ccf7911" title="Write a buffer of data to the register location." alt="" coords="314,23,480,65"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="142,41,298,41,298,47,142,47"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="267,22,299,27,298,32,266,27"/>
-</map>

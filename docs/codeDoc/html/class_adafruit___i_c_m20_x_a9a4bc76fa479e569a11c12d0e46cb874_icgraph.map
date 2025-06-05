@@ -1,5 +1,0 @@
-<map id="readAccelRange" name="readAccelRange">
-<area shape="rect" id="Node000001" title="Get the accelerometer&#39;s measurement range." alt="" coords="195,13,312,40"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___i_c_m20649.html#aea56469947407f4427d09bed2e67fd69" title="Get the accelerometer&#39;s measurement range." alt="" coords="5,5,147,48"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,29,147,29,147,24,179,24"/>
-</map>

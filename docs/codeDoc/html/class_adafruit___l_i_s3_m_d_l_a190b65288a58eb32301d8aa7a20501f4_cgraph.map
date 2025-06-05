@@ -1,9 +1,0 @@
-<map id="magneticFieldSampleRate" name="magneticFieldSampleRate">
-<area shape="rect" id="Node000001" title="Get the magnetic data rate." alt="" coords="5,13,180,40"/>
-<area shape="rect" id="Node000002" href="$class_adafruit___l_i_s3_m_d_l.html#af71c1007d6dad8a3b182f6179da6ddd9" title="Gets the data rate for the LIS3MDL (controls power consumption)" alt="" coords="228,13,323,40"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,24,212,24,212,29,180,29"/>
-<area shape="rect" id="Node000003" href="$class_adafruit___bus_i_o___register_bits.html#af62b1bc77a3a952c021ca6876bc6a080" title="Read 4 bytes of data from the register." alt="" coords="371,5,560,48"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="324,24,355,24,355,29,324,29"/>
-<area shape="rect" id="Node000004" href="$class_adafruit___bus_i_o___register.html#a84ed92b3d107e8895bdbc7e55991342e" title="Read a number of bytes from a register into a buffer." alt="" coords="608,5,775,48"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="561,24,593,24,593,29,561,29"/>
-</map>
