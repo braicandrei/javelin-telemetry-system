@@ -46,9 +46,9 @@ public:
 private:
     AHRS ahrs; // AHRS object for sensor data
     uint16_t frameCounter = 0;
-    QueueHandle_t queue = NULL;
-    static volatile bool inputDataAvailable; // Flag for interrupt handling
-    static void IRAM_ATTR inputDataInterrupt(); // Interrupt handler function
+    //QueueHandle_t queue = NULL;
+    //static volatile bool inputDataAvailable; // Flag for interrupt handling
+    //static void IRAM_ATTR inputDataInterrupt(); // Interrupt handler function
     icm20x_raw_axes_t raw_axesD[ICM20X_FIFO_SIZE/6]; // Buffer for raw sensor data
     RTC_DS3231 rtc; // RTC object for real-time clock
     String getFileName(); // Generate a file name for data logging
@@ -57,6 +57,10 @@ private:
     const String logsDirectory = "/logs"; // Directory for logs 
     String logPath; // File name for data logging
     ahrs_axes_t dataFrame; // Data frame for sensor data
+
+    ahrs_axes_t last_axes;
+    ahrs_orientation_t last_orientation; // Last orientation data
+    bool shockDetected = false;
     void writeMetaDataToSD(); // Write metadata to SD card
     void writeDataFrameToSD(ahrs_axes_t dataFrame); // Write data frame to SD card
     void writeDataFrameToSD(ahrs_axes_t dataFrame, ahrs_orientation_t orientation);
@@ -65,7 +69,7 @@ private:
     ahrs_axes_t dataFrameBuffer[FRAME_BUFFER_LENGTH];
     bool shockCheck(ahrs_axes_t dataFrame);
     const float shockThreshold = 15.0;
-    bool shockDetected = false;
+    
     bool getShockDetected();
     
     LoggerState_t loggerState = LOGGER_WAITING; // State of the data logger

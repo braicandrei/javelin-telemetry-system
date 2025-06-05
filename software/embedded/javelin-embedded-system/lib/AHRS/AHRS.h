@@ -10,6 +10,9 @@
 #include <Adafruit_LIS3MDL.h>
 #include <MadgwickAHRS.h>
 
+#define AHRS_ITERRUPT_PIN 4 // Pin for AHRS interrupt
+#define SHOCK_BUFFER_LENGTH 4
+
 #define EEPROM_SIZE 1024 ///< Size of EEPROM for storing system parameters
 enum EEPROM_ADDR {
     MAG_X_OFFSET, ///< Magnetometer X axis offset address
@@ -46,6 +49,7 @@ typedef struct {
     float direction, inclination;
     ahrs_orientation_t orientation;
 } ahrs_angles_t;
+
 
 typedef enum
 {
@@ -93,11 +97,23 @@ public:
     uint16_t getAHRSSampleRate();
     offsets_t getMagOffsets();
     offsets_t getGyroOffsets();
+
+    
+    bool ahrsUpdate(ahrs_axes_t *axes, ahrs_orientation_t *orientation, bool *shockDetected);
 private:
     bool magCalibrationFlag = false;
     offsets_t magOffsetsTemp = {0, 0, 0};
     offsets_t magOffsets = {-0.04, 0.08, -0.47};
     offsets_t gyroOffsets = {0.5, -2.0, 0.5};
+
+    static volatile bool inputDataAvailable; // Flag for interrupt handling
+    static void IRAM_ATTR inputDataInterrupt(); // Interrupt handler function
+    QueueHandle_t queue = NULL;
+    icm20x_raw_axes_t raw_axesD[ICM20X_FIFO_SIZE/6]; // Buffer for raw sensor data
+
+    bool shockCheck(ahrs_axes_t dataFrame);
+    const float shockThreshold = 15.0;
+    ahrs_axes_t dataFrameBuffer[SHOCK_BUFFER_LENGTH];
 
 protected:
 icm20x_raw_axes_t raw_axes[ICM20X_FIFO_SIZE/6];  ///< Raw data axes buffer array (set to max size of frames in FIFO)

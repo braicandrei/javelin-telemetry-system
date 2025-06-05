@@ -1,5 +1,5 @@
 #include "UserInterface.h"
-#define DEBUUG_UI 1
+#define DEBUUG_UI 0
 
 volatile bool UserInterface::touchDetected = false;
 
@@ -24,9 +24,12 @@ UserInterface::~UserInterface() {}
 void IRAM_ATTR UserInterface::gotTouchEvent() {
   static unsigned long lastDebounceTime = 0;
   unsigned long now = millis();
-  if (now - lastDebounceTime > ISR_DEBOUNCE_DELAY) {
-    lastDebounceTime = now;
-    touchDetected = true;
+  // Solo marcar si es un "touch down" (dedo tocando)
+  if (touchInterruptGetLastStatus(TOUCH_PIN)) { // true = touch down, false = release
+    if (now - lastDebounceTime > ISR_DEBOUNCE_DELAY) {
+      lastDebounceTime = now;
+      touchDetected = true;
+    }
   }
 }
 
@@ -39,12 +42,10 @@ void UserInterface::beginUI() {
     #if (DEBUUG_UI) 
       Serial.println("Initializing User Interface...");
     #endif
-    //touchAttachInterrupt(TOUCH_PIN, gotTouchEvent, threshold);
-    pinMode(TOUCH_PIN,INPUT_PULLUP);
-    attachInterrupt(TOUCH_PIN, gotTouchEvent,FALLING);
+    touchAttachInterrupt(TOUCH_PIN, gotTouchEvent, threshold);
     pinMode(BUZZER_PIN, OUTPUT);
-
 }
+
 
 /**
  * @brief Update the user interface
@@ -65,17 +66,6 @@ UserAction_t UserInterface::updateUI() {
         }
       }
     }
-    //if (lastSystemTransition==SERVER_MODE_ON)
-    //{
-    //  unsigned long now = millis();
-    //  if (now-serverModeOnTimeStamp>notificationTime)
-    //  {
-    //    serverModeOnTimeStamp = now;
-    //    if (!rtttl::isPlaying()) {
-    //      rtttl::begin(BUZZER_PIN, notification_tone);
-    //    }
-    //  }
-    //}
     rtttl::play(); //update the RTTTL player
 
     unsigned long currentTime = millis();
@@ -86,37 +76,19 @@ UserAction_t UserInterface::updateUI() {
     {
       userInputEnabled = true;
     }
-    
-    switch (debounceState) {
 
-        case IDLE:
-          // Primera fase: la ISR ha marcado un posible toque
-          if (touchDetected) {
-            touchDetected = false;
-            // Programamos un “deadline” para validar dentro de VALIDATE_DELAY ms
-            validationTime = currentTime + VALIDATE_DELAY;
-            debounceState = VALIDATING;
-          }
-          break;
-    
-        case VALIDATING:
-          // Segunda fase: cuando llega el momento, comprobamos si sigue presionado
-          if (currentTime >= validationTime) {
-            // Si el pin sigue LOW → botón efectivamente presionado
-            if (digitalRead(TOUCH_PIN) == LOW && userInputEnabled) {
-              touchCount++;
-              lastTouchTime = millis();
-              rtttl::begin(BUZZER_PIN, touch_tone);
-              #if (DEBUUG_UI) 
-                Serial.print("Pulsación válida #");
-                Serial.println(touchCount);
-              #endif
-            }
-            // Volvemos a IDLE para la siguiente
-            debounceState = IDLE;
-          }
-          break;
-      }
+    // Lógica simplificada: solo revisa el flag de la ISR
+    if (touchDetected && userInputEnabled) {
+      touchDetected = false;
+      touchCount++;
+      lastTouchTime = millis();
+      rtttl::begin(BUZZER_PIN, touch_tone);
+      #if (DEBUUG_UI) 
+        Serial.print("Pulsación válida #");
+        Serial.println(touchCount);
+      #endif
+    }
+
     if ((currentTime - lastTouchTime) > maxTouchInterval && touchCount > 0) {
         if (touchCount == INPUT_1_COUNT) {
             userAction = INPUT_1;
@@ -134,7 +106,6 @@ UserAction_t UserInterface::updateUI() {
               Serial.println("Siete toques detectados!");
             #endif
         }
-
         touchCount = 0;
     }
     return userAction;

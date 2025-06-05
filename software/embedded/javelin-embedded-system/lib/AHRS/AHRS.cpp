@@ -67,6 +67,15 @@ uint8_t AHRS::beginAHRSi2c() {
 }
 
 
+volatile bool AHRS::inputDataAvailable= false; // Flag for interrupt handling
+/**
+ * @brief Interrupt handler for data input
+ * 
+ * This function is called when the interrupt occurs, setting the inputDataAvailable flag to true.
+ */
+void IRAM_ATTR AHRS::inputDataInterrupt(){inputDataAvailable = true;} // Set the flag to indicate an interrupt has occurred
+
+
 /**
  * @brief Configure the AHRS sensors
  * 
@@ -78,22 +87,22 @@ bool AHRS::configAHRS() {
 
   EEPROM.begin(EEPROM_SIZE); // Initialize EEPROM
   //loadMagCalibFromEEPROM(); // Load magnetometer calibration offsets from EEPROM
-
+  
   icm20649.setI2CBypass(true); // Enable I2C bypass
   
   //lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
   lis3mdl.setPerformanceMode(LIS3MDL_HIGHMODE); // Set magentometer performance mode to high
   lis3mdl.setOperationMode(LIS3MDL_CONTINUOUSMODE); // Set magnetometer operation mode to continuous
   lis3mdl.setDataRate(LIS3MDL_DATARATE_560_HZ); // Set magnetometer data rate to 560 Hz
-  lis3mdl.setRange(LIS3MDL_RANGE_8_GAUSS); // Set magnetometer range to 4 gauss
+  lis3mdl.setRange(magRange); // Set magnetometer range to 4 gauss
   //lis3mdl.loadOffsetsFromEEPROM();  // Load offsets from EEPROM
   //lis3mdl.writeOffsetxyz();// Write offset values to magnetometer for hard iron calibration
   icm20649.setI2CBypass(false); // Disable I2C bypass
 
   
   icm20649.odrAlign(true); // Enable ODR alignment
-  icm20649.setAccelRange(ICM20649_ACCEL_RANGE_30_G); // Set accelerometer range to 30 G
-  icm20649.setGyroRange(ICM20649_GYRO_RANGE_2000_DPS); // Set gyroscope range to 500 DPS
+  icm20649.setAccelRange(accelRange); // Set accelerometer range to 30 G
+  icm20649.setGyroRange(gyroRange); // Set gyroscope range to 500 DPS
   icm20649.setAccelRateDivisor(getAHRSSampleRateDivisor()); // Set accelerometer data rate divisor
   icm20649.setGyroRateDivisor(getAHRSSampleRateDivisor()); // Set gyroscope data rate divisor 
   
@@ -107,6 +116,9 @@ bool AHRS::configAHRS() {
   icm20649.resetFIFO(); // Reset FIFO
 
   fusionFilter.begin(getAHRSSampleRate()); // Initialize fusion filter
+  pinMode(AHRS_ITERRUPT_PIN,INPUT);//attach interrupt to pin 4
+  attachInterrupt(digitalPinToInterrupt(AHRS_ITERRUPT_PIN), inputDataInterrupt, RISING); //attach interrupt to pin 4
+  queue = xQueueCreate(1000, sizeof(ahrs_axes_t));//create queue for 500 elements of type ahrs_axes_t
   return true; // Success
 }
 
@@ -530,3 +542,81 @@ ahrs_angles_t AHRS::computeAHRSInclination(ahrs_axes_t scaled_axes)
   angles.orientation.yaw = fusionFilter.getYaw();
   return angles;
 }
+
+bool AHRS::ahrsUpdate(ahrs_axes_t *axes, ahrs_orientation_t *orientation, bool *shockDetected)
+{
+  if (inputDataAvailable) {
+    inputDataAvailable = false;//clear the flag
+    //unsigned long t0 = millis(); // Start time for data processing
+    uint16_t frameCount = icm20649.readFIFOBuffer(raw_axesD);// Read FIFO buffer
+    //Serial.println("Time to read FIFO: " + String(millis() - t0) + "ms"); // Debugging time taken to read FIFO
+    for (size_t i = 0; i < frameCount; i++) { // Process each frame of data
+      ahrs_axes_t scaled_axes = scaleAxes(raw_axesD[i]);
+      ahrs_axes_t corrected_axes = correctAxex(scaled_axes);
+      if (xQueueSend(queue, &corrected_axes, 0) != pdPASS) {
+        #if(DEBUG_AHRS)
+            Serial.println("[AHRS] Queue full");
+        #endif
+      }
+    }
+  }
+
+  if (xQueueReceive(queue, axes, 0) == pdPASS) {
+    *orientation = computeAHRSOrientation(*axes);
+    *shockDetected = shockCheck(*axes); // Check for shock events
+    return true; // data available
+  }
+  return false; // no data available
+}
+
+
+/*!
+    * @brief Check for shock events
+    * 
+    * This function checks for shock events based on the accelerometer data.
+    * 
+    * @param dataFrame Data frame containing accelerometer data
+    * @return true if a shock event is detected, false otherwise
+*/
+bool AHRS::shockCheck(ahrs_axes_t dataFrame) {
+    // Shift older values in the buffer
+    memmove(dataFrameBuffer, dataFrameBuffer + 1, sizeof(ahrs_axes_t) * (SHOCK_BUFFER_LENGTH - 1));
+
+    // Insert new data frame into the last position of the buffer
+    dataFrameBuffer[(SHOCK_BUFFER_LENGTH - 1)] = dataFrame;
+  
+    // Calculate the average of the last 3 samples
+    ahrs_axes_t avgSample;
+    avgSample.accX = (dataFrameBuffer[0].accX + dataFrameBuffer[1].accX + dataFrameBuffer[2].accX) / 3.f;
+    avgSample.accY = (dataFrameBuffer[0].accY + dataFrameBuffer[1].accY + dataFrameBuffer[2].accY) / 3.f;
+    avgSample.accZ = (dataFrameBuffer[0].accZ + dataFrameBuffer[1].accZ + dataFrameBuffer[2].accZ) / 3.f;
+  
+    // Calculate the derivative between the new sample and the average of the last 3 samples
+    float accXDiff = (dataFrameBuffer[(SHOCK_BUFFER_LENGTH - 1)].accX - avgSample.accX);
+    float accYDiff = (dataFrameBuffer[(SHOCK_BUFFER_LENGTH - 1)].accY - avgSample.accY);
+    float accZDiff = (dataFrameBuffer[(SHOCK_BUFFER_LENGTH - 1)].accZ - avgSample.accZ);
+  
+    // Check for abrupt acceleration
+    if (abs(accXDiff) > shockThreshold || abs(accYDiff) > shockThreshold || abs(accZDiff) > shockThreshold) {
+        #if(DEBUG_AHRS)
+            Serial.println("[DataLogger]");
+            Serial.println("SHOCK! in time:" + String(millis()));
+            Serial.print("Average X: " + String(avgSample.accX) );
+            Serial.print("Average Y: " + String(avgSample.accY) );
+            Serial.println("Average Z: " + String(avgSample.accZ) );
+            Serial.print("New X: " + String(dataFrameBuffer[3].accX) );
+            Serial.print("New Y: " + String(dataFrameBuffer[3].accY) );
+            Serial.println("New Z: " + String(dataFrameBuffer[3].accZ) );
+            Serial.print("Diff X: " + String(accXDiff) );
+            Serial.print("Diff Y: " + String(accYDiff) );
+            Serial.println("Diff Z: " + String(accZDiff) );
+            Serial.println("END SHOCK!");
+            Serial.println("[DataLogger]");
+        #endif
+        return true;
+    } else {
+        return false;
+    }
+  }
+
+

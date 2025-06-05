@@ -1,7 +1,7 @@
 
 #include "DataLogger.h"
 
-#define DEBUG_LOGER 1
+#define DEBUG_LOGER 0
 
 /**
  * @brief DataLogger constructor
@@ -17,13 +17,13 @@ DataLogger::DataLogger(){}
 DataLogger::~DataLogger(){}
 
 
-volatile bool DataLogger::inputDataAvailable= false; // Flag for interrupt handling
+///volatile bool DataLogger::inputDataAvailable= false; // Flag for interrupt handling
 /**
  * @brief Interrupt handler for data input
  * 
  * This function is called when the interrupt occurs, setting the inputDataAvailable flag to true.
  */
-void IRAM_ATTR DataLogger::inputDataInterrupt(){inputDataAvailable = true;} // Set the flag to indicate an interrupt has occurred
+// IRAM_ATTR DataLogger::inputDataInterrupt(){inputDataAvailable = true;} // Set the flag to indicate an interrupt has occurred
 
 /**
  * @brief Initialize the data logger
@@ -52,7 +52,7 @@ LoggerStatus_t DataLogger::begin() {
     #if(DEBUG_LOGER)
         Serial.println("[DataLogger] RTC initialized.");
     #endif
-    queue = xQueueCreate(1000, sizeof(ahrs_axes_t));//create queue for 500 elements of type ahrs_axes_t
+    //queue = xQueueCreate(1000, sizeof(ahrs_axes_t));//create queue for 500 elements of type ahrs_axes_t
     if (ahrs.beginAHRSi2c()!=0x00) {
         #if(DEBUG_LOGER)
             Serial.println("[DataLogger] AHRS initialization failed!");
@@ -60,8 +60,8 @@ LoggerStatus_t DataLogger::begin() {
         return AHRS_FAILED;
     }
     ahrs.configAHRS();// Configure ICM20649 and LIS3MDL
-    pinMode(AHRS_ITERRUPT_PIN,INPUT);//attach interrupt to pin 4
-    attachInterrupt(digitalPinToInterrupt(AHRS_ITERRUPT_PIN), inputDataInterrupt, RISING); //attach interrupt to pin 4
+    //pinMode(AHRS_ITERRUPT_PIN,INPUT);//attach interrupt to pin 4
+    //attachInterrupt(digitalPinToInterrupt(AHRS_ITERRUPT_PIN), inputDataInterrupt, RISING); //attach interrupt to pin 4
     return LOGGER_OK; // Return logger status
 }
 
@@ -190,6 +190,8 @@ void DataLogger::writeDataFrameToSD(ahrs_axes_t dataFrame, ahrs_angles_t angles)
  */
 LoggerStatus_t DataLogger::updateLogger() {
 
+    bool newDataAvailable = ahrs.ahrsUpdate(&last_axes, &last_orientation, &shockDetected); // Update AHRS data
+
     switch (loggerState)
     {
     case LOGGER_WAITING:
@@ -217,9 +219,9 @@ LoggerStatus_t DataLogger::updateLogger() {
         {
             ahrs.setHardIronOffsets(0.f, 0.f, 0.f);//set hard iron offsets to 0
         }
-        ahrs.icm20649.resetFIFO();// Reset FIFO buffer
-        xQueueReset(queue);// Reset the queue
-        frameCounter = 0;// Reset frame counter
+        //ahrs.icm20649.resetFIFO();// Reset FIFO buffer
+        //xQueueReset(queue);// Reset the queue
+        //frameCounter = 0;// Reset frame counter
         loggerState = LOGGER_SAMPLING;
         #if(DEBUG_LOGER)
             Serial.println("[DataLogger] Begin sampling in file" + logPath);
@@ -229,41 +231,55 @@ LoggerStatus_t DataLogger::updateLogger() {
     case LOGGER_SAMPLING:
     {   //Serial.print("Frame count: ");
         //Serial.println(ahrs.icm20649.readFIFOCount()); // Print the frame count for debugging
-        if (inputDataAvailable && !stopSampling_flag) {
-            inputDataAvailable = false;//clear the flag
-            //unsigned long t0 = millis(); // Start time for data processing
-            uint16_t frameCount = ahrs.icm20649.readFIFOBuffer(raw_axesD);// Read FIFO buffer
-            //Serial.println("Time to read FIFO: " + String(millis() - t0) + "ms"); // Debugging time taken to read FIFO
-            for (size_t i = 0; i < frameCount; i++) { // Process each frame of data
-              ahrs_axes_t scaled_axes = ahrs.scaleAxes(raw_axesD[i]);
-              ahrs_axes_t corrected_axes = ahrs.correctAxex(scaled_axes);
-              if (xQueueSend(queue, &corrected_axes, 0) != pdPASS) {
-                #if(DEBUG_LOGER)
-                    Serial.println("[DataLogger] Queue full");
-                #endif
-              }
-              frameCounter++;
-            }
-        }
+        //if (inputDataAvailable && !stopSampling_flag) {
+        //    inputDataAvailable = false;//clear the flag
+        //    //unsigned long t0 = millis(); // Start time for data processing
+        //    uint16_t frameCount = ahrs.icm20649.readFIFOBuffer(raw_axesD);// Read FIFO buffer
+        //    //Serial.println("Time to read FIFO: " + String(millis() - t0) + "ms"); // Debugging time taken to read FIFO
+        //    for (size_t i = 0; i < frameCount; i++) { // Process each frame of data
+        //      ahrs_axes_t scaled_axes = ahrs.scaleAxes(raw_axesD[i]);
+        //      ahrs_axes_t corrected_axes = ahrs.correctAxex(scaled_axes);
+        //      if (xQueueSend(queue, &corrected_axes, 0) != pdPASS) {
+        //        #if(DEBUG_LOGER)
+        //            Serial.println("[DataLogger] Queue full");
+        //        #endif
+        //      }
+        //      frameCounter++;
+        //    }
+        //}
         //! Check if new data is available
-        if (xQueueReceive(queue, &dataFrame, 0) == pdPASS) { // Check if data is available in the queue
-            ahrs_orientation_t orientation = ahrs.computeAHRSOrientation(dataFrame); // Compute AHRS orientation
-            writeDataFrameToSD(dataFrame, orientation); // Write the data frame to SD card
-            //ahrs_angles_t angles = ahrs.computeAHRSInclination(dataFrame); // Compute AHRS angles
-            //writeDataFrameToSD(dataFrame, angles); // Write the data frame to SD card
-            if (shockCheck(dataFrame))
-            {
-                return SHOCK_DETECTED;
-            }
-            if (calibration_flag)
-            {
-                //ahrs.magHardIronCalc(dataFrame.magX, dataFrame.magY, dataFrame.magZ); // Perform hard iron calibration
-                ahrs.hardIronCalib(dataFrame.magX, dataFrame.magY, dataFrame.magZ);
-            }
-        } else if (stopSampling_flag)
+        //if (xQueueReceive(queue, &dataFrame, 0) == pdPASS) { // Check if data is available in the queue
+        //    ahrs_orientation_t orientation = ahrs.computeAHRSOrientation(dataFrame); // Compute AHRS orientation
+        //    writeDataFrameToSD(dataFrame, orientation); // Write the data frame to SD card
+        //    //ahrs_angles_t angles = ahrs.computeAHRSInclination(dataFrame); // Compute AHRS angles
+        //    //writeDataFrameToSD(dataFrame, angles); // Write the data frame to SD card
+        //    if (shockCheck(dataFrame))
+        //    {
+        //        return SHOCK_DETECTED;
+        //    }
+        //    if (calibration_flag)
+        //    {
+        //        //ahrs.magHardIronCalc(dataFrame.magX, dataFrame.magY, dataFrame.magZ); // Perform hard iron calibration
+        //        ahrs.hardIronCalib(dataFrame.magX, dataFrame.magY, dataFrame.magZ);
+        //    }
+        //} else if (stopSampling_flag)
+        //{
+        //    loggerState = LOGGER_END; // Change state to LOGGER_END if stopSampling is true
+        //    stopSampling_flag = false; // Reset the stopSampling flag
+        //}
+        
+        if (newDataAvailable)
+        {
+            writeDataFrameToSD(last_axes, last_orientation);
+        }
+        if (stopSampling_flag)
         {
             loggerState = LOGGER_END; // Change state to LOGGER_END if stopSampling is true
             stopSampling_flag = false; // Reset the stopSampling flag
+        }
+        if (shockDetected)
+        {
+            return SHOCK_DETECTED;  
         }
         break;
     }

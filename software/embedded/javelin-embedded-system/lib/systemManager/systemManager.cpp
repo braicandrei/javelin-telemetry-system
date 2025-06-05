@@ -1,6 +1,7 @@
 #include "systemManager.h"
 
 #define SD_CS_PIN 3
+#define DEBUG_SYSTEM_MANAGER 0
 
 systemManager::systemManager()
     : logServer(SD_CS_PIN, "ESP32", "12345678", "javelin"), serverOn(false)
@@ -38,7 +39,13 @@ void systemManager::begin() {
 */
 void systemManager::update() {
     if (logger.updateLogger() == SHOCK_DETECTED) {
+        #if (DEBUG_SYSTEM_MANAGER)
+            Serial.println("[SystemManager] Shock detected!");
+        #endif
         if (logger.getLoggerState() == LOGGER_SAMPLING) {
+            #if (DEBUG_SYSTEM_MANAGER)
+            Serial.println("[SystemManager] Stopping sampling.");
+            #endif
             logger.stopSamplig();
             ui.setSystemTransition(SAMPLE_END);
         }
@@ -48,9 +55,15 @@ void systemManager::update() {
         if (logger.getLoggerState() == LOGGER_WAITING && !serverOn) {
             logger.startSamplig();
             ui.setSystemTransition(SAMPLE_BEGIN);
+            #if (DEBUG_SYSTEM_MANAGER)
+            Serial.println("[SystemManager] INPUT1 Starting sampling.");
+            #endif
         } else if (logger.getLoggerState() == LOGGER_SAMPLING) {
             logger.stopSamplig();
             ui.setSystemTransition(SAMPLE_END);
+            #if (DEBUG_SYSTEM_MANAGER)
+            Serial.println("[SystemManager] INPUT1 Stopping sampling.");
+            #endif
         }
         break;
     case INPUT_2:
@@ -58,10 +71,16 @@ void systemManager::update() {
             logServer.begin();
             serverOn = true;
             ui.setSystemTransition(SERVER_MODE_ON);
+            #if (DEBUG_SYSTEM_MANAGER)
+            Serial.println("[SystemManager] INPUT2 Starting server mode.");
+            #endif
         } else {
             logServer.end();
             serverOn = false;
             ui.setSystemTransition(SERVER_MODE_OFF);
+            #if (DEBUG_SYSTEM_MANAGER)
+            Serial.println("[SystemManager] INPUT2 Stopping server mode.");
+            #endif
         }
         break;
     case INPUT_3:
@@ -69,6 +88,9 @@ void systemManager::update() {
             logger.setCalibration();
             logger.startSamplig();
             ui.setSystemTransition(SAMPLE_BEGIN);
+            #if (DEBUG_SYSTEM_MANAGER)
+            Serial.println("[SystemManager] INPUT3 Starting calibration.");
+            #endif
         }
         break;
     default:
